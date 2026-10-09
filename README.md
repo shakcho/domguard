@@ -125,9 +125,7 @@ with its own justification and false-positive notes.
 - **Composable.** Each detector is a pure function; you can pick the subset
   you care about or extend the set with project-specific rules.
 
-## Paper
-
-See [`paper/paper.md`](./paper/paper.md) for the writeup and
+## Experiement
 [`experiments/`](./experiments) for the corpus-collection and
 scoring harness.
 
@@ -135,16 +133,3 @@ scoring harness.
 
 MIT © [Sakti Kumar Chourasia](https://github.com/saktikumar)
 
-## Citation
-
-If you use `domguard` or build on the patterns here, please cite:
-
-```bibtex
-@misc{chourasia2026domguard,
-  title  = {Detecting Browser-Hang Patterns in LLM-Generated Web JavaScript},
-  author = {Chourasia, Sakti Kumar},
-  year   = {2026},
-  note   = {Preprint},
-  url    = {https://github.com/saktikumar/domguard}
-}
-```
