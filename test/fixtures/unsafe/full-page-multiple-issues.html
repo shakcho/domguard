@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>multi</title></head>
+<body>
+<button id="btn">poke</button>
+<script>
+  window.addEventListener("scroll", () => { window.scrollBy(0, 1); });
+  setInterval(() => { console.log("tick"); }, 1000);
+  function loop() { loop(); }
+  loop();
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>clean</title></head>
+<body>
+<button id="btn">poke</button>
+<script>
+  document.getElementById("btn").addEventListener("click", () => {
+    const m = document.querySelector(".menu");
+    m.classList.toggle("hidden");
+  });
+  let handle = setInterval(() => { console.log("tick"); }, 1000);
+  window.addEventListener("beforeunload", () => clearInterval(handle));
+</script>
+</body>
+</html>

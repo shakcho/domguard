@@ -1,0 +1,23 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+
+# Paper (local research drafts)
+paper/
+
+# Experiment artifacts (large; reproducible via scripts)
+experiments/results/raw/
+experiments/results/*.csv
+experiments/results/*.parquet
+
+# Graphify knowledge graph output
+graphify-out/
+
+# IDE
+.vscode/
+.idea/
+*.swp

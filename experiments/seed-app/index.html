@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acme Console</title>
+  <style>
+    :root { --bg:#fff; --fg:#111827; --accent:#2563eb; --muted:#6b7280; --card:#f9fafb; }
+    body { background: var(--bg); color: var(--fg); font-family: system-ui, sans-serif; margin: 0; }
+    .header { display:flex; justify-content:space-between; padding:12px 20px; background:var(--card); }
+    .brand { font-weight:700; color:var(--accent); }
+    .flash { animation: flash .4s ease; }
+    @keyframes flash { from { opacity:.4 } to { opacity:1 } }
+    main { display:grid; grid-template-columns: 280px 1fr; gap:16px; padding:20px; }
+    .list li { padding:8px 12px; border-bottom:1px solid var(--card); }
+    [data-density="compact"] .list li { padding:4px 12px; }
+  </style>
+</head>
+<body>
+  <div id="header"></div>
+  <main>
+    <aside>
+      <div id="settings"></div>
+      <!-- feature widgets mount here -->
+      <div id="feature-aside"></div>
+    </aside>
+    <section>
+      <div id="list"></div>
+      <div id="feature-main"></div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { applyTheme } from "./theme.js";
+    import { store } from "./store.js";
+    import { mountHeader, mountSettings, mountList } from "./components.js";
+    import { fetchItems } from "./api.js";
+
+    applyTheme(store.state.settings.theme);
+    mountHeader(document.getElementById("header"));
+    mountSettings(document.getElementById("settings"));
+    mountList(document.getElementById("list"));
+
+    fetchItems(0).then(({ items }) => store.set({ items }));
+
+    // Feature code generated for a task is appended after this point.
+  </script>
+</body>
+</html>

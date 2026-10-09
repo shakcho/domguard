@@ -1,0 +1,209 @@
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i001","bytes":5113,"durationMs":0.45991700000000435,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i002","bytes":6398,"durationMs":0.11029099999999659,"safe":false,"issues":[{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i003","bytes":4249,"durationMs":0.11833400000000438,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i004","bytes":5815,"durationMs":0.058292000000001565,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i005","bytes":8831,"durationMs":0.18558300000000116,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"renderComments\" calls itself without an obvious depth guard or base case — risk of RangeError."},{"detector":"recursive-fn","severity":"medium","message":"function \"attachEventListeners\" calls itself without an obvious depth guard or base case — risk of RangeError."}]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i006","bytes":5101,"durationMs":0.06704100000000324,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i007","bytes":9012,"durationMs":0.061584000000003414,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i008","bytes":6315,"durationMs":0.06150000000000233,"safe":false,"issues":[{"detector":"mutation-observer-feedback","severity":"high","message":"MutationObserver callback contains DOM-mutating APIs — risk of infinite mutation loop if the same subtree is observed."}]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i009","bytes":6184,"durationMs":0.049292000000001224,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i010","bytes":6615,"durationMs":0.06116699999999753,"safe":false,"issues":[{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i011","bytes":5683,"durationMs":0.014208000000003551,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i012","bytes":6279,"durationMs":0.034749999999995396,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i013","bytes":4451,"durationMs":0.03808300000000031,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i014","bytes":5667,"durationMs":0.04724999999999824,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i015","bytes":6136,"durationMs":0.04633400000000165,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i016","bytes":6813,"durationMs":0.3597919999999988,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i017","bytes":9658,"durationMs":0.08412500000000023,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"showStep\" calls itself without an obvious depth guard or base case — risk of RangeError."}]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i018","bytes":3918,"durationMs":0.03654099999999971,"safe":false,"issues":[{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i019","bytes":6829,"durationMs":0.029834000000001026,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i020","bytes":4823,"durationMs":0.05316599999999738,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i021","bytes":6710,"durationMs":0.08208299999999724,"safe":false,"issues":[{"detector":"mutation-observer-feedback","severity":"high","message":"MutationObserver callback contains DOM-mutating APIs — risk of infinite mutation loop if the same subtree is observed."}]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i022","bytes":5079,"durationMs":0.02333299999999383,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i023","bytes":10058,"durationMs":0.02854200000000162,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"i024","bytes":2958,"durationMs":0.021874999999994316,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"m001","bytes":9818,"durationMs":0.19712499999999977,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"m002","bytes":7723,"durationMs":0.12599999999999767,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"m003","bytes":7338,"durationMs":0.11216599999999488,"safe":false,"issues":[{"detector":"mutation-observer-feedback","severity":"high","message":"MutationObserver callback contains DOM-mutating APIs — risk of infinite mutation loop if the same subtree is observed."}]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"m004","bytes":7836,"durationMs":0.0903330000000011,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"m005","bytes":9005,"durationMs":0.0905829999999952,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"m006","bytes":8218,"durationMs":0.04616699999999696,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"m007","bytes":12824,"durationMs":0.20708299999999724,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"addToTree\" calls itself without an obvious depth guard or base case — risk of RangeError."},{"detector":"recursive-fn","severity":"medium","message":"function \"countItems\" calls itself without an obvious depth guard or base case — risk of RangeError."},{"detector":"recursive-fn","severity":"medium","message":"function \"renderFolder\" calls itself without an obvious depth guard or base case — risk of RangeError."},{"detector":"recursive-fn","severity":"medium","message":"function \"toggleNode\" calls itself without an obvious depth guard or base case — risk of RangeError."},{"detector":"recursive-fn","severity":"medium","message":"function \"setAllNodes\" calls itself without an obvious depth guard or base case — risk of RangeError."}]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"m008","bytes":9094,"durationMs":0.10304200000000208,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"m009","bytes":9906,"durationMs":0.08487500000000381,"safe":false,"issues":[{"detector":"mutation-observer-feedback","severity":"high","message":"MutationObserver callback contains DOM-mutating APIs — risk of infinite mutation loop if the same subtree is observed."},{"detector":"mutation-observer-feedback","severity":"high","message":"MutationObserver callback contains DOM-mutating APIs — risk of infinite mutation loop if the same subtree is observed."}]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"m010","bytes":8679,"durationMs":0.05291700000000077,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"processToastQueue\" calls itself without an obvious depth guard or base case — risk of RangeError."},{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"p001","bytes":9246,"durationMs":0.009124999999997385,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"p002","bytes":8855,"durationMs":0.008000000000002672,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"p004","bytes":13483,"durationMs":0.00954099999999869,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"p006","bytes":10343,"durationMs":0.01837499999999892,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"p007","bytes":17972,"durationMs":0.02645899999999557,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"p008","bytes":11912,"durationMs":0.027459000000000344,"safe":false,"issues":[{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"p011","bytes":6635,"durationMs":0.007542000000000826,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"p012","bytes":9870,"durationMs":0.010916999999999177,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"p014","bytes":10573,"durationMs":0.008041999999996108,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"p015","bytes":12354,"durationMs":0.009375000000005684,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"p016","bytes":13994,"durationMs":0.012250000000001648,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"p017","bytes":11440,"durationMs":0.00737500000000324,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"p018","bytes":7942,"durationMs":0.007167000000002588,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"p019","bytes":11055,"durationMs":0.008084000000003755,"safe":true,"issues":[]}
+{"model":"ollama-cloud_deepseek-v3.1_671b","promptId":"p020","bytes":9750,"durationMs":0.01608399999999932,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i001","bytes":3156,"durationMs":0.038458000000005654,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i002","bytes":5635,"durationMs":0.04354200000000219,"safe":false,"issues":[{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i003","bytes":4208,"durationMs":0.0296250000000029,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i004","bytes":5257,"durationMs":0.025458000000000425,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i005","bytes":4560,"durationMs":0.04824999999999591,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"renderComment\" calls itself without an obvious depth guard or base case — risk of RangeError."}]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i006","bytes":3764,"durationMs":0.03529100000000085,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i007","bytes":5013,"durationMs":0.029874999999996987,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i008","bytes":4265,"durationMs":0.05024999999999835,"safe":false,"issues":[{"detector":"mutation-observer-feedback","severity":"high","message":"MutationObserver callback contains DOM-mutating APIs — risk of infinite mutation loop if the same subtree is observed."}]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i009","bytes":8122,"durationMs":0.030374999999999375,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i010","bytes":4152,"durationMs":0.031708000000001846,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"updateNotifications\" calls itself without an obvious depth guard or base case — risk of RangeError."},{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i011","bytes":7760,"durationMs":0.03808300000000031,"safe":false,"issues":[{"detector":"scroll-loop","severity":"high","message":"scroll event listener calls scrollTo / scrollIntoView / scrollBy — programmatic scroll re-fires the same event and re-enters the handler, hanging the tab."}]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i012","bytes":3873,"durationMs":0.021999999999998465,"safe":false,"issues":[{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i013","bytes":3537,"durationMs":0.037333999999994205,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i014","bytes":3795,"durationMs":0.03300000000000125,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i015","bytes":3486,"durationMs":0.03570900000000421,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i016","bytes":4059,"durationMs":0.04450000000000642,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i017","bytes":10079,"durationMs":0.05112499999999898,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i018","bytes":3676,"durationMs":0.028249999999999886,"safe":false,"issues":[{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i019","bytes":5301,"durationMs":0.0187919999999977,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i020","bytes":3095,"durationMs":0.026291999999997984,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i021","bytes":5201,"durationMs":0.03887499999999733,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i022","bytes":3277,"durationMs":0.016374999999996476,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i023","bytes":4992,"durationMs":0.023917000000004407,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"i024","bytes":2557,"durationMs":0.008624999999994998,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"m001","bytes":8752,"durationMs":0.0730829999999969,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"m002","bytes":7661,"durationMs":0.034874999999999545,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"m003","bytes":7690,"durationMs":0.029749999999999943,"safe":false,"issues":[{"detector":"mutation-observer-feedback","severity":"high","message":"MutationObserver callback contains DOM-mutating APIs — risk of infinite mutation loop if the same subtree is observed."}]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"m004","bytes":7832,"durationMs":0.027415999999995222,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"m005","bytes":8674,"durationMs":0.05391600000000096,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"m006","bytes":8384,"durationMs":0.0363749999999996,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"m007","bytes":9843,"durationMs":0.07979199999999764,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"createFolderNode\" calls itself without an obvious depth guard or base case — risk of RangeError."},{"detector":"recursive-fn","severity":"medium","message":"function \"renderNode\" calls itself without an obvious depth guard or base case — risk of RangeError."}]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"m008","bytes":9312,"durationMs":0.05545800000000156,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"m009","bytes":9438,"durationMs":0.06612499999999955,"safe":false,"issues":[{"detector":"mutation-observer-feedback","severity":"high","message":"MutationObserver callback contains DOM-mutating APIs — risk of infinite mutation loop if the same subtree is observed."}]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"m010","bytes":8045,"durationMs":0.046582999999998265,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"displayNextToast\" calls itself without an obvious depth guard or base case — risk of RangeError."},{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p001","bytes":5785,"durationMs":0.16575000000000273,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p002","bytes":4811,"durationMs":0.005749999999999034,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p003","bytes":8076,"durationMs":0.007041999999998438,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p004","bytes":6317,"durationMs":0.005750000000006139,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p005","bytes":6942,"durationMs":0.007709000000005517,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p006","bytes":4245,"durationMs":0.0034999999999953957,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p007","bytes":7129,"durationMs":0.005333000000000254,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p010","bytes":5730,"durationMs":0.0039579999999972415,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p011","bytes":4618,"durationMs":0.003416000000001418,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p012","bytes":5936,"durationMs":0.003999999999997783,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p013","bytes":6616,"durationMs":0.004708000000000823,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p014","bytes":6204,"durationMs":0.004417000000003668,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p015","bytes":6203,"durationMs":0.004125000000001933,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p016","bytes":5308,"durationMs":0.0040410000000008495,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p017","bytes":5339,"durationMs":0.0038330000000001974,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p018","bytes":4939,"durationMs":0.0036249999999995453,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p019","bytes":6121,"durationMs":0.003875000000000739,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gemma3_27b","promptId":"p020","bytes":4019,"durationMs":0.0032910000000043738,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i001","bytes":3130,"durationMs":0.03316700000000594,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i002","bytes":3660,"durationMs":0.02454200000000384,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i003","bytes":4642,"durationMs":0.04637500000000472,"safe":false,"issues":[{"detector":"mutation-observer-feedback","severity":"high","message":"MutationObserver callback contains DOM-mutating APIs — risk of infinite mutation loop if the same subtree is observed."}]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i004","bytes":3667,"durationMs":0.027166000000001134,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i005","bytes":6041,"durationMs":0.08916699999999622,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"findComment\" calls itself without an obvious depth guard or base case — risk of RangeError."}]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i006","bytes":3531,"durationMs":0.04537499999999994,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i007","bytes":4743,"durationMs":0.043250000000000455,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i008","bytes":4316,"durationMs":0.03270899999999699,"safe":false,"issues":[{"detector":"mutation-observer-feedback","severity":"high","message":"MutationObserver callback contains DOM-mutating APIs — risk of infinite mutation loop if the same subtree is observed."}]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i009","bytes":6374,"durationMs":0.05533400000000199,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i010","bytes":5737,"durationMs":0.05358300000000327,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"renderNotifications\" calls itself without an obvious depth guard or base case — risk of RangeError."}]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i011","bytes":6399,"durationMs":0.01445799999999764,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i012","bytes":5118,"durationMs":0.02966599999999886,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i013","bytes":3886,"durationMs":0.03849999999999909,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i014","bytes":4244,"durationMs":0.035124999999993634,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i015","bytes":2648,"durationMs":0.024833000000000993,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"showNext\" calls itself without an obvious depth guard or base case — risk of RangeError."}]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i016","bytes":4575,"durationMs":0.036040999999997325,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i017","bytes":7859,"durationMs":0.04766700000000412,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i018","bytes":3188,"durationMs":0.045541000000000054,"safe":false,"issues":[{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i019","bytes":5491,"durationMs":0.011667000000002758,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i020","bytes":3627,"durationMs":0.02362500000000267,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i021","bytes":5432,"durationMs":0.03125,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i022","bytes":3427,"durationMs":0.02445900000000023,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i023","bytes":5156,"durationMs":0.03679199999999838,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"createRow\" calls itself without an obvious depth guard or base case — risk of RangeError."}]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"i024","bytes":2351,"durationMs":0.021374999999999034,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"m001","bytes":10175,"durationMs":0.08120800000000372,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"m002","bytes":7817,"durationMs":0.05329199999999901,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"m003","bytes":8554,"durationMs":0.05070900000000478,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"m004","bytes":8542,"durationMs":0.034832999999999004,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"m005","bytes":8510,"durationMs":0.048292000000003554,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"m006","bytes":9582,"durationMs":0.055291999999994346,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"m007","bytes":10546,"durationMs":0.060916999999996335,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"buildTree\" calls itself without an obvious depth guard or base case — risk of RangeError."},{"detector":"recursive-fn","severity":"medium","message":"function \"renderNode\" calls itself without an obvious depth guard or base case — risk of RangeError."}]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"m008","bytes":9949,"durationMs":0.07170799999999389,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"m009","bytes":9988,"durationMs":0.07549999999999812,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"m010","bytes":8802,"durationMs":0.05895799999999696,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"processQueue\" calls itself without an obvious depth guard or base case — risk of RangeError."}]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p001","bytes":10015,"durationMs":0.011667000000002758,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p002","bytes":7425,"durationMs":0.008458000000004517,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p003","bytes":15572,"durationMs":0.019916999999992413,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p004","bytes":10053,"durationMs":0.01216599999999346,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p005","bytes":9749,"durationMs":0.010374999999996248,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p006","bytes":6907,"durationMs":0.030708000000004176,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p007","bytes":12116,"durationMs":0.015000000000000568,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p008","bytes":8947,"durationMs":0.021708000000003835,"safe":false,"issues":[{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p009","bytes":7045,"durationMs":0.011499999999998067,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p010","bytes":13003,"durationMs":0.011916999999996847,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p011","bytes":7998,"durationMs":0.007708000000008042,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p012","bytes":11891,"durationMs":0.011624999999995111,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p013","bytes":10890,"durationMs":0.021915999999990277,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p014","bytes":13648,"durationMs":0.02375000000000682,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p015","bytes":11116,"durationMs":0.008707999999998606,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p016","bytes":9878,"durationMs":0.019874999999998977,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p017","bytes":7018,"durationMs":0.02095800000000736,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"type\" calls itself without an obvious depth guard or base case — risk of RangeError."}]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p018","bytes":9759,"durationMs":0.012083000000004063,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p019","bytes":11884,"durationMs":0.010208000000005768,"safe":true,"issues":[]}
+{"model":"ollama-cloud_gpt-oss_120b","promptId":"p020","bytes":11314,"durationMs":0.02641700000000924,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i001","bytes":6029,"durationMs":0.017749999999992383,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i002","bytes":10830,"durationMs":0.053833000000011566,"safe":false,"issues":[{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i003","bytes":10010,"durationMs":0.026834000000008018,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i004","bytes":8968,"durationMs":0.027958999999995626,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i005","bytes":8518,"durationMs":0.022666000000000963,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i006","bytes":6675,"durationMs":0.05837499999999807,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i007","bytes":6403,"durationMs":0.043500000000008754,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i008","bytes":7684,"durationMs":0.10254199999999969,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i009","bytes":15009,"durationMs":0.09162500000000762,"safe":false,"issues":[{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i010","bytes":8662,"durationMs":0.06879200000000196,"safe":false,"issues":[{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i011","bytes":10391,"durationMs":0.02354200000000617,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i012","bytes":8794,"durationMs":0.03062500000000057,"safe":false,"issues":[{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i013","bytes":6351,"durationMs":0.06025000000001057,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i014","bytes":6982,"durationMs":0.040625000000005684,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i015","bytes":5789,"durationMs":0.017666999999988775,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i016","bytes":5383,"durationMs":0.06720799999999372,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i017","bytes":14745,"durationMs":0.08333300000001032,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i018","bytes":6707,"durationMs":0.059499999999999886,"safe":false,"issues":[{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i019","bytes":6700,"durationMs":0.06470799999999599,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i020","bytes":5128,"durationMs":0.0299580000000077,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i021","bytes":11285,"durationMs":0.08225000000000193,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i022","bytes":4183,"durationMs":0.012291000000004715,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i023","bytes":8030,"durationMs":0.05729099999999221,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"addItem\" calls itself without an obvious depth guard or base case — risk of RangeError."}]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"i024","bytes":2790,"durationMs":0.00899999999998613,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"m001","bytes":10018,"durationMs":0.08658300000000452,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"m002","bytes":7866,"durationMs":0.05804200000000037,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"m003","bytes":7536,"durationMs":0.05791599999999164,"safe":false,"issues":[{"detector":"mutation-observer-feedback","severity":"high","message":"MutationObserver callback contains DOM-mutating APIs — risk of infinite mutation loop if the same subtree is observed."}]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"m004","bytes":7936,"durationMs":0.04187500000000455,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"m005","bytes":8260,"durationMs":0.051958999999996536,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"m006","bytes":8210,"durationMs":0.05637500000000273,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"m007","bytes":11281,"durationMs":0.10875000000000057,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"renderNode\" calls itself without an obvious depth guard or base case — risk of RangeError."}]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"m008","bytes":9700,"durationMs":0.09095799999998633,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"m009","bytes":8960,"durationMs":0.0708749999999867,"safe":false,"issues":[{"detector":"event-dispatch-loop","severity":"high","message":"listener for \"input\" dispatches the same event type — infinite event recursion."}]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"m010","bytes":8095,"durationMs":0.058625000000006366,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"showNextToast\" calls itself without an obvious depth guard or base case — risk of RangeError."},{"detector":"setinterval-leak","severity":"medium","message":"setInterval is used but the file does not reference clearInterval anywhere — interval will run for the lifetime of the page."}]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p001","bytes":15264,"durationMs":0.010583999999994376,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p002","bytes":15311,"durationMs":0.011167000000000371,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p003","bytes":19546,"durationMs":0.021208999999998923,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p004","bytes":22884,"durationMs":0.02287499999999909,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p005","bytes":17698,"durationMs":0.01795899999999051,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p006","bytes":13878,"durationMs":0.015500000000002956,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p007","bytes":16403,"durationMs":0.017333000000007814,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p008","bytes":11312,"durationMs":0.014624999999995225,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p009","bytes":10561,"durationMs":0.008042000000003213,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p010","bytes":23180,"durationMs":0.016624999999990564,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p011","bytes":10825,"durationMs":0.006957999999997355,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p012","bytes":16334,"durationMs":0.016125000000002387,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p013","bytes":26564,"durationMs":0.01416600000000301,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p014","bytes":10193,"durationMs":0.007041999999998438,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p015","bytes":18837,"durationMs":0.010958000000002244,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p016","bytes":15216,"durationMs":0.013083999999992102,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p017","bytes":12131,"durationMs":0.039749999999997954,"safe":false,"issues":[{"detector":"recursive-fn","severity":"medium","message":"function \"typeEffect\" calls itself without an obvious depth guard or base case — risk of RangeError."}]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p018","bytes":10533,"durationMs":0.007834000000002561,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p019","bytes":13693,"durationMs":0.009041999999993777,"safe":true,"issues":[]}
+{"model":"ollama-cloud_qwen3-coder_480b","promptId":"p020","bytes":16215,"durationMs":0.01579200000000469,"safe":true,"issues":[]}
