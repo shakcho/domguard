@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoryBox - Children's Book Subscription</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Fredoka', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-purple-50">
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <h1 class="text-2xl font-bold text-blue-600">StoryBox</h1>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#how" class="text-blue-600 hover:text-blue-800">How It Works</a>
+                <a href="#ages" class="text-blue-600 hover:text-blue-800">Age Groups</a>
+                <a href="#testimonials" class="text-blue-600 hover:text-blue-800">Testimonials</a>
+                <a href="#faq" class="text-blue-600 hover:text-blue-800">FAQ</a>
+            </nav>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Get Started</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="container mx-auto px-4 py-12 md:py-20 flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-8 md:mb-0">
+            <h2 class="text-4xl md:text-5xl font-bold text-blue-800 mb-4">Spark Imagination One Book at a Time</h2>
+            <p class="text-lg text-gray-700 mb-6">Curated books delivered monthly to inspire young readers aged 0-12.</p>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <button class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-semibold">Subscribe Now</button>
+                <button class="border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50 font-semibold">Learn More</button>
+            </div>
+        </div>
+        <div class="md:w-1/2 flex justify-center">
+            <img src="https://placehold.co/600x400/ffd54f/ffffff?text=Happy+Kids+Reading" alt="Children reading books happily" class="rounded-xl shadow-xl">
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how" class="bg-white py-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-blue-800 mb-12">How StoryBox Works</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6 bg-yellow-50 rounded-lg">
+                    <div class="text-4xl text-blue-600 mb-4">1</div>
+                    <h3 class="text-xl font-semibold mb-2">Choose Age Tier</h3>
+                    <p class="text-gray-700">Select the perfect box for your child's reading level and interests.</p>
+                </div>
+                <div class="text-center p-6 bg-green-50 rounded-lg">
+                    <div class="text-4xl text-blue-600 mb-4">2</div>
+                    <h3 class="text-xl font-semibold mb-2">Receive Monthly</h3>
+                    <p class="text-gray-700">Get 2-3 beautifully curated books delivered to your doorstep each month.</p>
+                </div>
+                <div class="text-center p-6 bg-purple-50 rounded-lg">
+                    <div class="text-4xl text-blue-600 mb-4">3</div>
+                    <h3 class="text-xl font-semibold mb-2">Enjoy & Explore</h3>
+                    <p class="text-gray-700">Watch your child's love for reading grow with every new adventure.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Age Tiers -->
+    <section id="ages" class="py-12 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-blue-800 mb-12">Perfect Books For Every Age</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="h-40 bg-red-100 flex items-center justify-center">
+                        <span class="text-5xl">👶</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">0-2 Years</h3>
+                        <p class="text-gray-700 mb-4">Board books with high-contrast images and sensory elements.</p>
+                        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Select</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="h-40 bg-blue-100 flex items-center justify-center">
+                        <span class="text-5xl">🧒</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">3-5 Years</h3>
+                        <p class="text-gray-700 mb-4">Picture books with simple stories and engaging illustrations.</p>
+                        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Select</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="h-40 bg-green-100 flex items-center justify-center">
+                        <span class="text-5xl">👦</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">6-8 Years</h3>
+                        <p class="text-gray-700 mb-4">Early chapter books with fun characters and developing plots.</p>
+                        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Select</button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="h-40 bg-purple-100 flex items-center justify-center">
+                        <span class="text-5xl">👧</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">9-12 Years</h3>
+                        <p class="text-gray-700 mb-4">Engaging novels across genres to expand reading horizons.</p>
+                        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Select</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-blue-800 mb-12">What Parents Are Saying</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-blue-50 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center text-blue-800 font-bold">SR</div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Sarah M.</h4>
+                            <p class="text-sm text-gray-600">Parent of 4-year-old</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"My daughter looks forward to the mailman now! The books are always perfect for her age and she's learned so much."</p>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center text-blue-800 font-bold">JD</div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">James D.</h4>
+                            <p class="text-sm text-gray-600">Parent of 7-year-old</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"As a busy parent, I love not having to research age-appropriate books. StoryBox has introduced us to stories we'd never find otherwise."</p>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center text-blue-800 font-bold">ET</div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Elena T.</h4>
+                            <p class="text-sm text-gray-600">Parent of 2-year-old</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"The quality of books is exceptional. My toddler loves the textures and colors in the board books. Worth every penny!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-12 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-blue-800 mb-12">Frequently Asked Questions</h2>
+            <div class="max-w-3xl mx-auto space-y-6">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-2">How often will I receive books?</h3>
+                    <p class="text-gray-700">You'll receive a curated box of 2-3 books every month, tailored to your selected age group.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-2">Can I change my subscription plan?</h3>
+                    <p class="text-gray-700">Yes! You can change your age tier or pause your subscription anytime through your account dashboard.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-2">What if my child already has a book you send?</h3>
+                    <p class="text-gray-700">We maintain a diverse rotation and if you receive a duplicate, we'll happily replace it at no cost.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-2">Is there a commitment period?</h3>
+                    <p class="text-gray-700">No! You can cancel your subscription anytime with no penalties or hidden fees.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Start Your Reading Adventure Today!</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Join thousands of families discovering the joy of reading together with StoryBox.</p>
+            <button class="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-50 shadow-lg">Subscribe Now</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">StoryBox</h3>
+                    <p>Inspiring young readers one book at a time.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-blue-200">About Us</a></li>
+                        <li><a href="#" class="hover:text-blue-200">Our Story</a></li>
+                        <li><a href="#" class="hover:text-blue-200">Blog</a></li>
+                        <li><a href="#" class="hover:text-blue-200">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-blue-200">Help Center</a></li>
+                        <li><a href="#" class="hover:text-blue-200">FAQs</a></li>
+                        <li><a href="#" class="hover:text-blue-200">Shipping Info</a></li>
+                        <li><a href="#" class="hover:text-blue-200">Returns</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Connect With Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-blue-200">Facebook</a>
+                        <a href="#" class="hover:text-blue-200">Instagram</a>
+                        <a href="#" class="hover:text-blue-200">Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-blue-700 mt-8 pt-8 text-center">
+                <p>© 2023 StoryBox. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

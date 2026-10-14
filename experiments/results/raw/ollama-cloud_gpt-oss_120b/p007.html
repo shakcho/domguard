@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enterprise CMS for Marketing Teams</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: '#1E3A8A',
+          secondary: '#2563EB',
+        }
+      }
+    }
+  }
+</script>
+</head>
+<body class="font-sans antialiased text-gray-800">
+
+<header class="bg-white shadow">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <a href="#" class="text-2xl font-bold text-primary">CMSPro</a>
+    <nav class="space-x-6 hidden md:block">
+      <a href="#features" class="text-gray-600 hover:text-primary">Features</a>
+      <a href="#customers" class="text-gray-600 hover:text-primary">Customers</a>
+      <a href="#case-study" class="text-gray-600 hover:text-primary">Case Study</a>
+      <a href="#faq" class="text-gray-600 hover:text-primary">FAQ</a>
+    </nav>
+    <button class="md:hidden text-primary focus:outline-none" id="nav-toggle">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+  <nav class="md:hidden hidden px-4 pb-4" id="mobile-nav">
+    <a href="#features" class="block py-2 text-gray-600 hover:text-primary">Features</a>
+    <a href="#customers" class="block py-2 text-gray-600 hover:text-primary">Customers</a>
+    <a href="#case-study" class="block py-2 text-gray-600 hover:text-primary">Case Study</a>
+    <a href="#faq" class="block py-2 text-gray-600 hover:text-primary">FAQ</a>
+  </nav>
+</header>
+
+<section class="bg-gray-50 py-16">
+  <div class="max-w-7xl mx-auto px-4 flex flex-col-reverse md:flex-row items-center">
+    <div class="md:w-1/2">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-primary mb-4">Powerful CMS for Modern Marketing Teams</h1>
+      <p class="text-lg text-gray-700 mb-6">Create, manage, and optimize content at scale. Seamlessly integrate with your favorite tools and deliver personalized experiences.</p>
+      <a href="#" class="inline-block bg-primary text-white px-6 py-3 rounded-md hover:bg-secondary transition">Get Started Free</a>
+    </div>
+    <div class="md:w-1/2 mb-8 md:mb-0">
+      <img src="https://images.unsplash.com/photo-1521790797524-b359a2e1f5c2?auto=format&fit=crop&w=800&q=80" alt="CMS dashboard" class="rounded-lg shadow-lg w-full object-cover">
+    </div>
+  </div>
+</section>
+
+<section id="features" class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center text-primary mb-12">Features Built for Marketers</h2>
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div class="flex flex-col items-center text-center p-6 border rounded-lg hover:shadow-lg transition">
+        <svg class="w-12 h-12 text-secondary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 12h6m2 0a2 2 0 012 2v5H5v-5a2 2 0 012-2h2m6 0V8a4 4 0 10-8 0v4"/>
+        </svg>
+        <h3 class="font-semibold text-lg mb-2">Drag‑and‑Drop Builder</h3>
+        <p class="text-gray-600">Create pages without code using our intuitive visual editor.</p>
+      </div>
+      <div class="flex flex-col items-center text-center p-6 border rounded-lg hover:shadow-lg transition">
+        <svg class="w-12 h-12 text-secondary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 7h18M3 12h18M3 17h18"/>
+        </svg>
+        <h3 class="font-semibold text-lg mb-2">Personalization Engine</h3>
+        <p class="text-gray-600">Deliver tailored content based on audience segments.</p>
+      </div>
+      <div class="flex flex-col items-center text-center p-6 border rounded-lg hover:shadow-lg transition">
+        <svg class="w-12 h-12 text-secondary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 17v-2a2 2 0 00-2-2H5a2 2 0 00-2 2v2m14-6V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v6"/>
+        </svg>
+        <h3 class="font-semibold text-lg mb-2">SEO Optimizer</h3>
+        <p class="text-gray-600">Built‑in tools to boost search visibility and rankings.</p>
+      </div>
+      <div class="flex flex-col items-center text-center p-6 border rounded-lg hover:shadow-lg transition">
+        <svg class="w-12 h-12 text-secondary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 8v4l3 3"/>
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+        </svg>
+        <h3 class="font-semibold text-lg mb-2">Analytics Dashboard</h3>
+        <p class="text-gray-600">Track performance, conversions, and engagement in real time.</p>
+      </div>
+      <div class="flex flex-col items-center text-center p-6 border rounded-lg hover:shadow-lg transition">
+        <svg class="w-12 h-12 text-secondary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <h3 class="font-semibold text-lg mb-2">Third‑Party Integrations</h3>
+        <p class="text-gray-600">Connect with CRM, email, and marketing automation platforms.</p>
+      </div>
+      <div class="flex flex-col items-center text-center p-6 border rounded-lg hover:shadow-lg transition">
+        <svg class="w-12 h-12 text-secondary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 14l9-5-9-5-9 5 9 5z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 14l6.16-3.422a12 12 0 01.84 6.422"/>
+        </svg>
+        <h3 class="font-semibold text-lg mb-2">Enterprise Security</h3>
+        <p class="text-gray-600">Role‑based access, SSO, and GDPR‑compliant data handling.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="customers" class="py-12 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-2xl font-bold text-center text-primary mb-8">Trusted by Leading Brands</h2>
+    <div class="flex flex-wrap justify-center items-center gap-8">
+      <img src="https://via.placeholder.com/150x50?text=Logo+1" alt="Customer 1" class="h-12">
+      <img src="https://via.placeholder.com/150x50?text=Logo+2" alt="Customer 2" class="h-12">
+      <img src="https://via.placeholder.com/150x50?text=Logo+3" alt="Customer 3" class="h-12">
+      <img src="https://via.placeholder.com/150x50?text=Logo+4" alt="Customer 4" class="h-12">
+      <img src="https://via.placeholder.com/150x50?text=Logo+5" alt="Customer 5" class="h-12">
+    </div>
+  </div>
+</section>
+
+<section id="case-study" class="py-20 bg-white">
+  <div class="max-w-4xl mx-auto px-4 text-center">
+    <blockquote class="italic text-xl text-gray-800 mb-6">“Since switching to CMSPro, our content production speed increased by 40% and we’ve seen a 25% lift in conversion rates.”</blockquote>
+    <p class="font-semibold text-primary">— Maya Patel, Head of Marketing, Acme Corp</p>
+    <a href="#" class="inline-block mt-8 bg-secondary text-white px-6 py-3 rounded-md hover:bg-primary transition">Read Full Case Study</a>
+  </div>
+</section>
+
+<section id="faq" class="py-16 bg-gray-50">
+  <div class="max-w-4xl mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center text-primary mb-12">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      <div class="border-b pb-4">
+        <button class="w-full text-left flex justify-between items-center focus:outline-none" data-faq-toggle>
+          <span class="font-medium text-lg">Can I try CMSPro before committing?</span>
+          <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        <div class="mt-2 text-gray-600 hidden" data-faq-content>
+          Yes! We offer a 14‑day free trial with full feature access. No credit card required.
+        </div>
+      </div>
+      <div class="border-b pb-4">
+        <button class="w-full text-left flex justify-between items-center focus:outline-none" data-faq-toggle>
+          <span class="font-medium text-lg">How does the personalization engine work?</span>
+          <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        <div class="mt-2 text-gray-600 hidden" data-faq-content>
+          You define audience segments based on behavior, demographics, or CRM data. The engine then serves tailored content blocks to each segment.
+        </div>
+      </div>
+      <div class="border-b pb-4">
+        <button class="w-full text-left flex justify-between items-center focus:outline-none" data-faq-toggle>
+          <span class="font-medium text-lg">What integrations are available out of the box?</span>
+          <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        <div class="mt-2 text-gray-600 hidden" data-faq-content>
+          Native connectors for Salesforce, HubSpot, Marketo, Mailchimp, Google Analytics, and more. Additional APIs are available for custom integrations.
+        </div>
+      </div>
+      <div class="border-b pb-4">
+        <button class="w-full text-left flex justify-between items-center focus:outline-none" data-faq-toggle>
+          <span class="font-medium text-lg">Is there enterprise‑level support?</span>
+          <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        <div class="mt-2 text-gray-600 hidden" data-faq-content>
+          Absolutely. Our Enterprise plan includes 24/7 priority support, a dedicated account manager, and SLA guarantees.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-primary text-white py-8">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <p>&copy; 2026 CMSPro. All rights reserved.</p>
+    <div class="mt-4 space-x-4">
+      <a href="#" class="hover:underline">Privacy Policy</a>
+      <a href="#" class="hover:underline">Terms of Service</a>
+      <a href="#" class="hover:underline">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  document.getElementById('nav-toggle').addEventListener('click', function(){
+    const nav = document.getElementById('mobile-nav');
+    nav.classList.toggle('hidden');
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('[data-faq-toggle]').forEach(button => {
+    button.addEventListener('click', () => {
+      const content = button.nextElementSibling;
+      const icon = button.querySelector('svg');
+      const isOpen = !content.classList.contains('hidden');
+
+      // close all others
+      document.querySelectorAll('[data-faq-content]').forEach(c => c.classList.add('hidden'));
+      document.querySelectorAll('[data-faq-toggle] svg').forEach(i => i.classList.remove('rotate-180'));
+
+      if (!isOpen) {
+        content.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HabitFlow - Minimal Habit Tracking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .phone-mockup {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-radius: 40px;
+            overflow: hidden;
+        }
+        .testimonial-card {
+            transition: transform 0.3s ease;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center items-center px-6 py-16 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-dark mb-6">Build Better Habits.<br>Effortlessly.</h1>
+        <p class="text-xl md:text-2xl text-gray-600 max-w-2xl mb-10">HabitFlow helps you create lasting routines with minimal effort and maximum results.</p>
+        <div class="phone-mockup bg-white p-2 mb-12 w-72 md:w-80">
+            <div class="bg-gray-800 rounded-3xl h-96 flex items-center justify-center">
+                <div class="text-white text-center p-8">
+                    <i class="fas fa-check-circle text-5xl text-secondary mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Morning Meditation</h3>
+                    <p class="text-gray-300">Completed today</p>
+                    <div class="mt-6 flex justify-center space-x-2">
+                        <div class="w-3 h-3 bg-secondary rounded-full"></div>
+                        <div class="w-3 h-3 bg-gray-600 rounded-full"></div>
+                        <div class="w-3 h-3 bg-gray-600 rounded-full"></div>
+                        <div class="w-3 h-3 bg-gray-600 rounded-full"></div>
+                        <div class="w-3 h-3 bg-gray-600 rounded-full"></div>
+                        <div class="w-3 h-3 bg-gray-600 rounded-full"></div>
+                        <div class="w-3 h-3 bg-gray-600 rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="bg-primary hover:bg-blue-600 text-white font-semibold py-4 px-8 rounded-full text-lg transition duration-300 flex items-center">
+            <i class="fab fa-apple mr-3 text-2xl"></i>
+            Download on App Store
+        </a>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="py-16 px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-dark text-center mb-16">Why Choose HabitFlow?</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-light p-8 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-bolt text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Simple & Intuitive</h3>
+                    <p class="text-gray-600">Clean design with zero learning curve. Start tracking habits in seconds.</p>
+                </div>
+                <div class="bg-light p-8 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-chart-line text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Track Progress</h3>
+                    <p class="text-gray-600">Visualize your consistency with beautiful charts and streaks.</p>
+                </div>
+                <div class="bg-light p-8 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-bell text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Smart Reminders</h3>
+                    <p class="text-gray-600">Personalized notifications that adapt to your schedule and preferences.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 px-6 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-dark text-center mb-16">What Users Say</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="testimonial-card bg-white p-6 rounded-2xl shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+                            <span class="text-white font-semibold">JD</span>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">James D.</h4>
+                            <p class="text-gray-500 text-sm">Meditates daily</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"I've tried countless habit apps, but HabitFlow's simplicity made me stick with it. My meditation streak is now at 128 days!"</p>
+                </div>
+                <div class="testimonial-card bg-white p-6 rounded-2xl shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center">
+                            <span class="text-white font-semibold">SR</span>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Sarah R.</h4>
+                            <p class="text-gray-500 text-sm">Fitness enthusiast</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"The clean interface doesn't overwhelm me like other apps. I finally built a consistent workout routine thanks to HabitFlow."</p>
+                </div>
+                <div class="testimonial-card bg-white p-6 rounded-2xl shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+                            <span class="text-white font-semibold">MK</span>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-semibold">Mike K.</h4>
+                            <p class="text-gray-500 text-sm">Writer</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"As someone who gets easily distracted by feature-heavy apps, HabitFlow's minimal approach was exactly what I needed for my writing habit."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-6 bg-primary">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Start Your Habit Journey Today</h2>
+            <p class="text-xl text-blue-100 mb-10">Join thousands of users building better habits with our minimalist approach.</p>
+            <a href="#" class="bg-white text-primary hover:bg-gray-100 font-semibold py-4 px-8 rounded-full text-lg transition duration-300 inline-flex items-center">
+                <i class="fab fa-apple mr-3 text-2xl"></i>
+                Download on App Store
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 bg-dark text-gray-400 text-center">
+        <p>© 2023 HabitFlow. All rights reserved.</p>
+        <div class="mt-4 flex justify-center space-x-6">
+            <a href="#" class="hover:text-white transition"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="hover:text-white transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-white transition"><i class="fas fa-envelope"></i></a>
+        </div>
+    </footer>
+</body>
+</html>

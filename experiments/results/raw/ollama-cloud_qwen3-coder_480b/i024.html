@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweet Composer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-2xl font-bold text-gray-800 mb-4">Compose Tweet</h1>
+        <div class="relative">
+            <textarea 
+                id="tweetComposer"
+                class="w-full p-3 border border-gray-300 rounded-lg resize-none overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="What's happening?"
+                rows="1"
+            ></textarea>
+            <div class="flex justify-between items-center mt-2">
+                <span id="charCounter" class="text-sm text-gray-500">0/280</span>
+                <button 
+                    id="postButton"
+                    class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition"
+                >
+                    Post
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const textarea = document.getElementById('tweetComposer');
+        const charCounter = document.getElementById('charCounter');
+        const postButton = document.getElementById('postButton');
+        const MAX_CHARS = 280;
+
+        // Auto-grow textarea
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+            
+            const charCount = this.value.length;
+            charCounter.textContent = `${charCount}/${MAX_CHARS}`;
+            
+            // Update counter color based on character count
+            if (charCount > MAX_CHARS) {
+                charCounter.classList.remove('text-gray-500', 'text-yellow-500');
+                charCounter.classList.add('text-red-500');
+                postButton.disabled = true;
+            } else if (charCount > MAX_CHARS * 0.9) {
+                charCounter.classList.remove('text-gray-500', 'text-red-500');
+                charCounter.classList.add('text-yellow-500');
+                postButton.disabled = false;
+            } else {
+                charCounter.classList.remove('text-yellow-500', 'text-red-500');
+                charCounter.classList.add('text-gray-500');
+                postButton.disabled = false;
+            }
+        });
+
+        // Initialize textarea height
+        textarea.style.height = 'auto';
+        textarea.style.height = (textarea.scrollHeight) + 'px';
+    </script>
+</body>
+</html>

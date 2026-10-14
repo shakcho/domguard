@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky Header Data Table</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">Data Table with Sticky Header</h1>
+
+        <div class="overflow-x-auto shadow-md rounded-lg">
+            <table class="w-full min-w-full table-auto" id="dataTable">
+                <thead class="sticky top-0 bg-white shadow-md">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-gray-600 border-b border-gray-200">ID</th>
+                        <th class="px-6 py-3 text-left text-gray-600 border-b border-gray-200">Name</th>
+                        <th class="px-6 py-3 text-left text-gray-600 border-b border-gray-200">Email</th>
+                        <th class="px-6 py-3 text-left text-gray-600 border-b border-gray-200">City</th>
+                        <th class="px-6 py-3 text-left text-gray-600 border-b border-gray-200">Country</th>
+                        <th class="px-6 py-3 text-left text-gray-600 border-b border-gray-200">Date</th>
+                        <th class="px-6 py-3 text-left text-gray-600 border-b border-gray-200">Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dataTable = document.getElementById('dataTable');
+            const tableBody = document.getElementById('tableBody');
+            const headerRow = dataTable.querySelector('thead tr');
+
+            // Clone the header row for the sticky header
+            const stickyHeader = headerRow.cloneNode(true);
+            stickyHeader.id = 'stickyHeader';
+            stickyHeader.classList.add('sticky', 'top-0', 'bg-white', 'shadow-md');
+
+            // Create a container for the sticky header
+            const stickyHeaderContainer = document.createElement('div');
+            stickyHeaderContainer.appendChild(stickyHeader);
+            dataTable.parentNode.insertBefore(stickyHeaderContainer, dataTable);
+
+            // Function to generate dummy data
+            function generateData(count) {
+                const data = [];
+                for (let i = 0; i < count; i++) {
+                    data.push({
+                        id: i + 1,
+                        name: `User ${i + 1}`,
+                        email: `user${i + 1}@example.com`,
+                        city: `City ${i + 1}`,
+                        country: `Country ${i + 1}`,
+                        date: new Date(Date.now() - (i * 86400000)).toLocaleDateString(),
+                        amount: Math.floor(Math.random() * 1000)
+                    });
+                }
+                return data;
+            }
+
+            // Function to add rows to the table
+            function addRows(data) {
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="px-6 py-3">${item.id}</td>
+                        <td class="px-6 py-3">${item.name}</td>
+                        <td class="px-6 py-3">${item.email}</td>
+                        <td class="px-6 py-3">${item.city}</td>
+                        <td class="px-6 py-3">${item.country}</td>
+                        <td class="px-6 py-3">${item.date}</td>
+                        <td class="px-6 py-3">${item.amount}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            // Initial data load
+            const initialDataCount = 50;
+            const initialData = generateData(initialDataCount);
+            addRows(initialData);
+
+            // Function to synchronize scroll position
+            function syncScroll() {
+                const tableScrollLeft = dataTable.scrollLeft;
+                const stickyHeaderScrollLeft = stickyHeader.scrollLeft;
+
+                if (tableScrollLeft !== stickyHeaderScrollLeft) {
+                    stickyHeader.scrollLeft = tableScrollLeft;
+                }
+            }
+
+            // Event listeners for scroll synchronization
+            dataTable.addEventListener('scroll', syncScroll);
+            window.addEventListener('resize', syncScroll);
+
+            // Function to load more data (example)
+            function loadMoreData() {
+                const currentDataCount = tableBody.children.length;
+                const additionalDataCount = 20;
+                const additionalData = generateData(additionalDataCount);
+                addRows(additionalData);
+            }
+
+            // Example: Load more data on scroll bottom
+            tableBody.addEventListener('scroll', function() {
+                if (tableBody.scrollHeight - tableBody.scrollTop <= tableBody.clientHeight + 50) {
+                    loadMoreData();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

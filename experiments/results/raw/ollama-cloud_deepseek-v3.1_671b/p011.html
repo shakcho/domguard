@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevHire - Connect with Top Developers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                        accent: '#3b82f6',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .hero-bg { background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
+        .stat-number { font-size: 2.5rem; }
+        @media (max-width: 768px) {
+            .stat-number { font-size: 1.75rem; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Hero Section -->
+    <section class="hero-bg text-white">
+        <div class="container mx-auto px-6 py-20 md:py-24">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">Hire the Best Developers, Fast.</h1>
+                    <p class="text-xl mb-8 opacity-90">Connect with pre-vetted, talented developers ready to join your team in days, not months.</p>
+                    <button class="bg-white text-primary font-semibold py-3 px-8 rounded-lg shadow-lg hover:bg-gray-100 transition duration-300">Request a Demo</button>
+                </div>
+                <div class="md:w-1/2 mt-10 md:mt-0">
+                    <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&q=80&w=600" alt="Developers collaborating" class="rounded-lg shadow-2xl mx-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-6">
+                    <div class="stat-number font-bold text-primary mb-2">50,000+</div>
+                    <div class="text-gray-600">Active Developers</div>
+                </div>
+                <div class="p-6">
+                    <div class="stat-number font-bold text-primary mb-2">95%</div>
+                    <div class="text-gray-600">Match Success Rate</div>
+                </div>
+                <div class="p-6">
+                    <div class="stat-number font-bold text-primary mb-2">72h</div>
+                    <div class="text-gray-600">Average Hire Time</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Why Choose DevHire?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="feature-card bg-white p-8 rounded-lg shadow-md transition duration-300">
+                    <div class="text-accent text-4xl mb-4">🔍</div>
+                    <h3 class="text-xl font-semibold mb-4">Pre-Vetted Talent</h3>
+                    <p class="text-gray-600">Every developer is rigorously tested and interviewed, ensuring top-notch skills and cultural fit.</p>
+                </div>
+                <div class="feature-card bg-white p-8 rounded-lg shadow-md transition duration-300">
+                    <div class="text-accent text-4xl mb-4">⚡</div>
+                    <h3 class="text-xl font-semibold mb-4">Rapid Matching</h3>
+                    <p class="text-gray-600">Our AI-powered platform matches you with ideal candidates in hours, not weeks.</p>
+                </div>
+                <div class="feature-card bg-white p-8 rounded-lg shadow-md transition duration-300">
+                    <div class="text-accent text-4xl mb-4">💼</div>
+                    <h3 class="text-xl font-semibold mb-4">Flexible Hiring</h3>
+                    <p class="text-gray-600">Hire full-time, part-time, or contract developers with seamless onboarding and support.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logos Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-2xl font-semibold text-center mb-12 text-gray-700">Trusted by Leading Companies</h2>
+            <div class="flex flex-wrap justify-center gap-12 items-center opacity-80">
+                <div class="w-32 h-16 bg-gray-200 rounded flex items-center justify-center text-gray-500 font-bold">Company A</div>
+                <div class="w-32 h-16 bg-gray-200 rounded flex items-center justify-center text-gray-500 font-bold">Company B</div>
+                <div class="w-32 h-16 bg-gray-200 rounded flex items-center justify-center text-gray-500 font-bold">Company C</div>
+                <div class="w-32 h-16 bg-gray-200 rounded flex items-center justify-center text-gray-500 font-bold">Company D</div>
+                <div class="w-32 h-16 bg-gray-200 rounded flex items-center justify-center text-gray-500 font-bold">Company E</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-primary text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-6">Ready to Transform Your Hiring?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">See how DevHire can help you find your next great developer in record time.</p>
+            <button class="bg-white text-primary font-semibold py-3 px-8 rounded-lg shadow-lg hover:bg-gray-100 transition duration-300">Get Started with a Demo</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>© 2023 DevHire. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', () => {
+                alert('Demo request received! We will contact you shortly.');
+            });
+        });
+    </script>
+</body>
+</html>

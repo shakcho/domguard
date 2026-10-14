@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FAQ Accordion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .rotate-180 { transform: rotate(180deg); }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="max-w-2xl w-full mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-6 text-center">Frequently Asked Questions</h1>
+    <div class="space-y-4">
+      <!-- Item 1 -->
+      <div class="border rounded bg-white shadow-sm">
+        <button id="q1" class="w-full text-left px-4 py-3 flex justify-between items-center focus:outline-none"
+                data-target="a1" aria-expanded="false">
+          <span class="font-medium">What is your return policy?</span>
+          <svg class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor"
+               viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+               stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div id="a1" class="px-4 py-3 hidden">
+          <p>Our return policy lasts 30 days. If 30 days have gone by since your purchase, unfortunately we can’t offer you a refund or exchange.</p>
+        </div>
+      </div>
+      <!-- Item 2 -->
+      <div class="border rounded bg-white shadow-sm">
+        <button id="q2" class="w-full text-left px-4 py-3 flex justify-between items-center focus:outline-none"
+                data-target="a2" aria-expanded="false">
+          <span class="font-medium">How long does shipping take?</span>
+          <svg class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor"
+               viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+               stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div id="a2" class="px-4 py-3 hidden">
+          <p>Shipping typically takes 5-7 business days for domestic orders and 10-15 days for international orders.</p>
+        </div>
+      </div>
+      <!-- Item 3 -->
+      <div class="border rounded bg-white shadow-sm">
+        <button id="q3" class="w-full text-left px-4 py-3 flex justify-between items-center focus:outline-none"
+                data-target="a3" aria-expanded="false">
+          <span class="font-medium">Do you offer technical support?</span>
+          <svg class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor"
+               viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+               stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div id="a3" class="px-4 py-3 hidden">
+          <p>Yes! Our support team is available 24/7 via chat and email. Feel free to reach out with any questions.</p>
+        </div>
+      </div>
+      <!-- Item 4 -->
+      <div class="border rounded bg-white shadow-sm">
+        <button id="q4" class="w-full text-left px-4 py-3 flex justify-between items-center focus:outline-none"
+                data-target="a4" aria-expanded="false">
+          <span class="font-medium">Can I change my order after placing it?</span>
+          <svg class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor"
+               viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+               stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div id="a4" class="px-4 py-3 hidden">
+          <p>Orders can be modified within 2 hours of placement. After that, we cannot guarantee changes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('[data-target]');
+
+      const closeAll = () => {
+        buttons.forEach(btn => {
+          const panel = document.getElementById(btn.dataset.target);
+          btn.setAttribute('aria-expanded', 'false');
+          panel.classList.add('hidden');
+          const icon = btn.querySelector('svg');
+          icon.classList.remove('rotate-180');
+        });
+      };
+
+      const openPanel = (btn) => {
+        const panel = document.getElementById(btn.dataset.target);
+        btn.setAttribute('aria-expanded', 'true');
+        panel.classList.remove('hidden');
+        const icon = btn.querySelector('svg');
+        icon.classList.add('rotate-180');
+      };
+
+      const togglePanel = (btn) => {
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
+        if (isOpen) {
+          closeAll();
+          history.pushState("", document.title, window.location.pathname + window.location.search);
+        } else {
+          closeAll();
+          openPanel(btn);
+          location.hash = btn.id;
+        }
+      };
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => togglePanel(btn));
+      });
+
+      const handleHash = () => {
+        const hash = location.hash.slice(1);
+        if (!hash) {
+          closeAll();
+          return;
+        }
+        const targetBtn = document.getElementById(hash);
+        if (targetBtn && targetBtn.hasAttribute('data-target')) {
+          closeAll();
+          openPanel(targetBtn);
+        } else {
+          closeAll();
+        }
+      };
+
+      window.addEventListener('hashchange', handleHash);
+      // Initial load
+      handleHash();
+    });
+  </script>
+</body>
+</html>

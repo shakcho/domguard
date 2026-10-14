@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="max-w-4xl mx-auto p-6">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-gray-800">Account Settings</h1>
+            <div id="preview-header" class="mt-4 p-4 bg-white rounded-lg shadow">
+                <p class="text-lg"><span id="preview-name" class="font-semibold">John Doe</span> (<span id="preview-email" class="text-blue-600">john@example.com</span>)</p>
+                <p class="text-gray-600">Timezone: <span id="preview-timezone" class="font-medium">UTC</span></p>
+            </div>
+        </header>
+
+        <main class="bg-white rounded-xl shadow-md overflow-hidden">
+            <form id="settings-form" class="p-6 space-y-6">
+                <!-- Name Field -->
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                    <input type="text" id="name" name="name" value="John Doe" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Email Field -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                    <input type="email" id="email" name="email" value="john@example.com" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Notifications Section -->
+                <div>
+                    <h2 class="text-lg font-medium text-gray-800 mb-3">Notifications</h2>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <label for="email-notifications" class="text-sm font-medium text-gray-700">Email Notifications</label>
+                            <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                <input type="checkbox" id="email-notifications" name="emailNotifications" checked
+                                       class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
+                                <label for="email-notifications" 
+                                       class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label for="sms-notifications" class="text-sm font-medium text-gray-700">SMS Notifications</label>
+                            <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                <input type="checkbox" id="sms-notifications" name="smsNotifications"
+                                       class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
+                                <label for="sms-notifications" 
+                                       class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label for="push-notifications" class="text-sm font-medium text-gray-700">Push Notifications</label>
+                            <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                <input type="checkbox" id="push-notifications" name="pushNotifications" checked
+                                       class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
+                                <label for="push-notifications" 
+                                       class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timezone Select -->
+                <div>
+                    <label for="timezone" class="block text-sm font-medium text-gray-700 mb-1">Timezone</label>
+                    <select id="timezone" name="timezone" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="UTC">UTC</option>
+                        <option value="America/New_York">Eastern Time (ET)</option>
+                        <option value="America/Chicago">Central Time (CT)</option>
+                        <option value="America/Denver">Mountain Time (MT)</option>
+                        <option value="America/Los_Angeles">Pacific Time (PT)</option>
+                        <option value="Europe/London">London (GMT)</option>
+                        <option value="Europe/Paris">Paris (CET)</option>
+                        <option value="Asia/Tokyo">Tokyo (JST)</option>
+                        <option value="Australia/Sydney">Sydney (AEST)</option>
+                    </select>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <style>
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #4f46e5;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #4f46e5;
+        }
+        .toggle-checkbox {
+            right: 1.25rem;
+            transition: all 0.2s ease;
+        }
+        .toggle-label {
+            transition: all 0.2s ease;
+        }
+    </style>
+
+    <script>
+        // Mock save function
+        function saveSettings(settings) {
+            console.log('Saving settings:', settings);
+            // Simulate API call
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve({ success: true });
+                }, 300);
+            });
+        }
+
+        // Form handling
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('settings-form');
+            const previewName = document.getElementById('preview-name');
+            const previewEmail = document.getElementById('preview-email');
+            const previewTimezone = document.getElementById('preview-timezone');
+            
+            // Initialize timezone select
+            document.getElementById('timezone').value = 'UTC';
+            
+            // Handle form changes
+            form.addEventListener('input', handleFormChange);
+            form.addEventListener('change', handleFormChange);
+            
+            function handleFormChange(e) {
+                const formData = new FormData(form);
+                const settings = Object.fromEntries(formData.entries());
+                
+                // Convert checkbox values to booleans
+                settings.emailNotifications = form.querySelector('#email-notifications').checked;
+                settings.smsNotifications = form.querySelector('#sms-notifications').checked;
+                settings.pushNotifications = form.querySelector('#push-notifications').checked;
+                
+                // Save settings
+                saveSettings(settings)
+                    .then(() => {
+                        // Dispatch custom event
+                        const event = new CustomEvent('settings:changed', { 
+                            detail: settings 
+                        });
+                        document.dispatchEvent(event);
+                    });
+            }
+            
+            // Listen for settings changes to update preview
+            document.addEventListener('settings:changed', (e) => {
+                const settings = e.detail;
+                previewName.textContent = settings.name;
+                previewEmail.textContent = settings.email;
+                previewTimezone.textContent = settings.timezone;
+            });
+            
+            // Initialize preview with current values
+            const initialSettings = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                timezone: document.getElementById('timezone').value
+            };
+            document.dispatchEvent(new CustomEvent('settings:changed', { 
+                detail: initialSettings 
+            }));
+        });
+    </script>
+</body>
+</html>

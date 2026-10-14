@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaborative Presence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center h-screen">
+
+    <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-4 text-center">Collaborative Document</h1>
+
+        <div id="presence-container" class="flex items-center justify-start overflow-x-auto py-4">
+            <!-- Avatars will be dynamically added here -->
+        </div>
+
+        <p class="text-gray-600 text-sm mt-4 text-center">Currently active collaborators.</p>
+    </div>
+
+    <script>
+        async function getPresence() {
+            // Mock API call to get active users
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    const users = [
+                        { id: 1, name: 'Alice', avatar: 'https://i.imgur.com/1kJWw5r.png' },
+                        { id: 2, name: 'Bob', avatar: 'https://i.imgur.com/W9wJq9I.png' },
+                        { id: 3, name: 'Charlie', avatar: 'https://i.imgur.com/o9H1w0w.png' },
+                    ];
+                    // Randomly add or remove users to simulate activity
+                    const randomChange = Math.random();
+                    if (randomChange < 0.3) {
+                        users.push({ id: Math.random(), name: 'New User', avatar: 'https://i.imgur.com/y8JvVwU.png' });
+                    }
+                    if (randomChange > 0.7 && users.length > 1) {
+                        users.pop();
+                    }
+                    resolve(users);
+                }, 1000);
+            });
+        }
+
+        async function renderPresence(users) {
+            const container = document.getElementById('presence-container');
+            container.innerHTML = ''; // Clear existing avatars
+
+            users.forEach(user => {
+                const avatarDiv = document.createElement('div');
+                avatarDiv.classList.add('relative', 'w-10', 'h-10', 'mr-4', 'transition-transform', 'duration-300');
+                avatarDiv.style.animation = 'fadeIn 0.3s ease-in-out';
+
+                const img = document.createElement('img');
+                img.src = user.avatar;
+                img.alt = user.name;
+                img.classList.add('rounded-full', 'w-full', 'h-full', 'object-cover');
+
+                const statusIndicator = document.createElement('div');
+                statusIndicator.classList.add('absolute', 'bottom-0', 'right-0', 'w-3', 'h-3', 'rounded-full', 'bg-green-500', 'border-2', 'border-white');
+
+                avatarDiv.appendChild(img);
+                avatarDiv.appendChild(statusIndicator);
+                container.appendChild(avatarDiv);
+            });
+        }
+
+        async function updatePresence() {
+            const users = await getPresence();
+            renderPresence(users);
+        }
+
+        // Initial render
+        updatePresence();
+
+        // Update every 2 seconds
+        setInterval(updatePresence, 2000);
+
+        // Keyframes for fadeIn animation
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+</body>
+</html>

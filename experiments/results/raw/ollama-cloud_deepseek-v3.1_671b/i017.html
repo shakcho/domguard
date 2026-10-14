@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding Wizard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-auto overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="progress-bar bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <form id="onboarding-form" class="p-6">
+            <!-- Step 1 -->
+            <div class="step active" data-step="1">
+                <h2 class="text-xl font-semibold mb-4">Account Type</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                        <input type="radio" name="accountType" value="personal" class="mr-3" required>
+                        <span>Personal Account</span>
+                    </label>
+                    <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                        <input type="radio" name="accountType" value="business" class="mr-3">
+                        <span>Business Account</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step" data-step="2">
+                <h2 class="text-xl font-semibold mb-4">Personal Information</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Full Name</label>
+                        <input type="text" name="fullName" class="w-full px-3 py-2 border rounded-lg" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Email Address</label>
+                        <input type="email" name="email" class="w-full px-3 py-2 border rounded-lg" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 (Conditional) -->
+            <div class="step" data-step="3" data-conditional="business">
+                <h2 class="text-xl font-semibold mb-4">Business Information</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Company Name</label>
+                        <input type="text" name="companyName" class="w-full px-3 py-2 border rounded-lg" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Tax ID</label>
+                        <input type="text" name="taxId" class="w-full px-3 py-2 border rounded-lg" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step" data-step="4">
+                <h2 class="text-xl font-semibold mb-4">Preferences</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center">
+                        <input type="checkbox" name="newsletter" class="mr-2">
+                        <span>Subscribe to newsletter</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" name="terms" class="mr-2" required>
+                        <span>I agree to the terms and conditions</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="flex justify-between pt-6 border-t border-gray-200 mt-6">
+                <button type="button" id="back-btn" class="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium" disabled>Back</button>
+                <button type="button" id="next-btn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">Next</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('onboarding-form');
+            const steps = Array.from(document.querySelectorAll('.step'));
+            const backBtn = document.getElementById('back-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const progressBar = document.querySelector('.progress-bar');
+            
+            let currentStep = 1;
+            const totalSteps = 4;
+            const conditionalSteps = ['3'];
+
+            function updateProgress() {
+                const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
+
+            function showStep(stepNumber) {
+                steps.forEach(step => {
+                    step.classList.remove('active');
+                    const stepNum = parseInt(step.dataset.step);
+                    
+                    // Show conditional steps only if they should be visible
+                    if (stepNum === stepNumber) {
+                        const conditionalValue = step.dataset.conditional;
+                        if (!conditionalValue || shouldShowStep(conditionalValue)) {
+                            step.classList.add('active');
+                        } else {
+                            // Skip this conditional step and move to next
+                            if (stepNumber < totalSteps) {
+                                showStep(stepNumber + 1);
+                            } else {
+                                showStep(stepNumber - 1);
+                            }
+                            return;
+                        }
+                    }
+                });
+                
+                backBtn.disabled = currentStep === 1;
+                nextBtn.textContent = currentStep === totalSteps ? 'Finish' : 'Next';
+                updateProgress();
+                validateCurrentStep();
+            }
+
+            function shouldShowStep(condition) {
+                if (condition === 'business') {
+                    const accountType = form.querySelector('input[name="accountType"]:checked');
+                    return accountType && accountType.value === 'business';
+                }
+                return true;
+            }
+
+            function validateCurrentStep() {
+                const currentStepEl = document.querySelector(`.step[data-step="${currentStep}"]`);
+                const inputs = currentStepEl.querySelectorAll('input[required]');
+                let isValid = true;
+                
+                inputs.forEach(input => {
+                    if (!input.checkValidity()) {
+                        isValid = false;
+                    }
+                });
+                
+                nextBtn.disabled = !isValid;
+            }
+
+            function validateAllVisible() {
+                const visibleSteps = steps.filter(step => step.classList.contains('active') || 
+                    (step.dataset.conditional && shouldShowStep(step.dataset.conditional)));
+                
+                let allValid = true;
+                visibleSteps.forEach(step => {
+                    const inputs = step.querySelectorAll('input[required]');
+                    inputs.forEach(input => {
+                        if (!input.checkValidity()) {
+                            allValid = false;
+                        }
+                    });
+                });
+                
+                return allValid;
+            }
+
+            function goToStep(stepNumber) {
+                if (stepNumber >= 1 && stepNumber <= totalSteps) {
+                    currentStep = stepNumber;
+                    showStep(currentStep);
+                }
+            }
+
+            nextBtn.addEventListener('click', function() {
+                if (currentStep === totalSteps) {
+                    if (validateAllVisible()) {
+                        alert('Onboarding completed successfully!');
+                        form.reset();
+                        goToStep(1);
+                    }
+                } else {
+                    goToStep(currentStep + 1);
+                }
+            });
+
+            backBtn.addEventListener('click', function() {
+                goToStep(currentStep - 1);
+            });
+
+            // Add input validation listeners
+            form.addEventListener('input', function(e) {
+                if (e.target.closest('.step.active')) {
+                    validateCurrentStep();
+                }
+            });
+
+            // Add change listeners for conditional options
+            form.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+                input.addEventListener('change', function() {
+                    // Re-validate all steps when conditional options change
+                    validateCurrentStep();
+                    
+                    // If this change affects conditional steps, update visibility
+                    if (this.name === 'accountType') {
+                        showStep(currentStep);
+                    }
+                });
+            });
+
+            // Initialize
+            showStep(1);
+        });
+    </script>
+</body>
+</html>

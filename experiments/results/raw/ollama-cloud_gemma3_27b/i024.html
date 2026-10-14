@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweet Composer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white rounded-lg shadow-md p-6 w-full max-w-md">
+        <textarea id="tweetComposer" class="w-full h-24 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" placeholder="What's happening?"></textarea>
+        <div class="mt-2 text-right text-gray-600">
+            <span id="characterCount">0</span> / 280
+        </div>
+        <button id="postButton" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md disabled:bg-gray-400 disabled:cursor-not-allowed" disabled>Post</button>
+    </div>
+
+    <script>
+        const tweetComposer = document.getElementById('tweetComposer');
+        const characterCount = document.getElementById('characterCount');
+        const postButton = document.getElementById('postButton');
+
+        const maxCharacters = 280;
+
+        tweetComposer.addEventListener('input', function() {
+            const currentLength = tweetComposer.value.length;
+            characterCount.textContent = currentLength;
+
+            if (currentLength > maxCharacters) {
+                characterCount.classList.remove('text-gray-600');
+                characterCount.classList.add('text-red-500');
+                postButton.disabled = true;
+                postButton.classList.add('disabled:bg-gray-400');
+            } else if (currentLength > maxCharacters * 0.8) {
+                characterCount.classList.remove('text-gray-600');
+                characterCount.classList.add('text-amber-500');
+                postButton.disabled = false;
+                postButton.classList.remove('disabled:bg-gray-400');
+            } else {
+                characterCount.classList.remove('text-amber-500', 'text-red-500');
+                characterCount.classList.add('text-gray-600');
+                postButton.disabled = false;
+                postButton.classList.remove('disabled:bg-gray-400');
+            }
+
+            tweetComposer.style.height = 'auto';
+            tweetComposer.style.height = (tweetComposer.scrollHeight) + 'px';
+        });
+
+        // Initial height adjustment
+        tweetComposer.style.height = 'auto';
+        tweetComposer.style.height = (tweetComposer.scrollHeight) + 'px';
+    </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitVault - Self-Custody Bitcoin Wallet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bitcoin: '#f7931a',
+                        dark: '#0f172a',
+                        light: '#f8fafc'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark text-light font-sans">
+    <!-- Navigation -->
+    <nav class="border-b border-gray-800">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-shield-alt text-bitcoin text-2xl"></i>
+                <span class="text-xl font-bold">BitVault</span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#features" class="hover:text-bitcoin transition">Features</a>
+                <a href="#faq" class="hover:text-bitcoin transition">FAQ</a>
+                <a href="#contact" class="hover:text-bitcoin transition">Support</a>
+            </div>
+            <button class="bg-bitcoin hover:bg-orange-600 text-dark font-bold py-2 px-6 rounded-full transition">
+                Download
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-20 md:py-32">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold max-w-3xl mx-auto leading-tight">
+                Take Full Control of Your Bitcoin
+            </h1>
+            <p class="text-xl text-gray-300 mt-6 max-w-2xl mx-auto">
+                BitVault is the most secure self-custody wallet for Bitcoin. Your keys, your coins - always.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+                <button class="bg-bitcoin hover:bg-orange-600 text-dark font-bold py-4 px-8 rounded-full text-lg transition">
+                    Download Now
+                </button>
+                <button class="border-2 border-gray-700 hover:border-bitcoin text-light font-bold py-4 px-8 rounded-full text-lg transition">
+                    View Security Audit
+                </button>
+            </div>
+            <div class="mt-16 flex justify-center">
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-bitcoin rounded-2xl opacity-20 blur-lg"></div>
+                    <img src="https://placehold.co/600x400/1e293b/f8fafc?text=BitVault+Wallet+Interface" alt="BitVault Wallet Interface" class="relative rounded-2xl border border-gray-800">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Pillars -->
+    <section id="features" class="py-20 bg-slate-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-2xl mx-auto mb-20">
+                <h2 class="text-3xl md:text-4xl font-bold">Security Without Compromise</h2>
+                <p class="text-gray-400 mt-4">
+                    Built on three fundamental pillars to ensure your Bitcoin remains yours
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Custody -->
+                <div class="bg-dark border border-gray-800 rounded-2xl p-8 hover:border-bitcoin transition">
+                    <div class="w-16 h-16 rounded-full bg-bitcoin/10 flex items-center justify-center mb-6">
+                        <i class="fas fa-key text-bitcoin text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Complete Custody</h3>
+                    <p class="text-gray-400 mb-4">
+                        You are the only person with access to your private keys. We never see or store them.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-bitcoin mt-1 mr-2"></i>
+                            <span>Non-custodial architecture</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-bitcoin mt-1 mr-2"></i>
+                            <span>Military-grade encryption</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-bitcoin mt-1 mr-2"></i>
+                            <span>Open-source verification</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Recovery -->
+                <div class="bg-dark border border-gray-800 rounded-2xl p-8 hover:border-bitcoin transition">
+                    <div class="w-16 h-16 rounded-full bg-bitcoin/10 flex items-center justify-center mb-6">
+                        <i class="fas fa-sync-alt text-bitcoin text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Secure Recovery</h3>
+                    <p class="text-gray-400 mb-4">
+                        Never lose access to your funds with our innovative recovery mechanisms.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-bitcoin mt-1 mr-2"></i>
+                            <span>Multi-signature recovery</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-bitcoin mt-1 mr-2"></i>
+                            <span>Social recovery options</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-bitcoin mt-1 mr-2"></i>
+                            <span>Shamir's Secret Sharing</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Privacy -->
+                <div class="bg-dark border border-gray-800 rounded-2xl p-8 hover:border-bitcoin transition">
+                    <div class="w-16 h-16 rounded-full bg-bitcoin/10 flex items-center justify-center mb-6">
+                        <i class="fas fa-user-shield text-bitcoin text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Absolute Privacy</h3>
+                    <p class="text-gray-400 mb-4">
+                        Your financial data stays private. No tracking, no surveillance, no compromise.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-bitcoin mt-1 mr-2"></i>
+                            <span>Zero-knowledge architecture</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-bitcoin mt-1 mr-2"></i>
+                            <span>No personal data required</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-bitcoin mt-1 mr-2"></i>
+                            <span>Tor network support</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center max-w-2xl mx-auto mb-20">
+                <h2 class="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
+                <p class="text-gray-400 mt-4">
+                    Everything you need to know about securing your Bitcoin
+                </p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto space-y-6">
+                <!-- FAQ Item 1 -->
+                <div class="border border-gray-800 rounded-xl overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-6 text-left bg-slate-900 hover:bg-slate-800 transition">
+                        <span class="text-lg font-medium">How is BitVault more secure than other wallets?</span>
+                        <i class="fas fa-chevron-down text-bitcoin"></i>
+                    </button>
+                    <div class="p-6 border-t border-gray-800 bg-slate-900/50">
+                        <p>BitVault implements a multi-layered security approach including air-gapped key generation, hardware security module integration, and zero-knowledge architecture. Unlike custodial services, you retain complete control of your private keys at all times.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="border border-gray-800 rounded-xl overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-6 text-left bg-slate-900 hover:bg-slate-800 transition">
+                        <span class="text-lg font-medium">What happens if I lose my device?</span>
+                        <i class="fas fa-chevron-down text-bitcoin"></i>
+                    </button>
+                    <div class="p-6 border-t border-gray-800 bg-slate-900/50">
+                        <p>BitVault's secure recovery system allows you to restore access using your recovery phrase or trusted contacts. We support multiple recovery methods including Shamir's Secret Sharing for enterprise-grade security.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="border border-gray-800 rounded-xl overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-6 text-left bg-slate-900 hover:bg-slate-800 transition">
+                        <span class="text-lg font-medium">Is BitVault open source?</span>
+                        <i class="fas fa-chevron-down text-bitcoin"></i>
+                    </button>
+                    <div class="p-6 border-t border-gray-800 bg-slate-900/50">
+                        <p>Yes, our core wallet implementation is fully open source and available for public audit. We believe transparency is essential for security. All code is available on our GitHub repository with regular third-party security audits.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="border border-gray-800 rounded-xl overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-6 text-left bg-slate-900 hover:bg-slate-800 transition">
+                        <span class="text-lg font-medium">How does BitVault protect my privacy?</span>
+                        <i class="fas fa-chevron-down text-bitcoin"></i>
+                    </button>
+                    <div class="p-6 border-t border-gray-800 bg-slate-900/50">
+                        <p>BitVault operates on a zero-knowledge principle - we don't collect personal information or transaction data. All transactions are broadcast directly to the Bitcoin network without intermediaries. Optional Tor integration provides network-level anonymity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-bitcoin/10 to-orange-600/10 border-y border-gray-800">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold max-w-2xl mx-auto">
+                Take Control of Your Financial Future
+            </h2>
+            <p class="text-xl text-gray-300 mt-6 max-w-2xl mx-auto">
+                Join thousands of users who trust BitVault with their Bitcoin
+            </p>
+            <div class="mt-10">
+                <button class="bg-bitcoin hover:bg-orange-600 text-dark font-bold py-4 px-10 rounded-full text-lg transition">
+                    Download BitVault Now
+                </button>
+                <p class="mt-4 text-gray-400">Available for iOS, Android, and Desktop</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-shield-alt text-bitcoin text-2xl"></i>
+                        <span class="text-xl font-bold">BitVault</span>
+                    </div>
+                    <p class="text-gray-400">
+                        The most secure self-custody Bitcoin wallet for individuals and institutions.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Product</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-bitcoin transition">Features</a></li>
+                        <li><a href="#" class="hover:text-bitcoin transition">Security</a></li>
+                        <li><a href="#" class="hover:text-bitcoin transition">Download</a></li>
+                        <li><a href="#" class="hover:text-bitcoin transition">Pricing</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-bitcoin transition">Documentation</a></li>
+                        <li><a href="#" class="hover:text-bitcoin transition">Security Audit</a></li>
+                        <li><a href="#" class="hover:text-bitcoin transition">Blog</a></li>
+                        <li><a href="#" class="hover:text-bitcoin transition">Support</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-bitcoin transition">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-bitcoin transition">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-bitcoin transition">Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
+                <p>© 2023 BitVault. All rights reserved. Bitcoin is a registered trademark of the Bitcoin Foundation.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple FAQ toggle functionality
+        document.querySelectorAll('section#faq button').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                } else {
+                    content.style.display = 'block';
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

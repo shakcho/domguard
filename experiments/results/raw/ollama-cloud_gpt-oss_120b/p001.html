@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DBShift – Seamless Database Migrations for Developers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config (optional)
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6',
+            secondary: '#6366f1',
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="font-sans antialiased bg-gray-50 text-gray-800">
+
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <a href="#" class="text-2xl font-bold text-primary">DBShift</a>
+        </div>
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="#features" class="text-gray-600 hover:text-primary">Features</a>
+          <a href="#pricing" class="text-gray-600 hover:text-primary">Pricing</a>
+          <a href="#contact" class="text-gray-600 hover:text-primary">Contact</a>
+        </div>
+        <div class="flex items-center md:hidden">
+          <button id="mobile-menu-button" class="text-gray-600 hover:text-primary focus:outline-none">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden hidden">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a href="#features" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-primary">Features</a>
+        <a href="#pricing" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-primary">Pricing</a>
+        <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-primary">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="bg-primary text-white py-20">
+    <div class="max-w-4xl mx-auto text-center px-4">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Migrate Databases Without the Headache</h1>
+      <p class="text-lg md:text-xl mb-8">DBShift automates schema changes, data transformations, and version control so you can focus on building, not debugging.</p>
+      <a href="#pricing" class="inline-block bg-white text-primary font-semibold py-3 px-6 rounded-md hover:bg-gray-100 transition">Get Started Free</a>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center mb-12">Powerful Features for Modern Devs</h2>
+      <div class="grid gap-8 md:grid-cols-3">
+        <!-- Feature 1 -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm hover:shadow-md transition">
+          <div class="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-white mb-4">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12h6m2 0a2 2 0 100-4 2 2 0 000 4zm-8 0a2 2 0 100-4 2 2 0 000 4z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Zero‑Downtime Migrations</h3>
+          <p class="text-gray-600">Apply schema changes live with rolling updates and automatic rollbacks if something goes wrong.</p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm hover:shadow-md transition">
+          <div class="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-white mb-4">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Version‑Controlled Migrations</h3>
+          <p class="text-gray-600">Treat migrations like code – commit, branch, and review them with your existing Git workflow.</p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm hover:shadow-md transition">
+          <div class="flex items-center justify-center h-12 w-12 rounded-full bg-primary text-white mb-4">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12h6m2 0a2 2 0 100-4 2 2 0 000 4zm-8 0a2 2 0 100-4 2 2 0 000 4z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Multi‑DB Support</h3>
+          <p class="text-gray-600">Works with PostgreSQL, MySQL, MariaDB, SQLite, and more – all from a single CLI.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Example -->
+  <section class="py-16 bg-gray-100">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8">Simple CLI Usage</h2>
+      <pre class="bg-gray-800 text-white rounded-lg p-6 overflow-x-auto text-sm">
+<code class="language-bash"># Initialize a new migration project
+dbshift init my-project
+
+# Create a migration file
+dbshift create add-users-table
+
+# Edit the generated file (SQL or JS)
+# ...
+
+# Run migrations against your dev database
+dbshift migrate --env development
+
+# Deploy to production with zero downtime
+dbshift migrate --env production --dry-run
+</code>
+      </pre>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center mb-12">Pricing Plans</h2>
+      <div class="grid gap-8 md:grid-cols-3">
+        <!-- Free -->
+        <div class="border rounded-lg shadow-sm flex flex-col">
+          <div class="p-6 bg-gray-50 text-center">
+            <h3 class="text-xl font-semibold mb-2">Free</h3>
+            <p class="text-4xl font-bold mb-4">$0<span class="text-base font-medium">/mo</span></p>
+            <p class="text-gray-600 mb-6">Ideal for hobby projects and early prototypes.</p>
+            <a href="#" class="mt-auto block bg-primary text-white py-2 rounded-b-lg hover:bg-primary/90 transition">Start Free</a>
+          </div>
+          <ul class="p-6 space-y-2 text-sm text-gray-700">
+            <li>✓ Unlimited migrations</li>
+            <li>✓ Single DB type</li>
+            <li>✓ Community support</li>
+            <li>✗ Advanced analytics</li>
+            <li>✗ Priority support</li>
+          </ul>
+        </div>
+        <!-- Pro -->
+        <div class="border-2 border-primary rounded-lg shadow-lg flex flex-col">
+          <div class="p-6 bg-primary text-white text-center">
+            <h3 class="text-xl font-semibold mb-2">Pro</h3>
+            <p class="text-4xl font-bold mb-4">$49<span class="text-base font-medium">/mo</span></p>
+            <p class="mb-6">For growing teams that need reliability.</p>
+            <a href="#" class="mt-auto block bg-white text-primary py-2 rounded-b-lg hover:bg-gray-100 transition">Choose Pro</a>
+          </div>
+          <ul class="p-6 space-y-2 text-sm text-gray-700">
+            <li>✓ Unlimited migrations</li>
+            <li>✓ Multi‑DB support</li>
+            <li>✓ CI/CD integration</li>
+            <li>✓ Detailed logs & analytics</li>
+            <li>✓ Email support</li>
+          </ul>
+        </div>
+        <!-- Enterprise -->
+        <div class="border rounded-lg shadow-sm flex flex-col">
+          <div class="p-6 bg-gray-50 text-center">
+            <h3 class="text-xl font-semibold mb-2">Enterprise</h3>
+            <p class="text-4xl font-bold mb-4">Custom<span class="text-base font-medium">/mo</span></p>
+            <p class="text-gray-600 mb-6">Tailored solutions for large organizations.</p>
+            <a href="#contact" class="mt-auto block bg-primary text-white py-2 rounded-b-lg hover:bg-primary/90 transition">Contact Sales</a>
+          </div>
+          <ul class="p-6 space-y-2 text-sm text-gray-700">
+            <li>✓ All Pro features</li>
+            <li>✓ Dedicated account manager</li>
+            <li>✓ On‑premise deployment</li>
+            <li>✓ SLA & 24/7 support</li>
+            <li>✓ Custom integrations</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="bg-primary text-white py-16">
+    <div class="max-w-3xl mx-auto text-center px-4">
+      <h2 class="text-3xl font-bold mb-4">Ready to Shift Your Databases?</h2>
+      <p class="mb-8">Join thousands of developers who trust DBShift for painless migrations.</p>
+      <a href="#pricing" class="inline-block bg-white text-primary font-semibold py-3 px-8 rounded-md hover:bg-gray-100 transition">Start Your Free Trial</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 py-8">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-sm">&copy; 2026 DBShift. All rights reserved.</p>
+      <div class="flex space-x-4 mt-4 md:mt-0">
+        <a href="#" class="hover:text-white">Privacy</a>
+        <a href="#" class="hover:text-white">Terms</a>
+        <a href="#" class="hover:text-white">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile menu script -->
+  <script>
+    const btn = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

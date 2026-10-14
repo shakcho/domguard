@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+    <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-2xl">
+        <h1 class="text-2xl font-bold mb-4">Checkout</h1>
+
+        <form id="checkout-form" class="space-y-4">
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                <input type="text" id="name" name="name" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200">
+                <div id="name-error" class="text-red-500 text-sm mt-1 hidden"></div>
+            </div>
+
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200">
+                <div id="email-error" class="text-red-500 text-sm mt-1 hidden"></div>
+            </div>
+
+            <div>
+                <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                <input type="tel" id="phone" name="phone" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200">
+                <div id="phone-error" class="text-red-500 text-sm mt-1 hidden"></div>
+            </div>
+
+            <div>
+                <label for="credit-card" class="block text-sm font-medium text-gray-700">Credit Card</label>
+                <input type="text" id="credit-card" name="credit-card" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200">
+                <div id="credit-card-error" class="text-red-500 text-sm mt-1 hidden"></div>
+            </div>
+
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Submit
+            </button>
+        </form>
+
+        <div id="order-summary" class="mt-8 p-4 border border-gray-200 rounded-md">
+            <h2 class="text-xl font-bold mb-2">Order Summary</h2>
+            <ul id="summary-list" class="list-disc pl-5">
+                <li>Name: <span id="summary-name"></span></li>
+                <li>Email: <span id="summary-email"></span></li>
+                <li>Phone: <span id="summary-phone"></span></li>
+                <li>Credit Card: <span id="summary-credit-card"></span></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const phoneInput = document.getElementById('phone');
+        const creditCardInput = document.getElementById('credit-card');
+
+        const nameError = document.getElementById('name-error');
+        const emailError = document.getElementById('email-error');
+        const phoneError = document.getElementById('phone-error');
+        const creditCardError = document.getElementById('credit-card-error');
+
+        const summaryName = document.getElementById('summary-name');
+        const summaryEmail = document.getElementById('summary-email');
+        const summaryPhone = document.getElementById('summary-phone');
+        const summaryCreditCard = document.getElementById('summary-credit-card');
+
+        const form = document.getElementById('checkout-form');
+
+        function updateSummary() {
+            summaryName.textContent = nameInput.value;
+            summaryEmail.textContent = emailInput.value;
+            summaryPhone.textContent = phoneInput.value;
+            summaryCreditCard.textContent = creditCardInput.value;
+        }
+
+        nameInput.addEventListener('change', () => {
+            if (!nameInput.value) {
+                nameError.textContent = 'Name is required';
+                nameError.classList.remove('hidden');
+            } else {
+                nameError.classList.add('hidden');
+            }
+            updateSummary();
+        });
+
+        emailInput.addEventListener('change', () => {
+            if (!emailInput.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+                emailError.textContent = 'Invalid email format';
+                emailError.classList.remove('hidden');
+            } else {
+                emailError.classList.add('hidden');
+            }
+            updateSummary();
+        });
+
+        phoneInput.addEventListener('input', () => {
+            let value = phoneInput.value.replace(/\D/g, '');
+            if (value.length > 10) {
+                value = value.slice(0, 10);
+            }
+            let formattedValue = '';
+            if (value.length === 3) {
+                formattedValue = `(${value.slice(0, 3)}) `;
+            } else if (value.length === 6) {
+                formattedValue = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-`;
+            } else if (value.length === 10) {
+                formattedValue = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+            } else {
+                formattedValue = value;
+            }
+            phoneInput.value = formattedValue;
+        });
+
+        phoneInput.addEventListener('change', () => {
+            if (!phoneInput.value) {
+                phoneError.textContent = 'Phone is required';
+                phoneError.classList.remove('hidden');
+            } else {
+                phoneError.classList.add('hidden');
+            }
+            updateSummary();
+        });
+
+        creditCardInput.addEventListener('input', () => {
+            let value = creditCardInput.value.replace(/\D/g, '');
+            if (value.length > 16) {
+                value = value.slice(0, 16);
+            }
+            let formattedValue = '';
+            for (let i = 0; i < value.length; i += 4) {
+                formattedValue += value.slice(i, i + 4) + (i + 4 < value.length ? ' ' : '');
+            }
+            creditCardInput.value = formattedValue;
+        });
+
+        creditCardInput.addEventListener('change', () => {
+            if (!creditCardInput.value) {
+                creditCardError.textContent = 'Credit card is required';
+                creditCardError.classList.remove('hidden');
+            } else {
+                creditCardError.classList.add('hidden');
+            }
+            updateSummary();
+        });
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            let isValid = true;
+
+            if (!nameInput.value) {
+                nameError.textContent = 'Name is required';
+                nameError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                nameError.classList.add('hidden');
+            }
+
+            if (!emailInput.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+                emailError.textContent = 'Invalid email format';
+                emailError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                emailError.classList.add('hidden');
+            }
+
+            if (!phoneInput.value) {
+                phoneError.textContent = 'Phone is required';
+                phoneError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                phoneError.classList.add('hidden');
+            }
+
+            if (!creditCardInput.value) {
+                creditCardError.textContent = 'Credit card is required';
+                creditCardError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                creditCardError.classList.add('hidden');
+            }
+
+            if (isValid) {
+                alert('Form submitted successfully!');
+            }
+        });
+
+        updateSummary();
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Documentation with Scroll Spy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .active-link { @apply bg-blue-100 text-blue-600 font-medium; }
+  </style>
+</head>
+<body class="font-sans antialiased bg-gray-50">
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <nav id="sidebar" class="hidden md:block w-64 bg-white border-r border-gray-200 overflow-y-auto">
+      <div class="p-4">
+        <h2 class="text-xl font-semibold mb-4">Contents</h2>
+        <ul class="space-y-2" id="toc">
+          <li><a href="#introduction" class="block text-gray-700 hover:text-blue-600">Introduction</a></li>
+          <li><a href="#getting-started" class="block text-gray-700 hover:text-blue-600">Getting Started</a></li>
+          <li><a href="#installation" class="block text-gray-700 hover:text-blue-600">Installation</a></li>
+          <li><a href="#usage" class="block text-gray-700 hover:text-blue-600">Usage</a></li>
+          <li><a href="#advanced-topics" class="block text-gray-700 hover:text-blue-600">Advanced Topics</a></li>
+          <li><a href="#api-reference" class="block text-gray-700 hover:text-blue-600">API Reference</a></li>
+          <li><a href="#faq" class="block text-gray-700 hover:text-blue-600">FAQ</a></li>
+          <li><a href="#conclusion" class="block text-gray-700 hover:text-blue-600">Conclusion</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Mobile toggle button -->
+    <button id="toggleBtn" class="md:hidden p-4 focus:outline-none">
+      <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <!-- Main content -->
+    <main class="flex-1 overflow-y-auto p-8">
+      <section id="introduction" class="mb-12">
+        <h1 class="text-3xl font-bold mb-4">Introduction</h1>
+        <p class="text-gray-700 mb-2">Welcome to the documentation. This page demonstrates a scroll‑spy sidebar that highlights the current section as you scroll.</p>
+        <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.</p>
+      </section>
+
+      <section id="getting-started" class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4">Getting Started</h2>
+        <p class="text-gray-700 mb-2">This section helps you get started quickly.</p>
+        <p class="text-gray-700">Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.</p>
+      </section>
+
+      <section id="installation" class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4">Installation</h2>
+        <p class="text-gray-700 mb-2">Follow these steps to install.</p>
+        <pre class="bg-gray-100 p-4 rounded overflow-x-auto"><code>npm install my-library</code></pre>
+      </section>
+
+      <section id="usage" class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4">Usage</h2>
+        <p class="text-gray-700 mb-2">How to use the library in your project.</p>
+        <pre class="bg-gray-100 p-4 rounded overflow-x-auto"><code>import { foo } from 'my-library';</code></pre>
+      </section>
+
+      <section id="advanced-topics" class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4">Advanced Topics</h2>
+        <p class="text-gray-700 mb-2">Dive deeper into advanced configurations.</p>
+        <p class="text-gray-700">Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
+      </section>
+
+      <section id="api-reference" class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4">API Reference</h2>
+        <p class="text-gray-700 mb-2">Complete API documentation.</p>
+        <ul class="list-disc pl-5 text-gray-700">
+          <li>Method A – does something.</li>
+          <li>Method B – does something else.</li>
+        </ul>
+      </section>
+
+      <section id="faq" class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4">FAQ</h2>
+        <p class="text-gray-700 mb-2">Frequently asked questions.</p>
+        <p class="text-gray-700"><strong>Q:</strong> How do I reset?</p>
+        <p class="text-gray-700"><strong>A:</strong> Follow the reset guide.</p>
+      </section>
+
+      <section id="conclusion" class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4">Conclusion</h2>
+        <p class="text-gray-700">Thank you for reading the documentation.</p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Mobile sidebar toggle
+    const toggleBtn = document.getElementById('toggleBtn');
+    const sidebar = document.getElementById('sidebar');
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('hidden');
+    });
+
+    // Smooth scroll is handled by CSS scroll-behavior, but ensure active link updates on click
+    const tocLinks = document.querySelectorAll('#toc a');
+    tocLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          const yOffset = -20; // slight offset
+          const y = targetEl.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Scroll spy using IntersectionObserver
+    const sections = document.querySelectorAll('main section[id]');
+    const options = {
+      root: null,
+      rootMargin: '0px 0px -70% 0px', // trigger when section top is near top
+      threshold: 0
+    };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.id;
+        const tocLink = document.querySelector(`#toc a[href="#${id}"]`);
+        if (entry.isIntersecting) {
+          tocLinks.forEach(l => l.classList.remove('bg-blue-100', 'text-blue-600', 'font-medium'));
+          if (tocLink) {
+            tocLink.classList.add('bg-blue-100', 'text-blue-600', 'font-medium');
+          }
+        }
+      });
+    }, options);
+    sections.forEach(sec => observer.observe(sec));
+  </script>
+</body>
+</html>

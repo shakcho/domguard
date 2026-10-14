@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VectorDB - The Open-Source Vector Database</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .terminal-animation {
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <header class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold">VectorDB</a>
+                <nav>
+                    <ul class="flex space-x-6">
+                        <li><a href="#features" class="hover:text-gray-300">Features</a></li>
+                        <li><a href="#benchmarks" class="hover:text-gray-300">Benchmarks</a></li>
+                        <li><a href="#github" class="hover:text-gray-300">GitHub</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl font-bold mb-6">The Open-Source Vector Database</h1>
+            <p class="text-xl mb-12">Fast, scalable, and easy to use. Built for the next generation of AI applications.</p>
+            <div class="terminal-animation">
+                <span class="text-green-500">user@vectordb:~$ </span><span class="text-yellow-400">vector_search -q "cat image" -k 10</span><br>
+                <span class="text-green-500">user@vectordb:~$ </span><span class="text-cyan-400">Loading embeddings...</span><br>
+                <span class="text-green-500">user@vectordb:~$ </span><span class="text-cyan-400">Searching...</span><br>
+                <span class="text-green-500">user@vectordb:~$ </span><span class="text-white">Results: [image1.jpg, image2.png, image3.jpeg, ...]</span><br>
+                <span class="text-green-500">user@vectordb:~$ </span><span class="text-white">Time taken: 0.12s</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-8">Key Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-2">Scalability</h3>
+                    <p class="text-gray-700">Designed to handle billions of vectors with ease. Scale horizontally to meet your growing needs.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-2">Fast Search</h3>
+                    <p class="text-gray-700">Optimized for low-latency similarity search. Retrieve relevant vectors quickly and efficiently.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-2">Easy Integration</h3>
+                    <p class="text-gray-700">Simple API and integrations with popular machine learning frameworks like TensorFlow and PyTorch.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="benchmarks" class="bg-gray-200 py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-8">Performance Benchmarks</h2>
+            <table class="w-full text-center">
+                <thead>
+                    <tr class="bg-gray-300">
+                        <th class="py-2 px-4">Dataset</th>
+                        <th class="py-2 px-4">Query Latency (ms)</th>
+                        <th class="py-2 px-4">Recall@10</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-2 px-4">Sift1M</td>
+                        <td class="py-2 px-4">15</td>
+                        <td class="py-2 px-4">92%</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4">GloVe</td>
+                        <td class="py-2 px-4">8</td>
+                        <td class="py-2 px-4">95%</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4">Annoy</td>
+                        <td class="py-2 px-4">22</td>
+                        <td class="py-2 px-4">88%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer id="github" class="bg-gray-800 text-white py-8 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-4">Get Involved</h2>
+            <p>VectorDB is an open-source project. Contribute on GitHub!</p>
+            <a href="https://github.com/your-github-repo" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 inline-block">
+                View on GitHub
+            </a>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ContentHub - Enterprise CMS for Marketing Teams</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                        accent: '#3b82f6'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .accordion-open .accordion-content {
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-primary">ContentHub</div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#features" class="hover:text-primary transition">Features</a>
+                <a href="#customers" class="hover:text-primary transition">Customers</a>
+                <a href="#case-study" class="hover:text-primary transition">Case Study</a>
+                <a href="#faq" class="hover:text-primary transition">FAQ</a>
+            </div>
+            <div>
+                <button class="bg-primary text-white px-6 py-2 rounded-md hover:bg-secondary transition">Request Demo</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-16 md:py-24 bg-gradient-to-r from-blue-50 to-indigo-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">The CMS Built for Marketing Teams</h1>
+                    <p class="text-xl text-gray-600 mb-8">Create, manage, and optimize content across all channels with our enterprise-grade content management system.</p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="bg-primary text-white px-8 py-3 rounded-md hover:bg-secondary transition">Get Started</button>
+                        <button class="border border-primary text-primary px-8 py-3 rounded-md hover:bg-blue-50 transition">Watch Demo</button>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="bg-white rounded-xl shadow-lg p-2">
+                        <div class="aspect-video bg-gradient-to-br from-blue-100 to-indigo-200 rounded-lg flex items-center justify-center">
+                            <div class="text-center p-8">
+                                <div class="text-6xl text-primary mb-4">📊</div>
+                                <p class="text-gray-600">Content management dashboard preview</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Powerful Features for Marketing Teams</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Everything you need to create, manage, and measure content performance across all digital channels.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card bg-white p-6 rounded-lg shadow-md transition-all duration-300">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-2xl">📝</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Drag & Drop Editor</h3>
+                    <p class="text-gray-600">Create beautiful content without coding skills using our intuitive visual editor.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card bg-white p-6 rounded-lg shadow-md transition-all duration-300">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-2xl">🔄</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Multi-Channel Publishing</h3>
+                    <p class="text-gray-600">Publish content to web, mobile, social media, and email from a single platform.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card bg-white p-6 rounded-lg shadow-md transition-all duration-300">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-2xl">👥</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Team Collaboration</h3>
+                    <p class="text-gray-600">Work together with built-in workflows, comments, and approval processes.</p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="feature-card bg-white p-6 rounded-lg shadow-md transition-all duration-300">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-2xl">📊</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Content Analytics</h3>
+                    <p class="text-gray-600">Measure content performance and get insights to optimize your strategy.</p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="feature-card bg-white p-6 rounded-lg shadow-md transition-all duration-300">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-2xl">🔍</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">SEO Tools</h3>
+                    <p class="text-gray-600">Built-in SEO recommendations and optimization tools to increase visibility.</p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="feature-card bg-white p-6 rounded-lg shadow-md transition-all duration-300">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-2xl">🛡️</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Enterprise Security</h3>
+                    <p class="text-gray-600">Enterprise-grade security with SSO, role-based access, and compliance features.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Logos -->
+    <section id="customers" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Trusted by Marketing Teams</h2>
+                <p class="text-xl text-gray-600">Join thousands of companies using ContentHub to power their content strategy</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center">
+                <div class="h-12 w-32 bg-gray-200 rounded flex items-center justify-center">Company A</div>
+                <div class="h-12 w-32 bg-gray-200 rounded flex items-center justify-center">Company B</div>
+                <div class="h-12 w-32 bg-gray-200 rounded flex items-center justify-center">Company C</div>
+                <div class="h-12 w-32 bg-gray-200 rounded flex items-center justify-center">Company D</div>
+                <div class="h-12 w-32 bg-gray-200 rounded flex items-center justify-center">Company E</div>
+                <div class="h-12 w-32 bg-gray-200 rounded flex items-center justify-center">Company F</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Study Quote -->
+    <section id="case-study" class="py-16 bg-primary text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="text-5xl mb-2">"</div>
+                <p class="text-xl md:text-2xl italic mb-8">ContentHub transformed how our marketing team operates. We've reduced content production time by 40% while increasing engagement across all channels. The analytics alone have been worth the investment.</p>
+                <div class="flex items-center justify-center">
+                    <div class="w-16 h-16 bg-white rounded-full mr-4 flex items-center justify-center text-primary font-bold">JD</div>
+                    <div>
+                        <p class="font-semibold">Jane Doe</p>
+                        <p class="text-blue-100">CMO at TechCorp</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+                <p class="text-xl text-gray-600">Everything you need to know about ContentHub</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <!-- FAQ 1 -->
+                <div class="border-b border-gray-200 py-4">
+                    <button onclick="toggleAccordion(this)" class="flex justify-between items-center w-full text-left font-semibold text-lg">
+                        <span>How does ContentHub integrate with our existing marketing stack?</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content mt-2 text-gray-600">
+                        <p>ContentHub offers native integrations with popular marketing automation platforms, CRM systems, analytics tools, and social media platforms. We also provide a robust API for custom integrations with your existing tech stack.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 2 -->
+                <div class="border-b border-gray-200 py-4">
+                    <button onclick="toggleAccordion(this)" class="flex justify-between items-center w-full text-left font-semibold text-lg">
+                        <span>What kind of support and training do you provide?</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content mt-2 text-gray-600">
+                        <p>We provide comprehensive onboarding, dedicated account management, 24/7 technical support, and ongoing training resources including webinars, documentation, and a customer community.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 3 -->
+                <div class="border-b border-gray-200 py-4">
+                    <button onclick="toggleAccordion(this)" class="flex justify-between items-center w-full text-left font-semibold text-lg">
+                        <span>How does pricing work for enterprise teams?</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content mt-2 text-gray-600">
+                        <p>We offer tiered pricing based on the number of users, content volume, and required features. Enterprise plans include custom SLAs, dedicated infrastructure, and premium support. Contact us for a customized quote.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 4 -->
+                <div class="border-b border-gray-200 py-4">
+                    <button onclick="toggleAccordion(this)" class="flex justify-between items-center w-full text-left font-semibold text-lg">
+                        <span>Is my data secure with ContentHub?</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content mt-2 text-gray-600">
+                        <p>Yes, we take security seriously. ContentHub is SOC 2 compliant, offers encryption at rest and in transit, provides role-based access controls, and undergoes regular security audits. We also offer enterprise-grade security features like SSO and custom data retention policies.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 5 -->
+                <div class="border-b border-gray-200 py-4">
+                    <button onclick="toggleAccordion(this)" class="flex justify-between items-center w-full text-left font-semibold text-lg">
+                        <span>Can I try ContentHub before committing?</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content mt-2 text-gray-600">
+                        <p>Absolutely! We offer a 14-day free trial with full access to all features. No credit card required. You can also request a personalized demo to see how ContentHub can address your specific use cases.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Ready to transform your content strategy?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Join thousands of marketing teams using ContentHub to create, manage, and optimize content across all channels.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-white text-primary px-8 py-3 rounded-md hover:bg-gray-100 transition font-semibold">Get Started Free</button>
+                <button class="border border-white text-white px-8 py-3 rounded-md hover:bg-white hover:text-primary transition font-semibold">Request Demo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="text-2xl font-bold text-white mb-4">ContentHub</div>
+                    <p>The enterprise CMS built for marketing teams to create, manage, and optimize content across all channels.</p>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Product</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition">Features</a></li>
+                        <li><a href="#" class="hover:text-white transition">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white transition">Integrations</a></li>
+                        <li><a href="#" class="hover:text-white transition">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition">Documentation</a></li>
+                        <li><a href="#" class="hover:text-white transition">Webinars</a></li>
+                        <li><a href="#" class="hover:text-white transition">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition">Contact</a></li>
+                        <li><a href="#" class="hover:text-white transition">Legal</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p>© 2023 ContentHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAccordion(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('.accordion-icon');
+            
+            button.parentElement.classList.toggle('accordion-open');
+            
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                icon.textContent = '+';
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.textContent = '-';
+            }
+        }
+    </script>
+</body>
+</html>

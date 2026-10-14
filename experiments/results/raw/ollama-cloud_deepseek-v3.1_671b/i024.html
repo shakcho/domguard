@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweet Composer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        textarea {
+            resize: none;
+            overflow: hidden;
+            min-height: 60px;
+            transition: height 0.2s;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
+        <div class="relative">
+            <textarea 
+                id="tweetInput" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                placeholder="What's happening?" 
+                rows="1"
+                oninput="updateCounter()"
+            ></textarea>
+        </div>
+        <div class="flex items-center justify-between mt-4">
+            <span id="charCount" class="text-gray-500 text-sm">0/280</span>
+            <button 
+                id="tweetButton" 
+                class="bg-blue-500 text-white px-4 py-2 rounded-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                disabled
+            >
+                Tweet
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function updateCounter() {
+            const textarea = document.getElementById('tweetInput');
+            const charCount = document.getElementById('charCount');
+            const tweetButton = document.getElementById('tweetButton');
+            const maxLength = 280;
+            const currentLength = textarea.value.length;
+            
+            // Auto-adjust textarea height
+            textarea.style.height = 'auto';
+            textarea.style.height = (textarea.scrollHeight) + 'px';
+            
+            // Update character counter
+            charCount.textContent = `${currentLength}/${maxLength}`;
+            
+            // Change color based on character count
+            if (currentLength > maxLength) {
+                charCount.classList.add('text-red-500');
+                charCount.classList.remove('text-amber-500', 'text-gray-500');
+                tweetButton.disabled = true;
+            } else if (currentLength > maxLength * 0.9) {
+                charCount.classList.add('text-amber-500');
+                charCount.classList.remove('text-red-500', 'text-gray-500');
+                tweetButton.disabled = false;
+            } else {
+                charCount.classList.add('text-gray-500');
+                charCount.classList.remove('text-red-500', 'text-amber-500');
+                tweetButton.disabled = false;
+            }
+        }
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCounter();
+        });
+    </script>
+</body>
+</html>

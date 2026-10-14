@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instant Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-md p-6 w-full max-w-2xl">
+        <h1 class="text-2xl font-bold mb-4">Instant Search</h1>
+        <div class="relative mb-4">
+            <input type="text" id="searchInput" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Search...">
+        </div>
+        <div id="searchResults" class="text-gray-700">
+            <p id="searchingState" class="hidden text-center text-gray-500">Searching...</p>
+            <ul id="resultsList" class="list-disc pl-5"></ul>
+        </div>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        const resultsList = document.getElementById('resultsList');
+        const searchingState = document.getElementById('searchingState');
+
+        let timeoutId;
+        const debounceTime = 300;
+
+        async function search(query) {
+            // Mock async search function
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const mockData = [
+                        "Apple",
+                        "Banana",
+                        "Orange",
+                        "Grape",
+                        "Pineapple",
+                        "Strawberry",
+                        "Blueberry",
+                        "Raspberry",
+                        "Mango",
+                        "Watermelon"
+                    ];
+                    const filteredResults = mockData.filter(item =>
+                        item.toLowerCase().includes(query.toLowerCase())
+                    );
+                    resolve(filteredResults);
+                }, 500); // Simulate network latency
+            });
+        }
+
+        function displayResults(results) {
+            searchingState.classList.add('hidden');
+            resultsList.innerHTML = '';
+            if (results.length > 0) {
+                results.forEach(result => {
+                    const listItem = document.createElement('li');
+                    const highlightedResult = highlightMatches(result, searchInput.value);
+                    listItem.innerHTML = highlightedResult;
+                    resultsList.appendChild(listItem);
+                });
+            } else {
+                const listItem = document.createElement('li');
+                listItem.textContent = 'No results found.';
+                resultsList.appendChild(listItem);
+            }
+        }
+
+        function highlightMatches(text, query) {
+            const regex = new RegExp(query, 'gi');
+            return text.replace(regex, (match) => `<span class="bg-yellow-200">${match}</span>`);
+        }
+
+        function handleSearch() {
+            const query = searchInput.value;
+
+            if (query.length > 0) {
+                searchingState.classList.remove('hidden');
+                resultsList.innerHTML = '';
+
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(async () => {
+                    const results = await search(query);
+                    displayResults(results);
+                }, debounceTime);
+            } else {
+                searchingState.classList.add('hidden');
+                resultsList.innerHTML = '';
+            }
+        }
+
+        searchInput.addEventListener('input', handleSearch);
+    </script>
+</body>
+</html>

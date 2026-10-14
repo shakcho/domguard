@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Data Table</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto p-4">
+        <div class="resize-container bg-white shadow-md rounded-lg overflow-x-auto" id="resizeContainer">
+            <table class="min-w-full table-auto" id="dataTable">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="px-6 py-3 text-left text-sm font-semibold">ID</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold">Name</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold">Email</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold">City</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold">Country</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    </tbody>
+            </table>
+        </div>
+        <div class="mt-4 text-center">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="loadMoreButton">
+                Load More Rows
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const dataTable = document.getElementById('dataTable');
+        const tableBody = document.getElementById('tableBody');
+        const loadMoreButton = document.getElementById('loadMoreButton');
+        const resizeContainer = document.getElementById('resizeContainer');
+
+        let rows = [];
+        let currentRowCount = 10;
+        const rowsPerPage = 10;
+
+        function generateData(count) {
+            const data = [];
+            for (let i = 0; i < count; i++) {
+                data.push({
+                    id: i + 1,
+                    name: `User ${i + 1}`,
+                    email: `user${i + 1}@example.com`,
+                    city: `City ${i + 1}`,
+                    country: `Country ${i + 1}`
+                });
+            }
+            return data;
+        }
+
+        function renderTableRows(data) {
+            tableBody.innerHTML = '';
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="px-6 py-4">${row.id}</td>
+                    <td class="px-6 py-4">${row.name}</td>
+                    <td class="px-6 py-4">${row.email}</td>
+                    <td class="px-6 py-4">${row.city}</td>
+                    <td class="px-6 py-4">${row.country}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function loadRows() {
+            const newData = generateData(currentRowCount + rowsPerPage);
+            const newRows = newData.slice(currentRowCount, currentRowCount + rowsPerPage);
+            rows = rows.concat(newRows);
+            currentRowCount += rowsPerPage;
+            renderTableRows(rows);
+        }
+
+        loadRows();
+
+        loadMoreButton.addEventListener('click', loadRows);
+
+        const resizeObserver = new ResizeObserver(entries => {
+            // Re-flow the table to fit the container
+            renderTableRows(rows);
+        });
+
+        resizeObserver.observe(resizeContainer);
+
+        const mutationObserver = new MutationObserver(mutations => {
+            // Re-flow the table if content changes
+            renderTableRows(rows);
+        });
+
+        mutationObserver.observe(resizeContainer, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            characterData: true
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChronoAI - AI Scheduling Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                        dark: '#1e293b'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        .workflow-step {
+            transition: all 0.5s ease;
+        }
+        .workflow-step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .pricing-card.popular {
+            transform: scale(1.05);
+            box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-xl mr-3">C</div>
+                <span class="text-2xl font-bold text-dark">ChronoAI</span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#" class="text-gray-600 hover:text-primary font-medium">Features</a>
+                <a href="#" class="text-gray-600 hover:text-primary font-medium">How It Works</a>
+                <a href="#" class="text-gray-600 hover:text-primary font-medium">Pricing</a>
+                <a href="#" class="text-gray-600 hover:text-primary font-medium">Testimonials</a>
+            </div>
+            <div>
+                <button class="bg-primary hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg transition duration-300">Get Started</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-16 md:py-28 bg-gradient-to-r from-primary to-secondary">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-12 md:mb-0">
+                <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight mb-6">AI-Powered Scheduling That Works For You</h1>
+                <p class="text-xl text-indigo-100 mb-8">Eliminate back-and-forth emails and find meeting times in seconds. Your intelligent scheduling assistant.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button class="bg-white text-primary hover:bg-gray-100 font-bold py-4 px-8 rounded-lg text-lg transition duration-300 shadow-lg">Start Free Trial</button>
+                    <button class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary font-bold py-4 px-8 rounded-lg text-lg transition duration-300">Watch Demo</button>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative">
+                    <div class="w-80 h-80 bg-white rounded-2xl shadow-2xl floating flex items-center justify-center">
+                        <div class="bg-gray-200 border-2 border-dashed rounded-xl w-64 h-64" />
+                    </div>
+                    <div class="absolute -top-6 -right-6 w-32 h-32 bg-yellow-400 rounded-2xl floating opacity-80"></div>
+                    <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-pink-400 rounded-2xl floating opacity-80" style="animation-delay: 2s;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Animation -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-dark mb-4">How It Works</h2>
+            <p class="text-gray-600 text-center max-w-2xl mx-auto mb-16">ChronoAI simplifies your scheduling process in three simple steps</p>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="workflow-step bg-gray-50 p-8 rounded-2xl mb-10 md:mb-0 md:w-2/5 shadow-md">
+                    <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-white text-2xl mb-6">1</div>
+                    <h3 class="text-2xl font-bold text-dark mb-4">Create Your Availability</h3>
+                    <p class="text-gray-600">Set your preferred meeting times, buffer periods, and location preferences in our intuitive dashboard.</p>
+                </div>
+                
+                <div class="hidden md:block text-5xl text-primary font-bold">→</div>
+                
+                <div class="workflow-step bg-gray-50 p-8 rounded-2xl mb-10 md:mb-0 md:w-2/5 shadow-md">
+                    <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-white text-2xl mb-6">2</div>
+                    <h3 class="text-2xl font-bold text-dark mb-4">Share Your Link</h3>
+                    <p class="text-gray-600">Send your personalized scheduling link to clients, colleagues, or anyone you need to meet with.</p>
+                </div>
+                
+                <div class="hidden md:block text-5xl text-primary font-bold">→</div>
+                
+                <div class="workflow-step bg-gray-50 p-8 rounded-2xl md:w-2/5 shadow-md">
+                    <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-white text-2xl mb-6">3</div>
+                    <h3 class="text-2xl font-bold text-dark mb-4">Confirm & Sync</h3>
+                    <p class="text-gray-600">AI automatically finds optimal times and sends calendar invites. All events sync seamlessly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integrations -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-dark mb-4">Works With Your Favorite Tools</h2>
+            <p class="text-gray-600 text-center max-w-2xl mx-auto mb-12">Integrate with popular calendar and communication platforms</p>
+            
+            <div class="flex flex-wrap justify-center gap-12">
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 rounded-full bg-white shadow-md flex items-center justify-center mb-4">
+                        <i class="fab fa-google text-3xl text-red-500"></i>
+                    </div>
+                    <span class="font-medium">Google Calendar</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 rounded-full bg-white shadow-md flex items-center justify-center mb-4">
+                        <i class="fab fa-microsoft text-3xl text-blue-500"></i>
+                    </div>
+                    <span class="font-medium">Outlook</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 rounded-full bg-white shadow-md flex items-center justify-center mb-4">
+                        <i class="fab fa-slack text-3xl text-purple-500"></i>
+                    </div>
+                    <span class="font-medium">Slack</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 rounded-full bg-white shadow-md flex items-center justify-center mb-4">
+                        <i class="fab fa-zoom text-3xl text-blue-400"></i>
+                    </div>
+                    <span class="font-medium">Zoom</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 rounded-full bg-white shadow-md flex items-center justify-center mb-4">
+                        <i class="fab fa-apple text-3xl"></i>
+                    </div>
+                    <span class="font-medium">Apple Calendar</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-dark mb-4">Simple, Transparent Pricing</h2>
+            <p class="text-gray-600 text-center max-w-2xl mx-auto mb-16">Choose the plan that works best for your scheduling needs</p>
+            
+            <div class="flex flex-col lg:flex-row justify-center gap-8">
+                <div class="pricing-card bg-gray-50 p-8 rounded-2xl shadow-md">
+                    <h3 class="text-2xl font-bold text-dark mb-4">Starter</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-dark">$0</span>
+                        <span class="text-gray-600">/month</span>
+                    </div>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Up to 10 meetings/month</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Basic availability settings</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Email notifications</li>
+                        <li class="flex items-center text-gray-400"><i class="fas fa-times-circle mr-2"></i> Advanced integrations</li>
+                    </ul>
+                    <button class="w-full bg-gray-200 hover:bg-gray-300 text-dark font-medium py-3 px-6 rounded-lg transition duration-300">Get Started</button>
+                </div>
+                
+                <div class="pricing-card popular bg-white p-8 rounded-2xl shadow-xl border-2 border-primary">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm font-bold">MOST POPULAR</div>
+                    <h3 class="text-2xl font-bold text-dark mb-4">Professional</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-dark">$15</span>
+                        <span class="text-gray-600">/month</span>
+                    </div>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Unlimited meetings</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Advanced availability rules</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> All calendar integrations</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Team scheduling</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Priority support</li>
+                    </ul>
+                    <button class="w-full bg-primary hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300">Start Free Trial</button>
+                </div>
+                
+                <div class="pricing-card bg-gray-50 p-8 rounded-2xl shadow-md">
+                    <h3 class="text-2xl font-bold text-dark mb-4">Enterprise</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-dark">Custom</span>
+                    </div>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Everything in Professional</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Custom branding</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Single sign-on (SSO)</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Dedicated account manager</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> API access</li>
+                    </ul>
+                    <button class="w-full bg-gray-800 hover:bg-black text-white font-medium py-3 px-6 rounded-lg transition duration-300">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-primary to-secondary">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Transform Your Scheduling?</h2>
+            <p class="text-xl text-indigo-100 max-w-2xl mx-auto mb-10">Join thousands of professionals who save hours every week with ChronoAI</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <button class="bg-white text-primary hover:bg-gray-100 font-bold py-4 px-8 rounded-lg text-lg transition duration-300 shadow-lg">Start Your Free Trial</button>
+                <button class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary font-bold py-4 px-8 rounded-lg text-lg transition duration-300">Schedule a Demo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-8 md:mb-0">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-xl mr-3">C</div>
+                        <span class="text-2xl font-bold">ChronoAI</span>
+                    </div>
+                    <p class="text-gray-400 max-w-xs">AI-powered scheduling that eliminates the back-and-forth of finding meeting times.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">Product</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#" class="hover:text-white">Features</a></li>
+                            <li><a href="#" class="hover:text-white">Pricing</a></li>
+                            <li><a href="#" class="hover:text-white">Integrations</a></li>
+                            <li><a href="#" class="hover:text-white">Roadmap</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">Resources</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#" class="hover:text-white">Blog</a></li>
+                            <li><a href="#" class="hover:text-white">Documentation</a></li>
+                            <li><a href="#" class="hover:text-white">Support</a></li>
+                            <li><a href="#" class="hover:text-white">API</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">Company</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#" class="hover:text-white">About</a></li>
+                            <li><a href="#" class="hover:text-white">Careers</a></li>
+                            <li><a href="#" class="hover:text-white">Contact</a></li>
+                            <li><a href="#" class="hover:text-white">Partners</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 ChronoAI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animation for workflow steps on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const workflowSteps = document.querySelectorAll('.workflow-step');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            workflowSteps.forEach(step => {
+                step.style.opacity = 0;
+                step.style.transform = 'translateY(20px)';
+                step.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(step);
+            });
+        });
+    </script>
+</body>
+</html>

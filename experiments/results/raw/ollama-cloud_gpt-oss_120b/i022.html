@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trusted By Marquee</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Hide scrollbar for the marquee container */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-white flex items-center justify-center min-h-screen">
+  <section class="w-full max-w-5xl">
+    <h2 class="text-center text-2xl font-semibold mb-4">Trusted By</h2>
+    <div id="marquee-wrapper" class="relative overflow-hidden bg-gray-100 py-4 cursor-pointer no-scrollbar">
+      <div id="marquee" class="flex whitespace-nowrap">
+        <!-- Original set of logos -->
+        <img src="https://via.placeholder.com/150x50?text=Logo+1" alt="Logo 1" class="logo mx-4 h-12 object-contain">
+        <img src="https://via.placeholder.com/150x50?text=Logo+2" alt="Logo 2" class="logo mx-4 h-12 object-contain">
+        <img src="https://via.placeholder.com/150x50?text=Logo+3" alt="Logo 3" class="logo mx-4 h-12 object-contain">
+        <img src="https://via.placeholder.com/150x50?text=Logo+4" alt="Logo 4" class="logo mx-4 h-12 object-contain">
+        <img src="https://via.placeholder.com/150x50?text=Logo+5" alt="Logo 5" class="logo mx-4 h-12 object-contain">
+        <img src="https://via.placeholder.com/150x50?text=Logo+6" alt="Logo 6" class="logo mx-4 h-12 object-contain">
+        <img src="https://via.placeholder.com/150x50?text=Logo+7" alt="Logo 7" class="logo mx-4 h-12 object-contain">
+        <img src="https://via.placeholder.com/150x50?text=Logo+8" alt="Logo 8" class="logo mx-4 h-12 object-contain">
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function() {
+      const wrapper = document.getElementById('marquee-wrapper');
+      const marquee = document.getElementById('marquee');
+      const speed = 0.6; // pixels per frame
+      let paused = false;
+      let pos = 0;
+      let singleSetWidth = 0;
+
+      // Duplicate content for seamless loop
+      function duplicateContent() {
+        marquee.innerHTML += marquee.innerHTML;
+      }
+
+      // Measure width of a single set of logos
+      function measureWidth() {
+        const logos = marquee.querySelectorAll('.logo');
+        const half = logos.length / 2;
+        let width = 0;
+        for (let i = 0; i < half; i++) {
+          width += logos[i].offsetWidth + parseFloat(getComputedStyle(logos[i]).marginLeft) + parseFloat(getComputedStyle(logos[i]).marginRight);
+        }
+        singleSetWidth = width;
+      }
+
+      function step() {
+        if (!paused) {
+          pos -= speed;
+          if (pos <= -singleSetWidth) pos = 0;
+          marquee.style.transform = `translateX(${pos}px)`;
+        }
+        requestAnimationFrame(step);
+      }
+
+      // Pause on hover
+      wrapper.addEventListener('mouseenter', () => paused = true);
+      wrapper.addEventListener('mouseleave', () => paused = false);
+
+      // Initialize after all images load
+      window.addEventListener('load', () => {
+        duplicateContent();
+        measureWidth();
+        requestAnimationFrame(step);
+      });
+
+      // Recalculate on resize (optional)
+      window.addEventListener('resize', () => {
+        // Reset position and remeasure
+        pos = 0;
+        marquee.style.transform = 'translateX(0)';
+        measureWidth();
+      });
+    })();
+  </script>
+</body>
+</html>

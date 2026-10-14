@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threaded Discussion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">Discussion Thread</h1>
+
+        <div id="comment-tree" class="space-y-4"></div>
+    </div>
+
+    <script>
+        const commentsData = [
+            {
+                id: 1,
+                text: "This is the root comment.",
+                replies: [
+                    {
+                        id: 2,
+                        text: "Reply to the root comment.",
+                        replies: [
+                            {
+                                id: 3,
+                                text: "A reply to a reply!",
+                                replies: []
+                            }
+                        ]
+                    },
+                    {
+                        id: 4,
+                        text: "Another reply to the root.",
+                        replies: []
+                    }
+                ]
+            },
+            {
+                id: 5,
+                text: "A second root comment.",
+                replies: []
+            }
+        ];
+
+        function renderComment(comment, depth = 0) {
+            const indent = '  '.repeat(depth);
+            const commentId = 'comment-' + comment.id;
+
+            const replyBoxId = 'reply-box-' + comment.id;
+
+            const isCollapsed = localStorage.getItem(commentId + '-collapsed') === 'true';
+
+            const commentContent = `
+                <div class="bg-white rounded-lg shadow-md p-4 relative">
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700">${indent}${comment.text}</span>
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline" onclick="toggleCollapse('${commentId}')">${isCollapsed ? 'Expand' : 'Collapse'}</button>
+                    </div>
+                    ${isCollapsed ? '' : `
+                        <div class="mt-4 space-y-2">
+                            ${comment.replies.map(reply => renderComment(reply, depth + 1)).join('')}
+                        </div>
+                        <div class="mt-4">
+                            <textarea id="${replyBoxId}" class="w-full p-2 border border-gray-300 rounded" placeholder="Add a reply..."></textarea>
+                            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mt-2" onclick="addReply(${comment.id}, '${replyBoxId}')">Reply</button>
+                        </div>
+                    `}
+                </div>
+            `;
+
+            return commentContent;
+        }
+
+        function toggleCollapse(commentId) {
+            const isCollapsed = localStorage.getItem(commentId + '-collapsed') === 'true';
+            localStorage.setItem(commentId + '-collapsed', !isCollapsed);
+            renderCommentTree();
+        }
+
+        function addReply(parentId, replyBoxId) {
+            const replyText = document.getElementById(replyBoxId).value.trim();
+            if (replyText) {
+                const newReply = {
+                    id: generateId(),
+                    text: replyText,
+                    replies: []
+                };
+
+                commentsData.forEach(comment => {
+                    if (comment.id === parentId) {
+                        comment.replies.push(newReply);
+                    } else {
+                        comment.replies.forEach(reply => {
+                            if (reply.id === parentId) {
+                                reply.replies.push(newReply);
+                            }
+                        });
+                    }
+                });
+
+                document.getElementById(replyBoxId).value = '';
+                renderCommentTree();
+            }
+        }
+
+        function generateId() {
+            return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        }
+
+        function renderCommentTree() {
+            const commentTreeDiv = document.getElementById('comment-tree');
+            commentTreeDiv.innerHTML = commentsData.map(comment => renderComment(comment)).join('');
+        }
+
+        window.onload = renderCommentTree;
+    </script>
+
+</body>
+</html>

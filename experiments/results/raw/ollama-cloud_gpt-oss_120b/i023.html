@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dynamic Invoice Builder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-5xl p-6">
+    <h1 class="text-3xl font-bold mb-6 text-center">Invoice Builder</h1>
+
+    <div class="overflow-x-auto">
+      <table class="w-full table-auto border-collapse">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="border p-2 text-left">Description</th>
+            <th class="border p-2 w-24">Qty</th>
+            <th class="border p-2 w-32">Unit Price</th>
+            <th class="border p-2 w-32">Amount</th>
+            <th class="border p-2 w-32">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="line-items">
+          <!-- Rows will be injected here -->
+        </tbody>
+      </table>
+    </div>
+
+    <button id="add-line"
+      class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+      Add Line Item
+    </button>
+
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex items-center space-x-2">
+        <span class="font-medium">Subtotal:</span>
+        <span class="font-mono">$<span id="subtotal">0.00</span></span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <label for="tax-rate" class="font-medium">Tax (%):</label>
+        <input type="number" id="tax-rate" value="10" min="0" step="0.01"
+          class="border rounded w-20 text-center py-1">
+      </div>
+      <div class="flex items-center space-x-2">
+        <span class="font-medium">Tax Amount:</span>
+        <span class="font-mono">$<span id="tax-amount">0.00</span></span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <span class="font-medium">Total:</span>
+        <span class="font-mono">$<span id="total">0.00</span></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Utility to format numbers as currency
+    const fmt = (num) => Number(num).toFixed(2);
+
+    // Recalculate totals
+    function recalc() {
+      const rows = document.querySelectorAll('#line-items tr');
+      let subtotal = 0;
+      rows.forEach(row => {
+        const qty = parseFloat(row.querySelector('.qty').value) || 0;
+        const price = parseFloat(row.querySelector('.price').value) || 0;
+        const amount = qty * price;
+        row.querySelector('.amount').textContent = fmt(amount);
+        subtotal += amount;
+      });
+      const taxRate = parseFloat(document.getElementById('tax-rate').value) || 0;
+      const taxAmount = subtotal * taxRate / 100;
+      const total = subtotal + taxAmount;
+
+      document.getElementById('subtotal').textContent = fmt(subtotal);
+      document.getElementById('tax-amount').textContent = fmt(taxAmount);
+      document.getElementById('total').textContent = fmt(total);
+    }
+
+    // Create a new line item row
+    function createRow(data = {}) {
+      const tbody = document.getElementById('line-items');
+      const tr = document.createElement('tr');
+      tr.className = 'border-t';
+
+      tr.innerHTML = `
+        <td class="border p-2">
+          <input type="text" class="w-full border rounded p-1 description" placeholder="Item description"
+            value="${data.description || ''}">
+        </td>
+        <td class="border p-2">
+          <input type="number" min="0" step="1" class="w-full border rounded p-1 qty text-center"
+            value="${data.qty || 1}">
+        </td>
+        <td class="border p-2">
+          <input type="number" min="0" step="0.01" class="w-full border rounded p-1 price text-center"
+            value="${data.price ? fmt(data.price) : '0.00'}">
+        </td>
+        <td class="border p-2 font-mono amount text-right">0.00</td>
+        <td class="border p-2 flex space-x-1 justify-center">
+          <button class="duplicate bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-sm">Duplicate</button>
+          <button class="remove bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-sm">Remove</button>
+        </td>
+      `;
+
+      // Attach listeners
+      tr.querySelectorAll('input').forEach(inp => {
+        inp.addEventListener('input', recalc);
+      });
+      tr.querySelector('.remove').addEventListener('click', () => {
+        tr.remove();
+        recalc();
+      });
+      tr.querySelector('.duplicate').addEventListener('click', () => {
+        const desc = tr.querySelector('.description').value;
+        const qty = tr.querySelector('.qty').value;
+        const price = tr.querySelector('.price').value;
+        createRow({ description: desc, qty, price });
+        recalc();
+      });
+
+      tbody.appendChild(tr);
+      recalc();
+    }
+
+    // Initial row
+    document.addEventListener('DOMContentLoaded', () => {
+      createRow();
+      document.getElementById('add-line').addEventListener('click', () => createRow());
+      document.getElementById('tax-rate').addEventListener('input', recalc);
+    });
+  </script>
+</body>
+</html>

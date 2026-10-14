@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-4xl mx-auto p-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Checkout Form -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold mb-6">Checkout</h2>
+                <form id="checkoutForm">
+                    <!-- Name Field -->
+                    <div class="mb-4">
+                        <label for="name" class="block text-gray-700 font-medium mb-2">Full Name</label>
+                        <input type="text" id="name" name="name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div id="name-error" class="text-red-500 text-sm mt-1 hidden">Name is required</div>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                        <input type="email" id="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div id="email-error" class="text-red-500 text-sm mt-1 hidden">Valid email is required</div>
+                    </div>
+
+                    <!-- Phone Field -->
+                    <div class="mb-4">
+                        <label for="phone" class="block text-gray-700 font-medium mb-2">Phone</label>
+                        <input type="tel" id="phone" name="phone" maxlength="14" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div id="phone-error" class="text-red-500 text-sm mt-1 hidden">Valid phone number is required</div>
+                    </div>
+
+                    <!-- Credit Card Field -->
+                    <div class="mb-4">
+                        <label for="card" class="block text-gray-700 font-medium mb-2">Credit Card</label>
+                        <input type="text" id="card" name="card" maxlength="19" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div id="card-error" class="text-red-500 text-sm mt-1 hidden">Valid card number is required</div>
+                    </div>
+
+                    <!-- Expiry and CVV -->
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label for="expiry" class="block text-gray-700 font-medium mb-2">Expiry Date</label>
+                            <input type="text" id="expiry" name="expiry" placeholder="MM/YY" maxlength="5" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <div id="expiry-error" class="text-red-500 text-sm mt-1 hidden">Valid expiry date required</div>
+                        </div>
+                        <div>
+                            <label for="cvv" class="block text-gray-700 font-medium mb-2">CVV</label>
+                            <input type="text" id="cvv" name="cvv" maxlength="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <div id="cvv-error" class="text-red-500 text-sm mt-1 hidden">CVV required</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200">Complete Purchase</button>
+                </form>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold mb-4">Order Summary</h2>
+                <div class="border-b pb-4 mb-4">
+                    <div class="flex justify-between mb-2">
+                        <span>Product 1</span>
+                        <span>$29.99</span>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span>Product 2</span>
+                        <span>$49.99</span>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span>Product 3</span>
+                        <span>$19.99</span>
+                    </div>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span>Subtotal</span>
+                    <span>$99.97</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span>Shipping</span>
+                    <span>$5.99</span>
+                </div>
+                <div class="flex justify-between mb-4">
+                    <span>Tax</span>
+                    <span>$8.00</span>
+                </div>
+                <div class="flex justify-between font-bold text-lg mb-6">
+                    <span>Total</span>
+                    <span id="total">$113.96</span>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-md">
+                    <h3 class="font-medium mb-2">Payment Details</h3>
+                    <div class="text-sm">
+                        <div class="flex justify-between mb-1">
+                            <span>Card:</span>
+                            <span id="display-card">**** **** **** ****</span>
+                        </div>
+                        <div class="flex justify-between mb-1">
+                            <span>Name:</span>
+                            <span id="display-name">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Phone:</span>
+                            <span id="display-phone">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Input masking and validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('phone');
+            const cardInput = document.getElementById('card');
+            const form = document.getElementById('checkoutForm');
+            const totalElement = document.getElementById('total');
+            const displayCard = document.getElementById('display-card');
+            const displayName = document.getElementById('display-name');
+            const displayPhone = document.getElementById('display-phone');
+
+            // Phone masking
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 10) value = value.substring(0, 10);
+                
+                let formatted = '';
+                if (value.length > 0) {
+                    formatted = '(' + value.substring(0, 3);
+                }
+                if (value.length >= 4) {
+                    formatted += ') ' + value.substring(3, 6);
+                } else if (value.length > 3) {
+                    formatted += ') ' + value.substring(3);
+                }
+                if (value.length >= 7) {
+                    formatted += '-' + value.substring(6, 10);
+                } else if (value.length > 6) {
+                    formatted += '-' + value.substring(6);
+                }
+                
+                e.target.value = formatted;
+                validatePhone(value);
+                displayPhone.textContent = formatted || '-';
+                e.target.dispatchEvent(new Event('change'));
+            });
+
+            // Credit card masking
+            cardInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 16) value = value.substring(0, 16);
+                
+                let formatted = '';
+                for (let i = 0; i < value.length; i++) {
+                    if (i > 0 && i % 4 === 0) formatted += ' ';
+                    formatted += value[i];
+                }
+                
+                e.target.value = formatted;
+                validateCard(value);
+                displayCard.textContent = formatted || '**** **** **** ****';
+                e.target.dispatchEvent(new Event('change'));
+            });
+
+            // Expiry date formatting
+            document.getElementById('expiry').addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 4) value = value.substring(0, 4);
+                
+                if (value.length >= 3) {
+                    value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                }
+                
+                e.target.value = value;
+                validateExpiry(value);
+            });
+
+            // CVV validation
+            document.getElementById('cvv').addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 4) value = value.substring(0, 4);
+                e.target.value = value;
+                validateCvv(value);
+            });
+
+            // Name validation
+            document.getElementById('name').addEventListener('input', function(e) {
+                displayName.textContent = e.target.value || '-';
+                validateName(e.target.value);
+            });
+
+            // Validation functions
+            function validatePhone(value) {
+                const errorElement = document.getElementById('phone-error');
+                if (value.length > 0 && value.length < 10) {
+                    showError(errorElement, 'Phone number must be 10 digits');
+                } else {
+                    hideError(errorElement);
+                }
+            }
+
+            function validateCard(value) {
+                const errorElement = document.getElementById('card-error');
+                if (value.length > 0 && value.length < 16) {
+                    showError(errorElement, 'Card number must be 16 digits');
+                } else {
+                    hideError(errorElement);
+                }
+            }
+
+            function validateExpiry(value) {
+                const errorElement = document.getElementById('expiry-error');
+                if (value.length > 0 && value.length < 5) {
+                    showError(errorElement, 'Enter valid expiry date');
+                } else {
+                    hideError(errorElement);
+                }
+            }
+
+            function validateCvv(value) {
+                const errorElement = document.getElementById('cvv-error');
+                if (value.length > 0 && value.length < 3) {
+                    showError(errorElement, 'CVV must be 3-4 digits');
+                } else {
+                    hideError(errorElement);
+                }
+            }
+
+            function validateName(value) {
+                const errorElement = document.getElementById('name-error');
+                if (value.length > 0 && value.length < 2) {
+                    showError(errorElement, 'Name is too short');
+                } else {
+                    hideError(errorElement);
+                }
+            }
+
+            function validateEmail(value) {
+                const errorElement = document.getElementById('email-error');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (value.length > 0 && !emailRegex.test(value)) {
+                    showError(errorElement, 'Enter a valid email');
+                } else {
+                    hideError(errorElement);
+                }
+            }
+
+            // Error display helpers
+            function showError(element, message) {
+                element.textContent = message;
+                element.classList.remove('hidden');
+            }
+
+            function hideError(element) {
+                element.classList.add('hidden');
+            }
+
+            // Email validation
+            document.getElementById('email').addEventListener('input', function(e) {
+                validateEmail(e.target.value);
+            });
+
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                let isValid = true;
+
+                // Validate all fields
+                const phoneValue = phoneInput.value.replace(/\D/g, '');
+                const cardValue = cardInput.value.replace(/\D/g, '');
+                const nameValue = document.getElementById('name').value;
+                const emailValue = document.getElementById('email').value;
+                const expiryValue = document.getElementById('expiry').value;
+                const cvvValue = document.getElementById('cvv').value;
+
+                if (nameValue.length < 2) {
+                    showError(document.getElementById('name-error'), 'Name is required');
+                    isValid = false;
+                }
+
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
+                    showError(document.getElementById('email-error'), 'Valid email is required');
+                    isValid = false;
+                }
+
+                if (phoneValue.length !== 10) {
+                    showError(document.getElementById('phone-error'), 'Valid phone number is required');
+                    isValid = false;
+                }
+
+                if (cardValue.length !== 16) {
+                    showError(document.getElementById('card-error'), 'Valid card number is required');
+                    isValid = false;
+                }
+
+                if (expiryValue.length !== 5) {
+                    showError(document.getElementById('expiry-error'), 'Valid expiry date required');
+                    isValid = false;
+                }
+
+                if (cvvValue.length < 3) {
+                    showError(document.getElementById('cvv-error'), 'CVV required');
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    alert('Order submitted successfully!');
+                    form.reset();
+                    displayCard.textContent = '**** **** **** ****';
+                    displayName.textContent = '-';
+                    displayPhone.textContent = '-';
+                }
+            });
+
+            // Simulate order total update
+            setInterval(() => {
+                const randomTotal = (Math.random() * 200 + 50).toFixed(2);
+                totalElement.textContent = '$' + randomTotal;
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sortable Todo List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .dragging {
+            opacity: 0.5;
+            background-color: #f3f4f6;
+        }
+        #todo-list {
+            min-height: 200px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-4">
+    <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-2xl font-bold text-center mb-6">Sortable Todo List</h1>
+        
+        <form id="todo-form" class="mb-4">
+            <div class="flex">
+                <input type="text" id="todo-input" placeholder="Add a new task..." class="flex-grow px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Add</button>
+            </div>
+        </form>
+        
+        <ul id="todo-list" class="space-y-2"></ul>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const todoForm = document.getElementById('todo-form');
+            const todoInput = document.getElementById('todo-input');
+            const todoList = document.getElementById('todo-list');
+            let draggedItem = null;
+            
+            // Load todos from localStorage
+            loadTodos();
+            
+            // Set up MutationObserver to watch for changes in the list order
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'childList') {
+                        updatePositions();
+                        saveTodos();
+                    }
+                });
+            });
+            
+            observer.observe(todoList, { childList: true });
+            
+            // Form submission handler
+            todoForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const text = todoInput.value.trim();
+                if (text) {
+                    addTodoItem(text);
+                    todoInput.value = '';
+                    saveTodos();
+                }
+            });
+            
+            // Add a new todo item
+            function addTodoItem(text, position = null) {
+                const li = document.createElement('li');
+                li.className = 'bg-gray-50 p-3 rounded-lg border flex items-center cursor-move';
+                li.setAttribute('draggable', 'true');
+                li.setAttribute('data-position', position !== null ? position : todoList.children.length);
+                
+                const span = document.createElement('span');
+                span.className = 'flex-grow';
+                span.textContent = text;
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'text-red-500 hover:text-red-700 ml-2';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', function() {
+                    li.remove();
+                    saveTodos();
+                });
+                
+                li.appendChild(span);
+                li.appendChild(deleteBtn);
+                
+                // Drag and drop event handlers
+                li.addEventListener('dragstart', function() {
+                    draggedItem = li;
+                    setTimeout(() => li.classList.add('dragging'), 0);
+                });
+                
+                li.addEventListener('dragend', function() {
+                    draggedItem = null;
+                    li.classList.remove('dragging');
+                });
+                
+                li.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                });
+                
+                li.addEventListener('drop', function() {
+                    if (draggedItem && draggedItem !== li) {
+                        const allItems = [...todoList.querySelectorAll('li')];
+                        const draggedIndex = allItems.indexOf(draggedItem);
+                        const targetIndex = allItems.indexOf(li);
+                        
+                        if (draggedIndex < targetIndex) {
+                            todoList.insertBefore(draggedItem, li.nextSibling);
+                        } else {
+                            todoList.insertBefore(draggedItem, li);
+                        }
+                    }
+                });
+                
+                todoList.appendChild(li);
+            }
+            
+            // Update data-position attributes based on DOM order
+            function updatePositions() {
+                const items = todoList.querySelectorAll('li');
+                items.forEach((item, index) => {
+                    item.setAttribute('data-position', index);
+                });
+            }
+            
+            // Save todos to localStorage
+            function saveTodos() {
+                const items = [];
+                todoList.querySelectorAll('li').forEach(item => {
+                    items.push({
+                        text: item.querySelector('span').textContent,
+                        position: parseInt(item.getAttribute('data-position'))
+                    });
+                });
+                
+                localStorage.setItem('sortableTodos', JSON.stringify(items));
+            }
+            
+            // Load todos from localStorage
+            function loadTodos() {
+                const storedTodos = localStorage.getItem('sortableTodos');
+                if (storedTodos) {
+                    const todos = JSON.parse(storedTodos);
+                    
+                    // Sort by position to maintain order
+                    todos.sort((a, b) => a.position - b.position);
+                    
+                    todos.forEach(todo => {
+                        addTodoItem(todo.text, todo.position);
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

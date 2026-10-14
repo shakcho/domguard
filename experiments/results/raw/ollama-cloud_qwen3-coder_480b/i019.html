@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Accordion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-white rounded-lg shadow-lg p-6">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Frequently Asked Questions</h1>
+        <div id="faq-accordion" class="space-y-4">
+            <!-- FAQ items will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // FAQ data
+        const faqs = [
+            {
+                id: "what-is-this",
+                question: "What is this accordion component?",
+                answer: "This is a responsive FAQ accordion that automatically opens the panel matching the URL hash, updates the URL when panels are toggled, and responds to browser back/forward navigation."
+            },
+            {
+                id: "how-does-it-work",
+                question: "How does the URL integration work?",
+                answer: "When a panel is opened, the URL hash updates to match the panel ID. On page load, if there's a hash in the URL, the corresponding panel automatically opens. The browser's back/forward buttons also navigate between opened panels."
+            },
+            {
+                id: "is-it-accessible",
+                question: "Is this accordion accessible?",
+                answer: "Yes! This accordion follows accessibility best practices including proper ARIA attributes, keyboard navigation support, and semantic HTML structure."
+            },
+            {
+                id: "can-i-customize-it",
+                question: "Can I customize the styling?",
+                answer: "Absolutely! This accordion uses Tailwind CSS classes which can be easily modified. You can change colors, spacing, animations, and more by adjusting the utility classes."
+            },
+            {
+                id: "does-it-support-animation",
+                question: "Does it support animations?",
+                answer: "Yes, the accordion panels smoothly expand and collapse with CSS transitions. You can customize the animation duration and easing by modifying the transition classes."
+            }
+        ];
+
+        // Generate FAQ HTML
+        function generateFAQHTML() {
+            const container = document.getElementById('faq-accordion');
+            container.innerHTML = faqs.map(faq => `
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button 
+                        id="button-${faq.id}"
+                        class="w-full flex justify-between items-center p-5 text-left font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+                        aria-expanded="false"
+                        aria-controls="panel-${faq.id}"
+                    >
+                        <span>${faq.question}</span>
+                        <svg class="w-5 h-5 transition-transform duration-300 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div 
+                        id="panel-${faq.id}"
+                        class="transition-all duration-300 ease-in-out overflow-hidden max-h-0"
+                        aria-labelledby="button-${faq.id}"
+                        role="region"
+                    >
+                        <div class="p-5 text-gray-600 bg-white">
+                            ${faq.answer}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Toggle panel visibility
+        function togglePanel(id) {
+            const button = document.getElementById(`button-${id}`);
+            const panel = document.getElementById(`panel-${id}`);
+            const isOpen = button.getAttribute('aria-expanded') === 'true';
+
+            // Update ARIA attributes and classes
+            button.setAttribute('aria-expanded', !isOpen);
+            button.classList.toggle('bg-gray-50');
+            button.classList.toggle('bg-blue-50');
+            
+            // Rotate icon
+            const icon = button.querySelector('svg');
+            icon.classList.toggle('rotate-180');
+
+            // Animate panel
+            if (isOpen) {
+                panel.style.maxHeight = panel.scrollHeight + 'px';
+                setTimeout(() => {
+                    panel.style.maxHeight = '0';
+                }, 10);
+            } else {
+                panel.style.maxHeight = '0';
+                setTimeout(() => {
+                    panel.style.maxHeight = panel.scrollHeight + 'px';
+                }, 10);
+            }
+
+            // Update URL hash
+            if (!isOpen) {
+                history.pushState(null, null, `#${id}`);
+            } else if (window.location.hash.substring(1) === id) {
+                history.pushState(null, null, window.location.pathname);
+            }
+        }
+
+        // Open panel based on URL hash
+        function openPanelFromHash() {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                const faq = faqs.find(item => item.id === hash);
+                if (faq) {
+                    // Close all panels first
+                    faqs.forEach(item => {
+                        const button = document.getElementById(`button-${item.id}`);
+                        if (button.getAttribute('aria-expanded') === 'true') {
+                            togglePanel(item.id);
+                        }
+                    });
+                    // Open the target panel
+                    togglePanel(hash);
+                }
+            }
+        }
+
+        // Initialize the accordion
+        function initAccordion() {
+            generateFAQHTML();
+            
+            // Add click event listeners
+            faqs.forEach(faq => {
+                const button = document.getElementById(`button-${faq.id}`);
+                button.addEventListener('click', () => togglePanel(faq.id));
+            });
+
+            // Handle initial hash
+            openPanelFromHash();
+
+            // Handle hash changes (browser back/forward)
+            window.addEventListener('hashchange', openPanelFromHash);
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initAccordion);
+    </script>
+</body>
+</html>

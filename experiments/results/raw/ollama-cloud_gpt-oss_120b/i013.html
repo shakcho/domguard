@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tag/Chips Input Control</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Hide the default focus outline for the container but keep it for accessibility */
+    #tag-input:focus-visible { outline: none; }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+    <label for="tag-input" class="block text-lg font-medium text-gray-800 mb-2">Tags</label>
+    <div id="tag-input-container" class="flex flex-wrap items-center gap-2 p-2 border border-gray-300 rounded-md focus-within:border-blue-500 transition-colors">
+      <!-- Chips will be inserted here -->
+      <input id="tag-input" type="text" placeholder="Add a tag..." autocomplete="off"
+        class="flex-grow min-w-[120px] focus:outline-none text-gray-800 placeholder-gray-400"/>
+    </div>
+    <input type="hidden" id="tags-hidden" name="tags" />
+    <p class="mt-2 text-sm text-gray-600">Total tags: <span id="tag-count">0</span></p>
+  </div>
+
+  <script>
+    (function() {
+      const container = document.getElementById('tag-input-container');
+      const input = document.getElementById('tag-input');
+      const hidden = document.getElementById('tags-hidden');
+      const countSpan = document.getElementById('tag-count');
+      let tags = [];
+
+      function createChip(label, index) {
+        const chip = document.createElement('span');
+        chip.className = 'flex items-center bg-blue-100 text-blue-800 text-sm rounded px-2 py-1';
+        chip.textContent = label;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.innerHTML = '&times;';
+        btn.className = 'ml-1 text-blue-500 hover:text-blue-700 focus:outline-none';
+        btn.addEventListener('click', () => removeTag(index));
+        chip.appendChild(btn);
+        return chip;
+      }
+
+      function render() {
+        // Remove all chips (keep the input)
+        const existingChips = container.querySelectorAll('span[data-chip]');
+        existingChips.forEach(chip => chip.remove());
+
+        tags.forEach((tag, i) => {
+          const chip = createChip(tag, i);
+          chip.setAttribute('data-chip', '');
+          container.insertBefore(chip, input);
+        });
+
+        hidden.value = tags.join(',');
+        countSpan.textContent = tags.length;
+        hidden.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+
+      function addTag(raw) {
+        const tag = raw.trim();
+        if (tag && !tags.includes(tag)) {
+          tags.push(tag);
+          render();
+        }
+      }
+
+      function removeTag(index) {
+        tags.splice(index, 1);
+        render();
+        input.focus();
+      }
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ',') {
+          e.preventDefault();
+          if (input.value) {
+            addTag(input.value);
+            input.value = '';
+          }
+        } else if (e.key === 'Backspace' && input.value === '' && tags.length) {
+          // Remove last tag
+          removeTag(tags.length - 1);
+        }
+      });
+
+      // Optional: allow pasting a comma‑separated list
+      input.addEventListener('paste', (e) => {
+        const paste = (e.clipboardData || window.clipboardData).getData('text');
+        const parts = paste.split(/[,\n]/).map(p => p.trim()).filter(p => p);
+        if (parts.length) {
+          e.preventDefault();
+          parts.forEach(p => addTag(p));
+        }
+      });
+
+      // Initial render (in case of pre‑filled hidden field)
+      if (hidden.value) {
+        tags = hidden.value.split(',').map(t => t.trim()).filter(t => t);
+        render();
+      }
+    })();
+  </script>
+</body>
+</html>

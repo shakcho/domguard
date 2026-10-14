@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Real-Time Operations Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+@keyframes pulseValue {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+.animate-pulse-value {
+  animation: pulseValue 0.5s ease-in-out;
+}
+</style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-4">
+<h1 class="text-2xl font-bold mb-4">Operations Dashboard</h1>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-5xl">
+  <!-- Requests/sec -->
+  <div class="bg-white rounded shadow p-4 flex flex-col items-center">
+    <span class="text-gray-500">Requests/sec</span>
+    <span id="requestsPerSec" class="text-3xl font-mono mt-2" data-value=""></span>
+  </div>
+  <!-- Error Rate -->
+  <div class="bg-white rounded shadow p-4 flex flex-col items-center">
+    <span class="text-gray-500">Error Rate</span>
+    <span id="errorRate" class="text-3xl font-mono mt-2" data-value=""></span>
+  </div>
+  <!-- Latency -->
+  <div class="bg-white rounded shadow p-4 flex flex-col items-center">
+    <span class="text-gray-500">Latency</span>
+    <span id="latency" class="text-3xl font-mono mt-2" data-value=""></span>
+  </div>
+  <!-- Active Users -->
+  <div class="bg-white rounded shadow p-4 flex flex-col items-center">
+    <span class="text-gray-500">Active Users</span>
+    <span id="activeUsers" class="text-3xl font-mono mt-2" data-value=""></span>
+  </div>
+  <!-- CPU -->
+  <div class="bg-white rounded shadow p-4 flex flex-col items-center">
+    <span class="text-gray-500">CPU Usage</span>
+    <span id="cpu" class="text-3xl font-mono mt-2" data-value=""></span>
+  </div>
+  <!-- Memory -->
+  <div class="bg-white rounded shadow p-4 flex flex-col items-center">
+    <span class="text-gray-500">Memory Usage</span>
+    <span id="memory" class="text-3xl font-mono mt-2" data-value=""></span>
+  </div>
+</div>
+
+<button id="toggleBtn" class="mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+  Pause
+</button>
+
+<script>
+async function getMetrics() {
+  // Simulate network latency
+  await new Promise(r => setTimeout(r, 200));
+  return {
+    requestsPerSec: (Math.random() * 1000).toFixed(0),
+    errorRate: (Math.random() * 5).toFixed(2) + '%',
+    latency: (Math.random() * 500).toFixed(1) + 'ms',
+    activeUsers: (Math.random() * 5000).toFixed(0),
+    cpu: (Math.random() * 100).toFixed(1) + '%',
+    memory: (Math.random() * 32).toFixed(1) + 'GB'
+  };
+}
+
+let intervalId;
+let paused = false;
+
+function startUpdating() {
+  intervalId = setInterval(async () => {
+    const data = await getMetrics();
+    updateCard('requestsPerSec', data.requestsPerSec);
+    updateCard('errorRate', data.errorRate);
+    updateCard('latency', data.latency);
+    updateCard('activeUsers', data.activeUsers);
+    updateCard('cpu', data.cpu);
+    updateCard('memory', data.memory);
+  }, 1000);
+}
+
+function updateCard(id, newValue) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (el.dataset.value !== newValue) {
+    el.dataset.value = newValue;
+    el.textContent = newValue;
+    el.classList.remove('animate-pulse-value');
+    void el.offsetWidth; // trigger reflow
+    el.classList.add('animate-pulse-value');
+  }
+}
+
+document.getElementById('toggleBtn').addEventListener('click', () => {
+  paused = !paused;
+  if (paused) {
+    clearInterval(intervalId);
+    document.getElementById('toggleBtn').textContent = 'Resume';
+  } else {
+    startUpdating();
+    document.getElementById('toggleBtn').textContent = 'Pause';
+  }
+});
+
+startUpdating();
+</script>
+</body>
+</html>

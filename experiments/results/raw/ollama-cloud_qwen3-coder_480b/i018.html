@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaborative Presence Indicator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .avatar-enter {
+            animation: fadeIn 0.3s ease-out;
+        }
+        .avatar-leave {
+            animation: fadeOut 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.8); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-white rounded-xl shadow-lg p-6">
+        <h1 class="text-2xl font-bold text-gray-800 mb-2">Document Collaboration</h1>
+        <p class="text-gray-600 mb-6">Real-time presence indicator showing active collaborators</p>
+        
+        <div class="mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-semibold text-gray-700">Active Users</h2>
+                <span id="user-count" class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">0 online</span>
+            </div>
+            
+            <div id="presence-container" class="flex flex-wrap gap-3 min-h-[60px]">
+                <div class="text-gray-500 italic">Loading presence data...</div>
+            </div>
+        </div>
+        
+        <div class="bg-gray-50 rounded-lg p-4">
+            <h3 class="font-medium text-gray-700 mb-2">How it works</h3>
+            <p class="text-gray-600 text-sm">
+                This demo simulates a real-time presence system. Every 2 seconds, it fetches the current list of active users
+                and animates avatars as users join and leave the document.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Mock user database
+        const userDatabase = [
+            { id: 1, name: "Alex Johnson", color: "bg-red-500" },
+            { id: 2, name: "Taylor Smith", color: "bg-blue-500" },
+            { id: 3, name: "Jordan Williams", color: "bg-green-500" },
+            { id: 4, name: "Morgan Lee", color: "bg-purple-500" },
+            { id: 5, name: "Casey Brown", color: "bg-yellow-500" },
+            { id: 6, name: "Riley Davis", color: "bg-pink-500" }
+        ];
+
+        // Current active users state
+        let activeUsers = [];
+        let previousUsers = [];
+
+        // Mock async function to get presence
+        async function getPresence() {
+            // Simulate network delay
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
+            // Randomly select 1-4 users to be active
+            const count = Math.floor(Math.random() * 4) + 1;
+            const shuffled = [...userDatabase].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
+        }
+
+        // Render presence indicators
+        function renderPresence(users) {
+            const container = document.getElementById('presence-container');
+            const userCount = document.getElementById('user-count');
+            
+            // Update user count
+            userCount.textContent = `${users.length} online`;
+            
+            // Clear container
+            container.innerHTML = '';
+            
+            // Create avatar elements
+            users.forEach(user => {
+                const avatar = document.createElement('div');
+                avatar.className = `relative w-12 h-12 rounded-full flex items-center justify-center text-white font-medium avatar-enter ${user.color}`;
+                avatar.textContent = user.name.charAt(0);
+                avatar.title = user.name;
+                avatar.dataset.userId = user.id;
+                container.appendChild(avatar);
+            });
+        }
+
+        // Animate presence changes
+        function animatePresenceChanges(currentUsers) {
+            const container = document.getElementById('presence-container');
+            
+            // Find users who left
+            const leftUsers = previousUsers.filter(prevUser => 
+                !currentUsers.some(user => user.id === prevUser.id)
+            );
+            
+            // Find users who joined
+            const joinedUsers = currentUsers.filter(user => 
+                !previousUsers.some(prevUser => prevUser.id === user.id)
+            );
+            
+            // Animate leaving users
+            leftUsers.forEach(user => {
+                const avatar = container.querySelector(`[data-user-id="${user.id}"]`);
+                if (avatar) {
+                    avatar.classList.remove('avatar-enter');
+                    avatar.classList.add('avatar-leave');
+                    setTimeout(() => {
+                        if (avatar.parentNode === container) {
+                            container.removeChild(avatar);
+                        }
+                    }, 300);
+                }
+            });
+            
+            // Animate joining users
+            joinedUsers.forEach(user => {
+                const avatar = document.createElement('div');
+                avatar.className = `relative w-12 h-12 rounded-full flex items-center justify-center text-white font-medium avatar-enter ${user.color}`;
+                avatar.textContent = user.name.charAt(0);
+                avatar.title = user.name;
+                avatar.dataset.userId = user.id;
+                container.appendChild(avatar);
+            });
+            
+            // Update previous users
+            previousUsers = [...currentUsers];
+        }
+
+        // Update presence periodically
+        async function updatePresence() {
+            try {
+                const users = await getPresence();
+                activeUsers = users;
+                
+                if (previousUsers.length === 0) {
+                    // Initial render
+                    renderPresence(users);
+                    previousUsers = [...users];
+                } else {
+                    // Animate changes
+                    animatePresenceChanges(users);
+                }
+            } catch (error) {
+                console.error('Error fetching presence:', error);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial update
+            updatePresence();
+            
+            // Update every 2 seconds
+            setInterval(updatePresence, 2000);
+        });
+    </script>
+</body>
+</html>

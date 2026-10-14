@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Scheduling Assistant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+  <!-- Hero Section -->
+  <section class="bg-white py-20">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Meet Your AI Scheduling Assistant</h1>
+      <p class="text-lg md:text-xl text-gray-600 mb-8">
+        Let AI handle meeting coordination, calendar syncing, and reminders so you can focus on what matters.
+      </p>
+      <a href="#pricing" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg transition">
+        Get Started Free
+      </a>
+    </div>
+  </section>
+
+  <!-- Animated Workflow Section -->
+  <section class="py-16 bg-gray-100">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl font-semibold text-center mb-12">How It Works</h2>
+      <div class="grid md:grid-cols-3 gap-8 items-center">
+        <div class="flex flex-col items-center text-center opacity-0" data-anim>
+          <svg class="w-16 h-16 text-indigo-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z"/>
+          </svg>
+          <h3 class="font-medium text-xl mb-2">Connect Calendar</h3>
+          <p class="text-gray-600">Sync Google, Outlook, or iCal in seconds.</p>
+        </div>
+        <div class="flex flex-col items-center text-center opacity-0" data-anim>
+          <svg class="w-16 h-16 text-indigo-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 8v4l3 3m6-6a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <h3 class="font-medium text-xl mb-2">AI Proposes Slots</h3>
+          <p class="text-gray-600">Smart suggestions based on availability.</p>
+        </div>
+        <div class="flex flex-col items-center text-center opacity-0" data-anim>
+          <svg class="w-16 h-16 text-indigo-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 12h6m2 0a2 2 0 002-2V7a2 2 0 00-2-2h-1l-2-3H9L7 5H6a2 2 0 00-2 2v3a2 2 0 002 2h2"/>
+          </svg>
+          <h3 class="font-medium text-xl mb-2">Auto-Confirm & Remind</h3>
+          <p class="text-gray-600">Send confirmations and reminders instantly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integration Logos -->
+  <section class="py-12 bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-2xl font-semibold text-center mb-8">Integrates With</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 items-center justify-items-center">
+        <img src="https://via.placeholder.com/120x40?text=Google+Calendar" alt="Google Calendar" class="h-10 object-contain">
+        <img src="https://via.placeholder.com/120x40?text=Outlook" alt="Outlook" class="h-10 object-contain">
+        <img src="https://via.placeholder.com/120x40?text=iCal" alt="iCal" class="h-10 object-contain">
+        <img src="https://via.placeholder.com/120x40?text=Zoom" alt="Zoom" class="h-10 object-contain">
+        <img src="https://via.placeholder.com/120x40?text=Slack" alt="Slack" class="h-10 object-contain">
+        <img src="https://via.placeholder.com/120x40?text=Microsoft+Teams" alt="Microsoft Teams" class="h-10 object-contain">
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl font-semibold text-center mb-12">Pricing Plans</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Free Plan -->
+        <div class="bg-white rounded-lg shadow-md p-8 flex flex-col">
+          <h3 class="text-xl font-medium mb-4 text-center">Free</h3>
+          <p class="text-4xl font-bold text-center mb-6">$0<span class="text-base font-normal">/mo</span></p>
+          <ul class="flex-1 mb-6 space-y-2">
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Unlimited meetings</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Basic AI suggestions</li>
+            <li class="flex items-center text-gray-400 line-through"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>Priority support</li>
+          </ul>
+          <a href="#" class="mt-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded text-center transition">Start Free</a>
+        </div>
+        <!-- Pro Plan -->
+        <div class="bg-white rounded-lg shadow-xl p-8 flex flex-col border-4 border-indigo-600">
+          <h3 class="text-xl font-medium mb-4 text-center">Pro</h3>
+          <p class="text-4xl font-bold text-center mb-6">$9<span class="text-base font-normal">/mo</span></p>
+          <ul class="flex-1 mb-6 space-y-2">
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>All Free features</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Advanced AI scheduling</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Custom integrations</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Priority email support</li>
+          </ul>
+          <a href="#" class="mt-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded text-center transition">Upgrade Now</a>
+        </div>
+        <!-- Enterprise Plan -->
+        <div class="bg-white rounded-lg shadow-md p-8 flex flex-col">
+          <h3 class="text-xl font-medium mb-4 text-center">Enterprise</h3>
+          <p class="text-4xl font-bold text-center mb-6">Custom<span class="text-base font-normal">/mo</span></p>
+          <ul class="flex-1 mb-6 space-y-2">
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>All Pro features</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Dedicated account manager</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>On‑premise deployment</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>24/7 phone support</li>
+          </ul>
+          <a href="#" class="mt-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded text-center transition">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-16 bg-indigo-600">
+    <div class="max-w-4xl mx-auto px-6 text-center text-white">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Let AI Schedule for You?</h2>
+      <p class="text-lg md:text-xl mb-8">Start your free trial today and experience hassle‑free scheduling.</p>
+      <a href="#" class="inline-block bg-white text-indigo-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition">Start Free Trial</a>
+    </div>
+  </section>
+
+  <script>
+    // Simple scroll-triggered animation for workflow steps
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in-up');
+          entry.target.classList.remove('opacity-0');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('[data-anim]').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding Wizard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl overflow-hidden">
+        <!-- Progress Bar -->
+        <div class="h-2 bg-gray-200">
+            <div id="progress-bar" class="h-full bg-blue-500 transition-all duration-300" style="width: 25%"></div>
+        </div>
+        
+        <!-- Wizard Header -->
+        <div class="p-6 border-b">
+            <h1 class="text-2xl font-bold text-gray-800">Setup Wizard</h1>
+            <p class="text-gray-600">Step <span id="current-step">1</span> of <span id="total-steps">4</span></p>
+        </div>
+        
+        <!-- Wizard Content -->
+        <div class="p-6">
+            <form id="wizard-form">
+                <!-- Step 1: Account Type -->
+                <div class="wizard-step" data-step="1">
+                    <h2 class="text-xl font-semibold mb-4">Account Type</h2>
+                    <div class="space-y-3">
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="account-type" value="individual" class="mr-3 h-5 w-5 text-blue-600">
+                            <div>
+                                <span class="font-medium">Individual</span>
+                                <p class="text-gray-600 text-sm">For personal use</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="account-type" value="business" class="mr-3 h-5 w-5 text-blue-600">
+                            <div>
+                                <span class="font-medium">Business</span>
+                                <p class="text-gray-600 text-sm">For company use</p>
+                            </div>
+                        </label>
+                    </div>
+                    <div id="account-error" class="text-red-500 text-sm mt-2 hidden">Please select an account type</div>
+                </div>
+                
+                <!-- Step 2: Personal Information -->
+                <div class="wizard-step hidden" data-step="2">
+                    <h2 class="text-xl font-semibold mb-4">Personal Information</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-gray-700 mb-1">Full Name</label>
+                            <input type="text" name="full-name" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <div class="text-red-500 text-sm mt-1 hidden" id="name-error">Name is required</div>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-1">Email</label>
+                            <input type="email" name="email" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <div class="text-red-500 text-sm mt-1 hidden" id="email-error">Valid email is required</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Business Information (Conditional) -->
+                <div class="wizard-step hidden" data-step="3">
+                    <h2 class="text-xl font-semibold mb-4">Business Information</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-gray-700 mb-1">Company Name</label>
+                            <input type="text" name="company-name" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <div class="text-red-500 text-sm mt-1 hidden" id="company-error">Company name is required</div>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-1">Industry</label>
+                            <select name="industry" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">Select Industry</option>
+                                <option value="tech">Technology</option>
+                                <option value="finance">Finance</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="education">Education</option>
+                            </select>
+                            <div class="text-red-500 text-sm mt-1 hidden" id="industry-error">Please select an industry</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Preferences -->
+                <div class="wizard-step hidden" data-step="4">
+                    <h2 class="text-xl font-semibold mb-4">Preferences</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-gray-700 mb-1">Newsletter</label>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="newsletter" name="newsletter" class="mr-2 h-5 w-5 text-blue-600">
+                                <label for="newsletter">Subscribe to our newsletter</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-1">Notifications</label>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="notifications" name="notifications" class="mr-2 h-5 w-5 text-blue-600">
+                                <label for="notifications">Enable email notifications</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Wizard Footer -->
+        <div class="p-6 border-t bg-gray-50 flex justify-between">
+            <button id="prev-btn" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                Back
+            </button>
+            <div>
+                <button id="next-btn" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                    Next
+                </button>
+                <button id="finish-btn" class="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 hidden">
+                    Finish
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wizard state
+            const state = {
+                currentStep: 1,
+                totalSteps: 4,
+                accountType: null,
+                formData: {}
+            };
+
+            // DOM Elements
+            const progressBar = document.getElementById('progress-bar');
+            const currentStepEl = document.getElementById('current-step');
+            const totalStepsEl = document.getElementById('total-steps');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishBtn = document.getElementById('finish-btn');
+            const wizardSteps = document.querySelectorAll('.wizard-step');
+            const form = document.getElementById('wizard-form');
+
+            // Initialize
+            totalStepsEl.textContent = state.totalSteps;
+            updateUI();
+
+            // Event Listeners
+            prevBtn.addEventListener('click', goToPreviousStep);
+            nextBtn.addEventListener('click', goToNextStep);
+            finishBtn.addEventListener('click', finishWizard);
+            
+            // Account type selection
+            document.querySelectorAll('input[name="account-type"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    state.accountType = this.value;
+                    updateStepVisibility();
+                });
+            });
+
+            // Form validation
+            form.addEventListener('input', validateCurrentStep);
+            form.addEventListener('change', validateCurrentStep);
+
+            // Functions
+            function updateUI() {
+                // Update step display
+                currentStepEl.textContent = state.currentStep;
+                
+                // Update progress bar
+                const progress = (state.currentStep / state.totalSteps) * 100;
+                progressBar.style.width = `${progress}%`;
+                
+                // Show/hide steps
+                wizardSteps.forEach(step => {
+                    if (parseInt(step.dataset.step) === state.currentStep) {
+                        step.classList.remove('hidden');
+                    } else {
+                        step.classList.add('hidden');
+                    }
+                });
+                
+                // Update button states
+                prevBtn.disabled = state.currentStep === 1;
+                
+                if (state.currentStep === state.totalSteps) {
+                    nextBtn.classList.add('hidden');
+                    finishBtn.classList.remove('hidden');
+                } else {
+                    nextBtn.classList.remove('hidden');
+                    finishBtn.classList.add('hidden');
+                }
+                
+                // Validate current step
+                validateCurrentStep();
+            }
+
+            function updateStepVisibility() {
+                // Adjust total steps based on account type
+                if (state.accountType === 'business') {
+                    state.totalSteps = 4;
+                    // Show business step
+                    document.querySelector('.wizard-step[data-step="3"]').classList.remove('hidden');
+                } else {
+                    state.totalSteps = 3;
+                    // Hide business step
+                    document.querySelector('.wizard-step[data-step="3"]').classList.add('hidden');
+                    
+                    // If we were on the business step, go back
+                    if (state.currentStep === 3) {
+                        state.currentStep = 2;
+                    }
+                }
+                
+                totalStepsEl.textContent = state.totalSteps;
+                updateUI();
+            }
+
+            function goToNextStep() {
+                if (validateCurrentStep()) {
+                    if (state.currentStep < state.totalSteps) {
+                        state.currentStep++;
+                        updateUI();
+                    }
+                }
+            }
+
+            function goToPreviousStep() {
+                if (state.currentStep > 1) {
+                    state.currentStep--;
+                    updateUI();
+                }
+            }
+
+            function validateCurrentStep() {
+                let isValid = true;
+                const currentStepEl = document.querySelector(`.wizard-step[data-step="${state.currentStep}"]`);
+                
+                // Reset error messages
+                document.querySelectorAll('[id$="-error"]').forEach(el => {
+                    el.classList.add('hidden');
+                });
+                
+                // Validate based on current step
+                switch(state.currentStep) {
+                    case 1:
+                        const accountType = document.querySelector('input[name="account-type"]:checked');
+                        if (!accountType) {
+                            document.getElementById('account-error').classList.remove('hidden');
+                            isValid = false;
+                        }
+                        break;
+                        
+                    case 2:
+                        const name = document.querySelector('input[name="full-name"]').value.trim();
+                        const email = document.querySelector('input[name="email"]').value.trim();
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        
+                        if (!name) {
+                            document.getElementById('name-error').classList.remove('hidden');
+                            isValid = false;
+                        }
+                        
+                        if (!email || !emailRegex.test(email)) {
+                            document.getElementById('email-error').classList.remove('hidden');
+                            isValid = false;
+                        }
+                        break;
+                        
+                    case 3:
+                        const companyName = document.querySelector('input[name="company-name"]').value.trim();
+                        const industry = document.querySelector('select[name="industry"]').value;
+                        
+                        if (!companyName) {
+                            document.getElementById('company-error').classList.remove('hidden');
+                            isValid = false;
+                        }
+                        
+                        if (!industry) {
+                            document.getElementById('industry-error').classList.remove('hidden');
+                            isValid = false;
+                        }
+                        break;
+                }
+                
+                // Enable/disable next button based on validation
+                nextBtn.disabled = !isValid;
+                
+                return isValid;
+            }
+
+            function finishWizard() {
+                if (validateCurrentStep()) {
+                    // Collect form data
+                    const formData = new FormData(form);
+                    for (let [key, value] of formData.entries()) {
+                        state.formData[key] = value;
+                    }
+                    
+                    // Show success message
+                    alert('Onboarding completed successfully!');
+                    console.log('Form Data:', state.formData);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

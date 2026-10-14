@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky Header Table</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .sticky-header-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .sticky-header-clone {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            visibility: hidden;
+        }
+        .sticky-header-clone.visible {
+            visibility: visible;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .data-table th, .data-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+            white-space: nowrap;
+        }
+        .data-table th {
+            background-color: #f9fafb;
+            font-weight: 600;
+        }
+        .loading-row td {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-4">
+    <div class="max-w-full mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Data Table with Sticky Header</h1>
+        <div class="sticky-header-container">
+            <div id="stickyHeaderClone" class="sticky-header-clone">
+                <table class="data-table">
+                    <thead id="cloneThead"></thead>
+                </table>
+            </div>
+            <div class="table-container">
+                <table id="dataTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                            <th>Last Login</th>
+                            <th>Department</th>
+                            <th>Location</th>
+                            <th>Projects</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr class="loading-row">
+                            <td colspan="10">Loading data...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const originalTable = document.getElementById('dataTable');
+            const cloneThead = document.getElementById('cloneThead');
+            const stickyHeader = document.getElementById('stickyHeaderClone');
+            const tableBody = document.getElementById('tableBody');
+            const originalThead = originalTable.querySelector('thead');
+            
+            // Clone the header
+            cloneThead.innerHTML = originalThead.innerHTML;
+            
+            // Function to sync column widths
+            function syncColumnWidths() {
+                const originalHeaderCells = originalThead.querySelectorAll('th');
+                const cloneHeaderCells = cloneThead.querySelectorAll('th');
+                
+                originalHeaderCells.forEach((cell, index) => {
+                    if (cloneHeaderCells[index]) {
+                        cloneHeaderCells[index].style.width = `${cell.offsetWidth}px`;
+                        cloneHeaderCells[index].style.minWidth = `${cell.offsetWidth}px`;
+                    }
+                });
+            }
+            
+            // Function to handle scroll sync
+            function syncScroll() {
+                stickyHeader.scrollLeft = originalTable.parentElement.scrollLeft;
+            }
+            
+            // Initial sync
+            syncColumnWidths();
+            
+            // Observe table container scroll
+            originalTable.parentElement.addEventListener('scroll', syncScroll);
+            
+            // Observe window resize to update column widths
+            window.addEventListener('resize', syncColumnWidths);
+            
+            // Observe table mutations (for when new rows are added)
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                        syncColumnWidths();
+                    }
+                });
+            });
+            
+            observer.observe(originalTable, { childList: true, subtree: true });
+            
+            // Intersection Observer to show/hide sticky header
+            const intersectionObserver = new IntersectionObserver(
+                function(entries) {
+                    entries.forEach(entry => {
+                        if (entry.target === originalThead) {
+                            if (entry.intersectionRatio < 1) {
+                                stickyHeader.classList.add('visible');
+                            } else {
+                                stickyHeader.classList.remove('visible');
+                            }
+                        }
+                    });
+                },
+                { threshold: [1], rootMargin: '-1px 0px 0px 0px' }
+            );
+            
+            intersectionObserver.observe(originalThead);
+            
+            // Simulate data loading
+            setTimeout(() => {
+                tableBody.innerHTML = '';
+                for (let i = 1; i <= 50; i++) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${i}</td>
+                        <td>User ${i}</td>
+                        <td>user${i}@example.com</td>
+                        <td>${i % 3 === 0 ? 'Admin' : i % 3 === 1 ? 'Editor' : 'Viewer'}</td>
+                        <td>${i % 4 === 0 ? 'Inactive' : 'Active'}</td>
+                        <td>2023-${(i % 12) + 1}-${(i % 28) + 1}</td>
+                        <td>2024-${(i % 12) + 1}-${(i % 28) + 1}</td>
+                        <td>Dept ${i % 5}</td>
+                        <td>Location ${i % 8}</td>
+                        <td>${i % 3 + 1} projects</td>
+                    `;
+                    tableBody.appendChild(row);
+                }
+                syncColumnWidths();
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

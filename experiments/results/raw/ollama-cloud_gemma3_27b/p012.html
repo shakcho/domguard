@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MealKit - Delicious Meals, Delivered</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <header class="bg-white shadow-md py-4">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <a href="#" class="text-2xl font-bold text-blue-600">MealKit</a>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#pricing" class="hover:text-blue-600">Pricing</a></li>
+                    <li><a href="#menus" class="hover:text-blue-600">Menus</a></li>
+                    <li><a href="#faq" class="hover:text-blue-600">FAQ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-r from-blue-500 to-purple-500 py-20">
+        <div class="container mx-auto px-4 text-center text-white">
+            <h1 class="text-5xl font-bold mb-4">Delicious Meals, Delivered to Your Door</h1>
+            <p class="text-lg mb-8">Fresh ingredients, easy recipes, and convenient delivery. Simplify your life with MealKit!</p>
+            <a href="#" class="bg-white text-blue-600 font-bold py-3 px-6 rounded-full hover:bg-blue-100 hover:text-blue-800">Get Started</a>
+            <img src="https://via.placeholder.com/800x400" alt="Meal Kit" class="mt-8 rounded-lg shadow-lg">
+        </div>
+    </section>
+
+    <section id="pricing" class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Choose Your Plan</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">Basic</h3>
+                    <p class="text-gray-600 mb-4">2 Meals per Week</p>
+                    <p class="text-2xl font-bold text-blue-600">$49.99/week</p>
+                    <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-800">Choose Plan</button>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">Standard</h3>
+                    <p class="text-gray-600 mb-4">4 Meals per Week</p>
+                    <p class="text-2xl font-bold text-blue-600">$79.99/week</p>
+                    <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-800">Choose Plan</button>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">Premium</h3>
+                    <p class="text-gray-600 mb-4">6 Meals per Week</p>
+                    <p class="text-2xl font-bold text-blue-600">$109.99/week</p>
+                    <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-800">Choose Plan</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menus" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Sample Menus</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-4">
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">Lemon Herb Chicken</h3>
+                    <p class="text-gray-600">Served with roasted vegetables and quinoa.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-4">
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">Spicy Shrimp Tacos</h3>
+                    <p class="text-gray-600">With mango salsa and avocado crema.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-4">
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">Vegetarian Pasta Primavera</h3>
+                    <p class="text-gray-600">Fresh seasonal vegetables in a light cream sauce.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Frequently Asked Questions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">How does it work?</h3>
+                    <p class="text-gray-600">Choose your plan, select your meals, and we'll deliver the ingredients to your door.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">Can I skip a week?</h3>
+                    <p class="text-gray-600">Yes, you can easily skip a week from your account settings.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">What if I have dietary restrictions?</h3>
+                    <p class="text-gray-600">We offer a variety of options to accommodate dietary restrictions. Please contact us for more information.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">How is the food packaged?</h3>
+                    <p class="text-gray-600">Our ingredients are carefully packaged to ensure freshness during delivery.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 py-8 text-white text-center">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2023 MealKit. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

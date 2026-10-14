@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">Account Settings</h1>
+
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <form id="settings-form">
+                <div class="mb-4">
+                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                    <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300" value="John Doe">
+                </div>
+
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300" value="john.doe@example.com">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700">Notifications</label>
+                    <label class="inline-flex items-center mt-2">
+                        <input type="checkbox" id="email_notifications" name="email_notifications" class="form-checkbox h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300" checked>
+                        <span class="ml-2">Email Notifications</span>
+                    </label>
+                    <label class="inline-flex items-center mt-2">
+                        <input type="checkbox" id="push_notifications" name="push_notifications" class="form-checkbox h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300">
+                        <span class="ml-2">Push Notifications</span>
+                    </label>
+                </div>
+
+                <div class="mb-4">
+                    <label for="timezone" class="block text-sm font-medium text-gray-700">Timezone</label>
+                    <select id="timezone" name="timezone" class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300">
+                        <option value="UTC">UTC</option>
+                        <option value="America/Los_Angeles" selected>America/Los_Angeles</option>
+                        <option value="Europe/London">Europe/London</option>
+                        <option value="Asia/Tokyo">Asia/Tokyo</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save Settings</button>
+            </form>
+        </div>
+
+        <div class="mt-8 bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-xl font-bold mb-2">Preview</h2>
+            <div id="preview-header" class="text-gray-800">
+                Welcome, John Doe!
+                <span id="preview-timezone"> (America/Los_Angeles)</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function saveSettings(settings) {
+            // Mock save operation - in a real app, this would send data to a server
+            console.log('Saving settings:', settings);
+        }
+
+        const form = document.getElementById('settings-form');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const emailNotificationsCheckbox = document.getElementById('email_notifications');
+        const pushNotificationsCheckbox = document.getElementById('push_notifications');
+        const timezoneSelect = document.getElementById('timezone');
+        const previewHeader = document.getElementById('preview-header');
+        const previewTimezone = document.getElementById('preview-timezone');
+
+        function updatePreview() {
+            const name = nameInput.value;
+            const timezone = timezoneSelect.value;
+
+            previewHeader.textContent = `Welcome, ${name}!`;
+            previewTimezone.textContent = `(${timezone})`;
+        }
+
+        form.addEventListener('input', function(event) {
+            const settings = {
+                name: nameInput.value,
+                email: emailInput.value,
+                email_notifications: emailNotificationsCheckbox.checked,
+                push_notifications: pushNotificationsCheckbox.checked,
+                timezone: timezoneSelect.value
+            };
+
+            saveSettings(settings);
+            updatePreview();
+
+            const event = new CustomEvent('settings:changed', { detail: settings });
+            document.dispatchEvent(event);
+        });
+
+        document.addEventListener('settings:changed', function(event) {
+            // Example listener - could be used by other parts of the page
+            console.log('Settings changed event received:', event.detail);
+        });
+
+        // Initial preview update
+        updatePreview();
+    </script>
+
+</body>
+</html>

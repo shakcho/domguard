@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threaded Discussion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .comment-children {
+            margin-left: 2rem;
+            border-left: 2px solid #e5e7eb;
+            padding-left: 1rem;
+        }
+        .collapsed > .comment-children {
+            display: none;
+        }
+        .reply-form {
+            display: none;
+        }
+        .reply-form.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-6">
+    <div class="max-w-3xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6">Discussion Thread</h1>
+        <div id="comments-container"></div>
+    </div>
+
+    <script>
+        // Sample JSON data structure
+        const commentsData = [
+            {
+                id: 1,
+                author: "John Doe",
+                content: "This is the first comment.",
+                timestamp: "2023-04-01T10:00:00Z",
+                replies: [
+                    {
+                        id: 2,
+                        author: "Jane Smith",
+                        content: "This is a reply to the first comment.",
+                        timestamp: "2023-04-01T11:00:00Z",
+                        replies: [
+                            {
+                                id: 3,
+                                author: "Bob Johnson",
+                                content: "Nested reply here.",
+                                timestamp: "2023-04-01T12:00:00Z",
+                                replies: []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 4,
+                author: "Alice Brown",
+                content: "Another top-level comment.",
+                timestamp: "2023-04-02T09:00:00Z",
+                replies: []
+            }
+        ];
+
+        function renderComments(comments, container, level = 0) {
+            comments.forEach(comment => {
+                const commentElement = document.createElement('div');
+                commentElement.className = `comment mb-4 ${level > 0 ? 'ml-6' : ''}`;
+                commentElement.dataset.id = comment.id;
+                
+                commentElement.innerHTML = `
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-semibold">${comment.author}</h3>
+                                <p class="text-gray-500 text-sm">${new Date(comment.timestamp).toLocaleString()}</p>
+                            </div>
+                            <button class="toggle-btn text-blue-500 text-sm font-medium" data-id="${comment.id}">
+                                -
+                            </button>
+                        </div>
+                        <p class="mt-2">${comment.content}</p>
+                        <button class="reply-btn mt-2 text-blue-500 text-sm font-medium" data-id="${comment.id}">
+                            Reply
+                        </button>
+                        <div class="reply-form mt-3" id="reply-form-${comment.id}">
+                            <textarea class="w-full p-2 border rounded" placeholder="Write your reply..." rows="2"></textarea>
+                            <button class="submit-reply mt-2 bg-blue-500 text-white px-4 py-1 rounded text-sm" data-id="${comment.id}">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                    <div class="comment-children mt-2" id="children-${comment.id}"></div>
+                `;
+                
+                container.appendChild(commentElement);
+                
+                if (comment.replies && comment.replies.length > 0) {
+                    renderComments(comment.replies, commentElement.querySelector(`#children-${comment.id}`), level + 1);
+                }
+            });
+        }
+
+        function attachEventListeners() {
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('toggle-btn')) {
+                    const commentId = e.target.dataset.id;
+                    const childrenContainer = document.getElementById(`children-${commentId}`);
+                    const commentElement = childrenContainer.parentElement;
+                    
+                    if (commentElement.classList.contains('collapsed')) {
+                        commentElement.classList.remove('collapsed');
+                        e.target.textContent = '-';
+                    } else {
+                        commentElement.classList.add('collapsed');
+                        e.target.textContent = '+';
+                    }
+                }
+                
+                if (e.target.classList.contains('reply-btn')) {
+                    const commentId = e.target.dataset.id;
+                    const replyForm = document.getElementById(`reply-form-${commentId}`);
+                    replyForm.classList.toggle('active');
+                }
+                
+                if (e.target.classList.contains('submit-reply')) {
+                    const commentId = e.target.dataset.id;
+                    const textarea = document.querySelector(`#reply-form-${commentId} textarea`);
+                    const content = textarea.value.trim();
+                    
+                    if (content) {
+                        const newReply = {
+                            id: Date.now(),
+                            author: "Current User",
+                            content: content,
+                            timestamp: new Date().toISOString(),
+                            replies: []
+                        };
+                        
+                        const childrenContainer = document.getElementById(`children-${commentId}`);
+                        if (childrenContainer.children.length === 0) {
+                            childrenContainer.innerHTML = '';
+                        }
+                        
+                        const commentElement = document.createElement('div');
+                        commentElement.className = 'comment mb-4';
+                        commentElement.dataset.id = newReply.id;
+                        commentElement.innerHTML = `
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="font-semibold">${newReply.author}</h3>
+                                        <p class="text-gray-500 text-sm">${new Date(newReply.timestamp).toLocaleString()}</p>
+                                    </div>
+                                    <button class="toggle-btn text-blue-500 text-sm font-medium" data-id="${newReply.id}">
+                                        -
+                                    </button>
+                                </div>
+                                <p class="mt-2">${newReply.content}</p>
+                                <button class="reply-btn mt-2 text-blue-500 text-sm font-medium" data-id="${newReply.id}">
+                                    Reply
+                                </button>
+                                <div class="reply-form mt-3" id="reply-form-${newReply.id}">
+                                    <textarea class="w-full p-2 border rounded" placeholder="Write your reply..." rows="2"></textarea>
+                                    <button class="submit-reply mt-2 bg-blue-500 text-white px-4 py-1 rounded text-sm" data-id="${newReply.id}">
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="comment-children mt-2" id="children-${newReply.id}"></div>
+                        `;
+                        
+                        childrenContainer.appendChild(commentElement);
+                        textarea.value = '';
+                        document.getElementById(`reply-form-${commentId}`).classList.remove('active');
+                        
+                        attachEventListeners();
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('comments-container');
+            renderComments(commentsData, container);
+            attachEventListeners();
+        });
+    </script>
+</body>
+</html>

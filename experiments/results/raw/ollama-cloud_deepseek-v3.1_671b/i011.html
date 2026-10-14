@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .active-toc {
+            color: #3b82f6;
+            font-weight: 600;
+            border-left: 2px solid #3b82f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="flex flex-col md:flex-row">
+        <!-- Sidebar TOC -->
+        <div class="w-full md:w-64 bg-white p-6 shadow-md md:h-screen md:sticky md:top-0 md:overflow-y-auto">
+            <h2 class="text-xl font-bold mb-4">Table of Contents</h2>
+            <nav id="toc">
+                <ul class="space-y-2">
+                    <li><a href="#section1" class="toc-link block py-1 px-3 hover:bg-gray-100 transition">Introduction</a></li>
+                    <li><a href="#section2" class="toc-link block py-1 px-3 hover:bg-gray-100 transition">Installation</a></li>
+                    <li><a href="#section3" class="toc-link block py-1 px-3 hover:bg-gray-100 transition">Usage</a></li>
+                    <li><a href="#section4" class="toc-link block py-1 px-3 hover:bg-gray-100 transition">API Reference</a></li>
+                    <li><a href="#section5" class="toc-link block py-1 px-3 hover:bg-gray-100 transition">Examples</a></li>
+                    <li><a href="#section6" class="toc-link block py-1 px-3 hover:bg-gray-100 transition">FAQ</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-8">
+            <section id="section1" class="mb-16">
+                <h1 class="text-3xl font-bold mb-4">Introduction</h1>
+                <p class="text-gray-700">This is the introduction section. It provides an overview of the documentation and what users can expect to learn.</p>
+                <p class="text-gray-700 mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </section>
+
+            <section id="section2" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4">Installation</h2>
+                <p class="text-gray-700">Instructions on how to install the software or library.</p>
+                <pre class="bg-gray-100 p-4 rounded mt-4"><code>npm install package-name</code></pre>
+            </section>
+
+            <section id="section3" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4">Usage</h2>
+                <p class="text-gray-700">How to use the software or library in your projects.</p>
+                <pre class="bg-gray-100 p-4 rounded mt-4"><code>const instance = new Package();</code></pre>
+            </section>
+
+            <section id="section4" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4">API Reference</h2>
+                <p class="text-gray-700">Detailed documentation of all available methods and properties.</p>
+                <div class="mt-4">
+                    <h3 class="text-xl font-semibold">Method: example()</h3>
+                    <p class="text-gray-700">Description of the method.</p>
+                </div>
+            </section>
+
+            <section id="section5" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4">Examples</h2>
+                <p class="text-gray-700">Practical examples demonstrating common use cases.</p>
+                <div class="bg-gray-100 p-4 rounded mt-4">
+                    <p>Example code snippet here.</p>
+                </div>
+            </section>
+
+            <section id="section6" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4">FAQ</h2>
+                <p class="text-gray-700">Frequently asked questions and their answers.</p>
+                <div class="mt-4">
+                    <h3 class="text-xl font-semibold">Q: How do I get started?</h3>
+                    <p class="text-gray-700">A: Follow the installation and usage guides.</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.3
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        tocLinks.forEach(link => {
+                            link.classList.remove('active-toc');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active-toc');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            tocLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

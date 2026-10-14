@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Threaded Discussion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-start pt-10">
+  <div class="max-w-2xl w-full mx-auto bg-white rounded shadow-lg p-6">
+    <h1 class="text-2xl font-bold mb-4">Discussion Thread</h1>
+    <div id="comments"></div>
+  </div>
+
+  <script>
+    // Sample data
+    const commentsData = [
+      {
+        id: 1,
+        author: "Alice",
+        text: "This is the first comment.",
+        children: [
+          {
+            id: 2,
+            author: "Bob",
+            text: "Reply to first comment.",
+            children: [
+              {
+                id: 3,
+                author: "Charlie",
+                text: "Nested reply.",
+                children: []
+              }
+            ]
+          },
+          {
+            id: 4,
+            author: "Dave",
+            text: "Another reply to first comment.",
+            children: []
+          }
+        ]
+      },
+      {
+        id: 5,
+        author: "Eve",
+        text: "Second top‑level comment.",
+        children: []
+      }
+    ];
+
+    let nextId = 6; // for new comments
+
+    // Utility: find comment by id
+    function findComment(comments, id) {
+      for (const c of comments) {
+        if (c.id === id) return c;
+        const child = findComment(c.children, id);
+        if (child) return child;
+      }
+      return null;
+    }
+
+    // Render functions
+    function renderComments(comments, container) {
+      container.innerHTML = "";
+      comments.forEach(comment => {
+        const commentEl = createCommentElement(comment);
+        container.appendChild(commentEl);
+      });
+    }
+
+    function createCommentElement(comment, depth = 0) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "border rounded p-3 mb-2 bg-gray-50";
+      wrapper.style.marginLeft = depth * 1.5 + "rem";
+
+      // Header
+      const header = document.createElement("div");
+      header.className = "flex items-center justify-between mb-1";
+
+      const author = document.createElement("span");
+      author.className = "font-semibold text-gray-800";
+      author.textContent = comment.author;
+
+      const actions = document.createElement("div");
+      actions.className = "flex items-center space-x-2";
+
+      // Collapse/Expand button (if children)
+      if (comment.children && comment.children.length > 0) {
+        const toggleBtn = document.createElement("button");
+        toggleBtn.className = "text-sm text-blue-600 hover:underline";
+        toggleBtn.textContent = "Collapse";
+        toggleBtn.addEventListener("click", () => {
+          const childContainer = wrapper.querySelector(".children");
+          if (childContainer.classList.contains("hidden")) {
+            childContainer.classList.remove("hidden");
+            toggleBtn.textContent = "Collapse";
+          } else {
+            childContainer.classList.add("hidden");
+            toggleBtn.textContent = "Expand";
+          }
+        });
+        actions.appendChild(toggleBtn);
+      }
+
+      // Reply button
+      const replyBtn = document.createElement("button");
+      replyBtn.className = "text-sm text-green-600 hover:underline";
+      replyBtn.textContent = "Reply";
+      replyBtn.addEventListener("click", () => showReplyBox(wrapper, comment.id));
+      actions.appendChild(replyBtn);
+
+      header.appendChild(author);
+      header.appendChild(actions);
+      wrapper.appendChild(header);
+
+      // Body
+      const body = document.createElement("p");
+      body.className = "text-gray-700 mb-2";
+      body.textContent = comment.text;
+      wrapper.appendChild(body);
+
+      // Children container
+      const childrenContainer = document.createElement("div");
+      childrenContainer.className = "children ml-4";
+      if (comment.children && comment.children.length > 0) {
+        comment.children.forEach(child => {
+          const childEl = createCommentElement(child, depth + 1);
+          childrenContainer.appendChild(childEl);
+        });
+      }
+      wrapper.appendChild(childrenContainer);
+
+      return wrapper;
+    }
+
+    // Reply box handling
+    function showReplyBox(parentEl, parentId) {
+      // Prevent multiple boxes
+      if (parentEl.querySelector(".reply-box")) return;
+
+      const box = document.createElement("div");
+      box.className = "reply-box mt-2";
+
+      const textarea = document.createElement("textarea");
+      textarea.className = "w-full border rounded p-2 mb-2";
+      textarea.rows = 3;
+      textarea.placeholder = "Write your reply...";
+
+      const submitBtn = document.createElement("button");
+      submitBtn.className = "bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700";
+      submitBtn.textContent = "Submit";
+
+      const cancelBtn = document.createElement("button");
+      cancelBtn.className = "ml-2 text-gray-600 hover:underline";
+      cancelBtn.textContent = "Cancel";
+
+      submitBtn.addEventListener("click", () => {
+        const text = textarea.value.trim();
+        if (!text) return;
+        const parentComment = findComment(commentsData, parentId);
+        if (!parentComment) return;
+        const newComment = {
+          id: nextId++,
+          author: "You",
+          text: text,
+          children: []
+        };
+        parentComment.children.push(newComment);
+        // Re-render the whole tree (simple)
+        renderComments(commentsData, document.getElementById("comments"));
+      });
+
+      cancelBtn.addEventListener("click", () => {
+        box.remove();
+      });
+
+      box.appendChild(textarea);
+      box.appendChild(submitBtn);
+      box.appendChild(cancelBtn);
+      parentEl.appendChild(box);
+    }
+
+    // Initial render
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("comments");
+      renderComments(commentsData, container);
+    });
+  </script>
+</body>
+</html>

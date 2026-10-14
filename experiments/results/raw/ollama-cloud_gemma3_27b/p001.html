@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MigrateEase - Effortless Database Migrations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <header class="bg-white shadow-md py-4">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <a href="#" class="text-2xl font-bold text-blue-600">MigrateEase</a>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#" class="hover:text-blue-500">Features</a></li>
+                    <li><a href="#" class="hover:text-blue-500">Pricing</a></li>
+                    <li><a href="#" class="hover:text-blue-500">Docs</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-r from-blue-200 to-purple-200 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl font-bold text-blue-800 mb-6">Effortless Database Migrations for Developers</h1>
+            <p class="text-lg text-gray-700 mb-12">MigrateEase simplifies database schema changes, reducing downtime and risk.  Focus on building, not migrating.</p>
+            <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg">Get Started - It's Free!</a>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-bold text-blue-600 mb-2">Schema Versioning</h3>
+                <p class="text-gray-700">Track every change to your database schema with automatic versioning. Rollback to previous versions with ease.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-bold text-blue-600 mb-2">Zero Downtime Deployments</h3>
+                <p class="text-gray-700">Apply migrations without interrupting your application.  Minimize downtime and keep your users happy.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-bold text-blue-600 mb-2">Cross-Database Support</h3>
+                <p class="text-gray-700">Migrate between PostgreSQL, MySQL, SQLite, and more.  MigrateEase handles the complexities for you.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-50 py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold text-blue-800 mb-6">Simple Integration</h2>
+            <p class="text-lg text-gray-700 mb-8">Add MigrateEase to your project in minutes with our easy-to-use API.</p>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <pre class="text-sm font-mono bg-gray-100 p-4 rounded-md overflow-x-auto">
+                    <code>
+npm install migratease
+<br/>
+// Example Migration
+<br/>
+const migratease = require('migratease');
+<br/>
+migratease.up()
+  .then(() => console.log('Migration successful!'))
+  .catch(err => console.error('Migration failed:', err));
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-16">
+        <div class="text-center">
+            <h2 class="text-3xl font-bold text-blue-800 mb-6">Pricing</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Free</h3>
+                    <p class="text-gray-700">For small projects and personal use.</p>
+                    <ul class="list-disc list-inside text-gray-700 mt-4">
+                        <li>Limited Migrations</li>
+                        <li>Community Support</li>
+                    </ul>
+                    <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-6 inline-block">Sign Up</a>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Pro</h3>
+                    <p class="text-gray-700">For growing teams and production environments.</p>
+                    <ul class="list-disc list-inside text-gray-700 mt-4">
+                        <li>Unlimited Migrations</li>
+                        <li>Priority Support</li>
+                        <li>Advanced Features</li>
+                    </ul>
+                    <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-6 inline-block">Get Pro</a>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Enterprise</h3>
+                    <p class="text-gray-700">For large organizations with complex needs.</p>
+                    <ul class="list-disc list-inside text-gray-700 mt-4">
+                        <li>Dedicated Support</li>
+                        <li>Custom Integrations</li>
+                        <li>SLA Guarantees</li>
+                    </ul>
+                    <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-6 inline-block">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 MigrateEase. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

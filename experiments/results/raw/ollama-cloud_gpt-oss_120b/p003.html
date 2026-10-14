@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Observability Platform – B2B Landing Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom scrollbar for modal */
+    .modal::-webkit-scrollbar {
+      width: 8px;
+    }
+    .modal::-webkit-scrollbar-thumb {
+      background-color: rgba(0,0,0,0.2);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased text-gray-800 bg-gray-50">
+
+  <!-- Hero Section -->
+  <section class="bg-white py-16">
+    <div class="container mx-auto px-6 lg:px-12 flex flex-col-reverse lg:flex-row items-center">
+      <div class="w-full lg:w-1/2 mt-8 lg:mt-0">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          Full‑Stack Observability for Modern Enterprises
+        </h1>
+        <p class="text-lg text-gray-600 mb-8">
+          Gain real‑time insights across infrastructure, applications, and user experience. Reduce downtime, improve performance, and make data‑driven decisions with one unified platform.
+        </p>
+        <a href="#demo-modal" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-md transition">
+          Request a Demo
+        </a>
+      </div>
+      <div class="w-full lg:w-1/2 flex justify-center">
+        <img src="https://images.unsplash.com/photo-1581091012184-7e0c9b2c5c5c?auto=format&fit=crop&w=600&q=80" alt="Observability dashboard" class="rounded-lg shadow-lg max-w-full h-auto">
+      </div>
+    </div>
+  </section>
+
+  <!-- Logos Bar -->
+  <section class="bg-gray-100 py-8">
+    <div class="container mx-auto px-6 lg:px-12 flex flex-wrap justify-center items-center gap-6">
+      <img src="https://via.placeholder.com/120x40?text=Logo+1" alt="Customer 1" class="h-10 object-contain">
+      <img src="https://via.placeholder.com/120x40?text=Logo+2" alt="Customer 2" class="h-10 object-contain">
+      <img src="https://via.placeholder.com/120x40?text=Logo+3" alt="Customer 3" class="h-10 object-contain">
+      <img src="https://via.placeholder.com/120x40?text=Logo+4" alt="Customer 4" class="h-10 object-contain">
+      <img src="https://via.placeholder.com/120x40?text=Logo+5" alt="Customer 5" class="h-10 object-contain">
+      <img src="https://via.placeholder.com/120x40?text=Logo+6" alt="Customer 6" class="h-10 object-contain">
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-6 lg:px-12">
+      <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Key Features</h2>
+      <div class="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-md transition">
+          <div class="flex items-center mb-4">
+            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m2 0a2 2 0 100-4 2 2 0 000 4zm-8 0a2 2 0 100-4 2 2 0 000 4z"/></svg>
+            <h3 class="ml-3 text-xl font-semibold text-gray-800">Unified Dashboard</h3>
+          </div>
+          <p class="text-gray-600">One view for logs, metrics, traces, and real‑user monitoring.</p>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-md transition">
+          <div class="flex items-center mb-4">
+            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <h3 class="ml-3 text-xl font-semibold text-gray-800">AI‑Powered Alerts</h3>
+          </div>
+          <p class="text-gray-600">Detect anomalies before they impact users.</p>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-md transition">
+          <div class="flex items-center mb-4">
+            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c-4.418 0-8 1.79-8 4v2h16v-2c0-2.21-3.582-4-8-4z"/></svg>
+            <h3 class="ml-3 text-xl font-semibold text-gray-800">Scalable Architecture</h3>
+          </div>
+          <p class="text-gray-600">Handles millions of events per second.</p>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-md transition">
+          <div class="flex items-center mb-4">
+            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"/></svg>
+            <h3 class="ml-3 text-xl font-semibold text-gray-800">Custom Dashboards</h3>
+          </div>
+          <p class="text-gray-600">Drag‑and‑drop widgets to fit your workflow.</p>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-md transition">
+          <div class="flex items-center mb-4">
+            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7 5h10a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg>
+            <h3 class="ml-3 text-xl font-semibold text-gray-800">Secure Data</h3>
+          </div>
+          <p class="text-gray-600">End‑to‑end encryption and role‑based access.</p>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-lg shadow hover:shadow-md transition">
+          <div class="flex items-center mb-4">
+            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c-4.418 0-8 1.79-8 4v2h16v-2c0-2.21-3.582-4-8-4z"/></svg>
+            <h3 class="ml-3 text-xl font-semibold text-gray-800">API & Integrations</h3>
+          </div>
+          <p class="text-gray-600">Connect with Slack, PagerDuty, AWS, and more.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-6 lg:px-12 text-center">
+      <h2 class="text-3xl font-bold text-gray-900 mb-12">How It Works</h2>
+      <div class="grid gap-12 md:grid-cols-2">
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 bg-indigo-600 text-white rounded-full flex items-center justify-center mb-4">
+            <span class="text-xl font-bold">1</span>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">Collect Data</h3>
+          <p class="text-gray-600 max-w-md">
+            Install lightweight agents or use native integrations to gather logs, metrics, traces, and user‑experience data from every layer of your stack.
+          </p>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 bg-indigo-600 text-white rounded-full flex items-center justify-center mb-4">
+            <span class="text-xl font-bold">2</span>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">Analyze & Act</h3>
+          <p class="text-gray-600 max-w-md">
+            Our AI engine correlates signals, surfaces root causes, and triggers automated remediation workflows—all from a single console.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-6 lg:px-12 max-w-3xl">
+      <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Frequently Asked Questions</h2>
+      <div id="faq" class="space-y-4">
+        <div class="border-b pb-4">
+          <button class="w-full text-left flex justify-between items-center text-gray-800 font-medium focus:outline-none" data-faq-toggle>
+            <span>What data sources does the platform support?</span>
+            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="mt-2 text-gray-600 hidden" data-faq-content>
+            We support over 150 integrations including AWS, Azure, GCP, Kubernetes, Docker, popular databases, and custom agents via OpenTelemetry.
+          </div>
+        </div>
+        <div class="border-b pb-4">
+          <button class="w-full text-left flex justify-between items-center text-gray-800 font-medium focus:outline-none" data-faq-toggle>
+            <span>Is the platform compliant with security standards?</span>
+            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="mt-2 text-gray-600 hidden" data-faq-content>
+            Yes. We are ISO 27001, SOC 2 Type II, GDPR, and HIPAA compliant. All data is encrypted at rest and in transit.
+          </div>
+        </div>
+        <div class="border-b pb-4">
+          <button class="w-full text-left flex justify-between items-center text-gray-800 font-medium focus:outline-none" data-faq-toggle>
+            <span>Can I try the platform before purchasing?</span>
+            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="mt-2 text-gray-600 hidden" data-faq-content>
+            Absolutely! Sign up for a 14‑day free trial with no credit card required.
+          </div>
+        </div>
+        <div class="border-b pb-4">
+          <button class="w-full text-left flex justify-between items-center text-gray-800 font-medium focus:outline-none" data-faq-toggle>
+            <span>How does pricing work?</span>
+            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="mt-2 text-gray-600 hidden" data-faq-content>
+            Pricing is usage‑based, calculated on the volume of data ingested and the number of monitored services. Contact sales for a custom quote.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo CTA -->
+  <section class="py-20 bg-indigo-600 text-white text-center">
+    <h2 class="text-3xl font-bold mb-6">Ready to See It in Action?</h2>
+    <p class="mb-8 max-w-2xl mx-auto">
+      Book a personalized demo and discover how our observability platform can transform your operations.
+    </p>
+    <a href="#demo-modal" class="inline-block bg-white text-indigo-600 font-medium py-3 px-8 rounded-md hover:bg-gray-100 transition">
+      Schedule a Demo
+    </a>
+  </section>
+
+  <!-- Demo Modal -->
+  <div id="demo-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-lg w-full max-w-md mx-4 p-6 relative modal overflow-y-auto max-h-screen">
+      <button class="absolute top-3 right-3 text-gray-500 hover:text-gray-700" id="close-modal">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <h3 class="text-2xl font-bold text-gray-800 mb-4">Request a Demo</h3>
+      <form id="demo-form" class="space-y-4">
+        <div>
+          <label class="block text-gray-700 mb-1" for="name">Full Name</label>
+          <input type="text" id="name" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div>
+          <label class="block text-gray-700 mb-1" for="email">Work Email</label>
+          <input type="email" id="email" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div>
+          <label class="block text-gray-700 mb-1" for="company">Company</label>
+          <input type="text" id="company" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div>
+          <label class="block text-gray-700 mb-1" for="phone">Phone (optional)</label>
+          <input type="tel" id="phone" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 rounded-md transition">
+          Submit Request
+        </button>
+      </form>
+      <p id="form-message" class="mt-4 text-center text-green-600 hidden">Thank you! We'll be in touch soon.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-300 py-8">
+    <div class="container mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-sm">&copy; 2026 Observability Corp. All rights reserved.</p>
+      <div class="flex space-x-4 mt-4 md:mt-0">
+        <a href="#" class="hover:text-white">Privacy Policy</a>
+        <a href="#" class="hover:text-white">Terms of Service</a>
+        <a href="#" class="hover:text-white">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('[data-faq-toggle]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const content = btn.nextElementSibling;
+        const icon = btn.querySelector('svg');
+        const isOpen = !content.classList.contains('hidden');
+        content.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180', !isOpen);
+      });
+    });
+
+    // Modal handling
+    const modal = document.getElementById('demo-modal');
+    const openLinks = document.querySelectorAll('a[href="#demo-modal"]');
+    const closeBtn = document.getElementById('close-modal');
+
+    openLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        modal.classList.remove('hidden');
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+
+    // Close modal on outside click
+    modal.addEventListener('click', e => {
+      if (e.target === modal) modal.classList.add('hidden');
+    });
+
+    // Demo form submission (mock)
+    const demoForm = document.getElementById('demo-form');
+    const formMessage = document.getElementById('form-message');
+
+    demoForm.addEventListener('submit', e => {
+      e.preventDefault();
+      // Simulate async request
+      setTimeout(() => {
+        demoForm.reset();
+        formMessage.classList.remove('hidden');
+        setTimeout(() => {
+          formMessage.classList.add('hidden');
+          modal.classList.add('hidden');
+        }, 3000);
+      }, 500);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshBite - Meal Kits Delivered</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="font-sans">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-green-500 to-emerald-600 text-white">
+        <div class="container mx-auto px-4 py-20 md:py-28 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Fresh, Healthy Meals Delivered to Your Door</h1>
+                <p class="text-xl mb-8">Skip the grocery store and cooking stress. Our chef-designed meal kits make healthy eating simple and delicious.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button class="bg-white text-green-600 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-100 transition duration-300">Get Started</button>
+                    <button class="border-2 border-white text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-white hover:text-green-600 transition duration-300">View Plans</button>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-96 flex items-center justify-center text-gray-500">
+                    <i class="fas fa-utensils text-6xl"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Choose Your Plan</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Basic Plan -->
+                <div class="bg-white rounded-xl shadow-lg p-8 border-2 border-gray-100 hover:border-green-400 transition duration-300">
+                    <h3 class="text-2xl font-bold mb-4">Starter</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold">$9.99</span>
+                        <span class="text-gray-600">/meal</span>
+                    </div>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> 5 meals per week</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Vegetarian options</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Easy recipes</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Free shipping</li>
+                    </ul>
+                    <button class="w-full bg-gray-200 text-gray-800 font-bold py-3 rounded-lg hover:bg-gray-300 transition duration-300">Select Plan</button>
+                </div>
+
+                <!-- Popular Plan -->
+                <div class="bg-white rounded-xl shadow-xl p-8 border-2 border-green-500 relative transform md:-translate-y-4">
+                    <div class="absolute top-0 right-0 bg-green-500 text-white px-4 py-1 rounded-bl-lg rounded-tr-lg font-bold">POPULAR</div>
+                    <h3 class="text-2xl font-bold mb-4">Family</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold">$8.99</span>
+                        <span class="text-gray-600">/meal</span>
+                    </div>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> 10 meals per week</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Family-sized portions</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> 2 dietary preferences</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Free shipping</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Dessert included</li>
+                    </ul>
+                    <button class="w-full bg-green-500 text-white font-bold py-3 rounded-lg hover:bg-green-600 transition duration-300">Select Plan</button>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="bg-white rounded-xl shadow-lg p-8 border-2 border-gray-100 hover:border-green-400 transition duration-300">
+                    <h3 class="text-2xl font-bold mb-4">Gourmet</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold">$12.99</span>
+                        <span class="text-gray-600">/meal</span>
+                    </div>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> 7 meals per week</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Premium ingredients</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Gourmet recipes</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Free shipping</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Wine pairing option</li>
+                    </ul>
+                    <button class="w-full bg-gray-200 text-gray-800 font-bold py-3 rounded-lg hover:bg-gray-300 transition duration-300">Select Plan</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sample Menus -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Sample Menu</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="bg-gray-200 h-48 flex items-center justify-center">
+                        <i class="fas fa-utensils text-4xl text-gray-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Mediterranean Quinoa Bowl</h3>
+                        <p class="text-gray-600 mb-4">With roasted vegetables, feta, and lemon-tahini dressing</p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Vegetarian</span>
+                            <span class="font-bold">420 cal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="bg-gray-200 h-48 flex items-center justify-center">
+                        <i class="fas fa-utensils text-4xl text-gray-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Herb-Crusted Salmon</h3>
+                        <p class="text-gray-600 mb-4">With roasted asparagus and wild rice pilaf</p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Pescatarian</span>
+                            <span class="font-bold">510 cal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="bg-gray-200 h-48 flex items-center justify-center">
+                        <i class="fas fa-utensils text-4xl text-gray-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Beef & Broccoli Stir Fry</h3>
+                        <p class="text-gray-600 mb-4">Tender beef with crisp broccoli in ginger soy sauce</p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">High Protein</span>
+                            <span class="font-bold">480 cal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Frequently Asked Questions</h2>
+            <div class="space-y-6">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-6 text-left font-bold text-lg">
+                        <span>How does the subscription work?</span>
+                        <i class="fas fa-chevron-down text-green-500"></i>
+                    </button>
+                    <div class="px-6 pb-6 text-gray-600">
+                        <p>Simply choose your plan, select your preferences, and we'll deliver fresh ingredients and easy-to-follow recipes to your door every week. You can skip weeks or cancel anytime.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-6 text-left font-bold text-lg">
+                        <span>What ingredients do you use?</span>
+                        <i class="fas fa-chevron-down text-green-500"></i>
+                    </button>
+                    <div class="px-6 pb-6 text-gray-600">
+                        <p>We source high-quality, fresh ingredients from local farms when possible. All our produce is organic, and our proteins are antibiotic-free and sustainably raised.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-6 text-left font-bold text-lg">
+                        <span>How long do meals last?</span>
+                        <i class="fas fa-chevron-down text-green-500"></i>
+                    </button>
+                    <div class="px-6 pb-6 text-gray-600">
+                        <p>Our ingredients are delivered fresh and should be used within 5 days. Each meal kit comes with a "best by" date to ensure optimal freshness and taste.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-6 text-left font-bold text-lg">
+                        <span>Can I customize my meals?</span>
+                        <i class="fas fa-chevron-down text-green-500"></i>
+                    </button>
+                    <div class="px-6 pb-6 text-gray-600">
+                        <p>Yes! You can choose from various dietary preferences including vegetarian, vegan, gluten-free, and more. You can also swap out meals each week through your account dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-green-500 to-emerald-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Cooking?</h2>
+            <p class="text-xl mb-10 max-w-2xl mx-auto">Join thousands of happy customers enjoying delicious, healthy meals made simple.</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <button class="bg-white text-green-600 font-bold py-4 px-10 rounded-full text-lg hover:bg-gray-100 transition duration-300">Get Started Now</button>
+                <button class="border-2 border-white text-white font-bold py-4 px-10 rounded-full text-lg hover:bg-white hover:text-green-600 transition duration-300">View Sample Menu</button>
+            </div>
+            <p class="mt-8 text-green-100">No commitment. Skip or cancel anytime.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">FreshBite</h3>
+                    <p class="text-gray-400">Delivering fresh, healthy meals to your door since 2018.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition">Press</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Contact</a></li>
+                        <li><a href="#" class="hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white transition">Shipping</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Terms</a></li>
+                        <li><a href="#" class="hover:text-white transition">Privacy</a></li>
+                        <li><a href="#" class="hover:text-white transition">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-10 pt-6 text-center text-gray-500">
+                <p>&copy; 2023 FreshBite. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple FAQ toggle functionality
+        document.querySelectorAll('section.py-20.bg-gray-50 .bg-white button').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                } else {
+                    content.style.display = 'block';
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+            });
+        });
+
+        // Initialize first FAQ open
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstContent = document.querySelector('section.py-20.bg-gray-50 .bg-white div');
+            const firstIcon = document.querySelector('section.py-20.bg-gray-50 .bg-white button i');
+            if (firstContent) {
+                firstContent.style.display = 'block';
+                firstIcon.classList.remove('fa-chevron-down');
+                firstIcon.classList.add('fa-chevron-up');
+            }
+        });
+    </script>
+</body>
+</html>

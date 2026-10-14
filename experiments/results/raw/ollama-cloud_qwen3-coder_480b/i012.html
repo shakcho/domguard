@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Sale Countdown</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .timer-box {
+            transition: all 0.3s ease;
+        }
+        .pulse {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-900 to-indigo-800 min-h-screen text-white">
+    <div class="container mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">FLASH SALE</h1>
+            <p class="text-xl md:text-2xl text-purple-200">Limited time offer - Don't miss out!</p>
+        </div>
+
+        <!-- Countdown Timer -->
+        <div class="max-w-4xl mx-auto bg-white/10 backdrop-blur-lg rounded-2xl p-8 mb-12">
+            <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Sale Ends In:</h2>
+            <div class="flex justify-center space-x-2 md:space-x-4">
+                <div class="timer-box bg-indigo-700 rounded-lg p-4 md:p-6 text-center flex flex-col items-center w-16 md:w-24">
+                    <div id="days" class="text-2xl md:text-4xl font-bold">00</div>
+                    <div class="text-xs md:text-sm mt-2 uppercase">Days</div>
+                </div>
+                <div class="timer-box bg-indigo-700 rounded-lg p-4 md:p-6 text-center flex flex-col items-center w-16 md:w-24">
+                    <div id="hours" class="text-2xl md:text-4xl font-bold">00</div>
+                    <div class="text-xs md:text-sm mt-2 uppercase">Hours</div>
+                </div>
+                <div class="timer-box bg-indigo-700 rounded-lg p-4 md:p-6 text-center flex flex-col items-center w-16 md:w-24">
+                    <div id="minutes" class="text-2xl md:text-4xl font-bold">00</div>
+                    <div class="text-xs md:text-sm mt-2 uppercase">Minutes</div>
+                </div>
+                <div class="timer-box bg-indigo-700 rounded-lg p-4 md:p-6 text-center flex flex-col items-center w-16 md:w-24">
+                    <div id="seconds" class="text-2xl md:text-4xl font-bold">00</div>
+                    <div class="text-xs md:text-sm mt-2 uppercase">Seconds</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Price Badges -->
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div id="badge1" class="bg-gradient-to-r from-red-500 to-orange-500 rounded-xl p-6 text-center transform transition hover:scale-105">
+                <div class="text-sm font-semibold mb-2">Tier 1</div>
+                <div class="text-3xl font-bold mb-2">50% OFF</div>
+                <div class="text-lg">Only <span id="count1" class="font-bold">100</span> left!</div>
+            </div>
+            <div id="badge2" class="bg-gradient-to-r from-yellow-500 to-amber-500 rounded-xl p-6 text-center transform transition hover:scale-105">
+                <div class="text-sm font-semibold mb-2">Tier 2</div>
+                <div class="text-3xl font-bold mb-2">40% OFF</div>
+                <div class="text-lg">Only <span id="count2" class="font-bold">250</span> left!</div>
+            </div>
+            <div id="badge3" class="bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl p-6 text-center transform transition hover:scale-105">
+                <div class="text-sm font-semibold mb-2">Tier 3</div>
+                <div class="text-3xl font-bold mb-2">30% OFF</div>
+                <div class="text-lg">Only <span id="count3" class="font-bold">500</span> left!</div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="max-w-2xl mx-auto text-center">
+            <button class="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-4 px-8 rounded-full text-xl transition transform hover:scale-105">
+                Shop Now Before It's Gone!
+            </button>
+            <p class="mt-6 text-purple-200">Offer ends when timer hits zero. Limited quantities available.</p>
+        </div>
+    </div>
+
+    <script>
+        // Set flash sale end time (24 hours from now)
+        const saleEndTime = new Date();
+        saleEndTime.setHours(saleEndTime.getHours() + 24);
+
+        // Price thresholds (in seconds remaining)
+        const thresholds = [
+            { time: 12 * 60 * 60, count1: 100, count2: 250, count3: 500 }, // 12 hours
+            { time: 6 * 60 * 60, count1: 50, count2: 150, count3: 300 },   // 6 hours
+            { time: 1 * 60 * 60, count1: 10, count2: 50, count3: 100 }     // 1 hour
+        ];
+
+        // DOM elements
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        const count1El = document.getElementById('count1');
+        const count2El = document.getElementById('count2');
+        const count3El = document.getElementById('count3');
+        const badge1El = document.getElementById('badge1');
+        const badge2El = document.getElementById('badge2');
+        const badge3El = document.getElementById('badge3');
+
+        // Update countdown timer
+        function updateCountdown() {
+            const now = new Date();
+            const diff = saleEndTime - now;
+            
+            if (diff <= 0) {
+                // Sale ended
+                daysEl.textContent = '00';
+                hoursEl.textContent = '00';
+                minutesEl.textContent = '00';
+                secondsEl.textContent = '00';
+                return;
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            daysEl.textContent = days.toString().padStart(2, '0');
+            hoursEl.textContent = hours.toString().padStart(2, '0');
+            minutesEl.textContent = minutes.toString().padStart(2, '0');
+            secondsEl.textContent = seconds.toString().padStart(2, '0');
+            
+            // Apply pulse animation to last 10 seconds
+            if (diff < 10000) {
+                document.querySelectorAll('.timer-box').forEach(box => {
+                    box.classList.add('pulse');
+                });
+            }
+        }
+
+        // Update price badges based on time remaining
+        function updatePriceBadges() {
+            const now = new Date();
+            const diffSeconds = Math.floor((saleEndTime - now) / 1000);
+            
+            // Find current threshold
+            let currentThreshold = thresholds[0];
+            for (const threshold of thresholds) {
+                if (diffSeconds <= threshold.time) {
+                    currentThreshold = threshold;
+                }
+            }
+            
+            // Update counts
+            count1El.textContent = currentThreshold.count1;
+            count2El.textContent = currentThreshold.count2;
+            count3El.textContent = currentThreshold.count3;
+            
+            // Add visual feedback when thresholds change
+            badge1El.classList.add('pulse');
+            badge2El.classList.add('pulse');
+            badge3El.classList.add('pulse');
+            
+            setTimeout(() => {
+                badge1El.classList.remove('pulse');
+                badge2El.classList.remove('pulse');
+                badge3El.classList.remove('pulse');
+            }, 1000);
+        }
+
+        // Initial update
+        updateCountdown();
+        updatePriceBadges();
+        
+        // Update every second
+        setInterval(() => {
+            updateCountdown();
+            const now = new Date();
+            const diffSeconds = Math.floor((saleEndTime - now) / 1000);
+            
+            // Check if we crossed a threshold
+            const prevDiff = diffSeconds + 1;
+            let crossedThreshold = false;
+            
+            for (const threshold of thresholds) {
+                if ((prevDiff > threshold.time && diffSeconds <= threshold.time)) {
+                    crossedThreshold = true;
+                    break;
+                }
+            }
+            
+            if (crossedThreshold) {
+                updatePriceBadges();
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

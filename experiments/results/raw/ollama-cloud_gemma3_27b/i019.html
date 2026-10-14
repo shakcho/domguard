@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold mb-6 text-center">Frequently Asked Questions</h1>
+
+        <div id="faq-accordion">
+            
+            <div class="mb-4 rounded-lg overflow-hidden shadow-md">
+                <button class="flex items-center justify-between w-full px-6 py-4 text-left bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200" data-faq-target="faq1">
+                    What is your return policy?
+                    <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2H7"></path>
+                    </svg>
+                </button>
+                <div id="faq1" class="hidden p-6 bg-gray-50">
+                    <p>Our return policy allows for returns within 30 days of purchase. Items must be unused and in their original packaging.</p>
+                </div>
+            </div>
+
+            <div class="mb-4 rounded-lg overflow-hidden shadow-md">
+                <button class="flex items-center justify-between w-full px-6 py-4 text-left bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200" data-faq-target="faq2">
+                    How do I track my order?
+                    <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2H7"></path>
+                    </svg>
+                </button>
+                <div id="faq2" class="hidden p-6 bg-gray-50">
+                    <p>You can track your order by visiting our website and entering your order number and email address.</p>
+                </div>
+            </div>
+
+            <div class="mb-4 rounded-lg overflow-hidden shadow-md">
+                <button class="flex items-center justify-between w-full px-6 py-4 text-left bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200" data-faq-target="faq3">
+                    What payment methods do you accept?
+                    <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2H7"></path>
+                    </svg>
+                </button>
+                <div id="faq3" class="hidden p-6 bg-gray-50">
+                    <p>We accept all major credit cards, PayPal, and Apple Pay.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqButtons = document.querySelectorAll('[data-faq-target]');
+            const faqPanels = document.querySelectorAll('[id^="faq"]');
+
+            function togglePanel(targetId) {
+                const panel = document.getElementById(targetId);
+                if (panel) {
+                    panel.classList.toggle('hidden');
+                    const button = document.querySelector(`[data-faq-target="${targetId}"]`);
+                    if (button) {
+                        const svg = button.querySelector('svg');
+                        if (svg) {
+                            svg.setAttribute('aria-expanded', panel.classList.contains('hidden') ? 'false' : 'true');
+                            svg.querySelector('path').setAttribute('d', panel.classList.contains('hidden') ? 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2H7' : 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2H7');
+                        }
+                    }
+                    window.location.hash = targetId;
+                }
+            }
+
+            faqButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    togglePanel(this.dataset.faqTarget);
+                });
+            });
+
+            window.addEventListener('hashchange', function() {
+                const hash = window.location.hash.substring(1);
+                if (hash) {
+                    togglePanel(hash);
+                } else {
+                    faqPanels.forEach(panel => {
+                        panel.classList.add('hidden');
+                    });
+                }
+            });
+
+            // Initial state based on hash
+            const initialHash = window.location.hash.substring(1);
+            if (initialHash) {
+                togglePanel(initialHash);
+            } else {
+                faqPanels.forEach(panel => {
+                    panel.classList.add('hidden');
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

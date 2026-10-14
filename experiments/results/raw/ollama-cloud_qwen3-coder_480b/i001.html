@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Activity Feed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Social Activity Feed</h1>
+        
+        <div id="feed" class="space-y-6">
+            <!-- Posts will be inserted here -->
+        </div>
+        
+        <div id="spinner" class="hidden flex justify-center my-8">
+            <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
+    </div>
+
+    <script>
+        // Mock data generator
+        const generatePosts = (start, count) => {
+            return Array.from({ length: count }, (_, i) => ({
+                id: start + i,
+                user: {
+                    name: `User ${start + i}`,
+                    avatar: `https://i.pravatar.cc/150?img=${(start + i) % 70 + 1}`
+                },
+                content: `This is post #${start + i}. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
+                timestamp: new Date(Date.now() - Math.floor(Math.random() * 10000000000)).toISOString(),
+                likes: Math.floor(Math.random() * 100),
+                comments: Math.floor(Math.random() * 50)
+            }));
+        };
+
+        // Mock API call
+        const fetchPosts = (start, count) => {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(generatePosts(start, count));
+                }, 1000); // Simulate network delay
+            });
+        };
+
+        // Format date
+        const formatDate = (dateString) => {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        };
+
+        // Render a single post
+        const renderPost = (post) => {
+            return `
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <img class="w-10 h-10 rounded-full mr-3" src="${post.user.avatar}" alt="${post.user.name}">
+                            <div>
+                                <h3 class="font-semibold text-gray-800">${post.user.name}</h3>
+                                <p class="text-xs text-gray-500">${formatDate(post.timestamp)}</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">${post.content}</p>
+                        <div class="flex text-gray-500">
+                            <button class="flex items-center mr-4 hover:text-red-500">
+                                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                </svg>
+                                <span>${post.likes}</span>
+                            </button>
+                            <button class="flex items-center hover:text-blue-500">
+                                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                </svg>
+                                <span>${post.comments}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        };
+
+        // State
+        let isLoading = false;
+        let currentPostCount = 0;
+        const batchSize = 20;
+
+        // Load posts
+        const loadPosts = async () => {
+            if (isLoading) return;
+            
+            isLoading = true;
+            document.getElementById('spinner').classList.remove('hidden');
+            
+            try {
+                const newPosts = await fetchPosts(currentPostCount, batchSize);
+                const feed = document.getElementById('feed');
+                
+                newPosts.forEach(post => {
+                    const postElement = document.createElement('div');
+                    postElement.innerHTML = renderPost(post);
+                    feed.appendChild(postElement);
+                });
+                
+                currentPostCount += batchSize;
+            } catch (error) {
+                console.error('Error loading posts:', error);
+            } finally {
+                isLoading = false;
+                document.getElementById('spinner').classList.add('hidden');
+            }
+        };
+
+        // Check if we need to load more posts
+        const handleScroll = () => {
+            const scrollPosition = window.innerHeight + window.scrollY;
+            const pageHeight = document.documentElement.scrollHeight;
+            
+            // Load more when we're within 100px of the bottom
+            if (scrollPosition >= pageHeight - 100) {
+                loadPosts();
+            }
+        };
+
+        // Initial load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadPosts();
+            window.addEventListener('scroll', handleScroll);
+        });
+    </script>
+</body>
+</html>

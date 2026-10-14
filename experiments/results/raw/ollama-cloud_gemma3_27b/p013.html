@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Monitoring - Uptime & Performance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto py-4 px-6">
+            <div class="flex items-center justify-between">
+                <a href="#" class="text-2xl font-bold text-indigo-600">API Monitor</a>
+                <nav>
+                    <ul class="flex space-x-6">
+                        <li><a href="#" class="hover:text-indigo-500">Features</a></li>
+                        <li><a href="#" class="hover:text-indigo-500">Pricing</a></li>
+                        <li><a href="#" class="hover:text-indigo-500">Documentation</a></li>
+                        <li><a href="#" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">Sign Up</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-indigo-50 py-16">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl font-bold text-gray-800 mb-6">Monitor Your APIs with Confidence</h1>
+            <p class="text-lg text-gray-600 mb-12">Ensure your APIs are always available and performing optimally. Get real-time alerts and detailed insights.</p>
+
+            <div class="bg-white shadow-md rounded-lg p-8">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Example Monitoring Code (JavaScript)</h2>
+                <pre class="bg-gray-200 p-4 rounded-md overflow-x-auto">
+                    <code>
+fetch('https://your-api.com/endpoint')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('API Response:', data);
+  })
+  .catch(error => {
+    console.error('API Error:', error);
+    // Send error to monitoring service
+  });
+                    </code>
+                </pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-gray-800 text-center mb-12">Key Features</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-6 rounded-lg shadow-md bg-gray-50">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Real-time Monitoring</h3>
+                    <p class="text-gray-600">Get instant alerts when your APIs go down or experience performance issues.</p>
+                </div>
+
+                <div class="p-6 rounded-lg shadow-md bg-gray-50">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Detailed Analytics</h3>
+                    <p class="text-gray-600">Track response times, error rates, and other key metrics to identify bottlenecks.</p>
+                </div>
+
+                <div class="p-6 rounded-lg shadow-md bg-gray-50">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Customizable Alerts</h3>
+                    <p class="text-gray-600">Configure alerts based on specific thresholds and notification channels.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-indigo-50 py-16">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8">Check out our Public Status Page</h2>
+            <a href="#" class="bg-white text-indigo-600 py-3 px-6 rounded-md hover:bg-gray-100 hover:text-indigo-700 border border-indigo-600">View Status Page</a>
+        </div>
+    </section>
+
+    <section class="bg-white py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-gray-800 text-center mb-12">Pricing</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-6 rounded-lg shadow-md bg-gray-50">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Basic</h3>
+                    <p class="text-gray-600">For small projects and personal use.</p>
+                    <ul class="list-disc list-inside text-gray-600 mt-4">
+                        <li>Up to 5 APIs</li>
+                        <li>1000 checks per month</li>
+                        <li>Email alerts</li>
+                    </ul>
+                    <p class="text-xl font-bold text-indigo-600 mt-4">$9/month</p>
+                    <a href="#" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 mt-6 inline-block">Get Started</a>
+                </div>
+
+                <div class="p-6 rounded-lg shadow-md bg-gray-50">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Pro</h3>
+                    <p class="text-gray-600">For growing businesses and teams.</p>
+                    <ul class="list-disc list-inside text-gray-600 mt-4">
+                        <li>Unlimited APIs</li>
+                        <li>Unlimited checks</li>
+                        <li>SMS & Slack alerts</li>
+                        <li>Detailed analytics</li>
+                    </ul>
+                    <p class="text-xl font-bold text-indigo-600 mt-4">$29/month</p>
+                    <a href="#" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 mt-6 inline-block">Get Started</a>
+                </div>
+
+                <div class="p-6 rounded-lg shadow-md bg-gray-50">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Enterprise</h3>
+                    <p class="text-gray-600">For large organizations with complex needs.</p>
+                    <ul class="list-disc list-inside text-gray-600 mt-4">
+                        <li>Dedicated support</li>
+                        <li>Custom integrations</li>
+                        <li>Advanced analytics</li>
+                        <li>SLA guarantees</li>
+                    </ul>
+                    <p class="text-xl font-bold text-indigo-600 mt-4">Contact Us</p>
+                    <a href="#" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 mt-6 inline-block">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-white">© 2023 API Monitor. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

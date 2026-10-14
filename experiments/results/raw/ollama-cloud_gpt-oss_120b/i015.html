@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Toast Queue Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <button id="notifyBtn" class="px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none transition">
+    Notify
+  </button>
+
+  <div id="toast-container" class="fixed bottom-4 right-4 space-y-2 z-50"></div>
+
+  <script>
+    (function() {
+      const queue = [];
+      let isShowing = false;
+      let toastCount = 0;
+      const container = document.getElementById('toast-container');
+      const btn = document.getElementById('notifyBtn');
+
+      btn.addEventListener('click', () => {
+        toastCount++;
+        queue.push(`Notification #${toastCount}`);
+        if (!isShowing) showNext();
+      });
+
+      function showNext() {
+        if (queue.length === 0) {
+          isShowing = false;
+          return;
+        }
+        isShowing = true;
+        const message = queue.shift();
+
+        const toast = document.createElement('div');
+        toast.className = 'max-w-xs w-full bg-gray-800 text-white rounded-lg shadow-lg p-4 flex items-start space-x-3 animate-fade-in';
+        toast.innerHTML = `
+          <div class="flex-1 text-sm">${message}</div>
+          <button class="text-gray-400 hover:text-white focus:outline-none">&times;</button>
+        `;
+
+        const closeBtn = toast.querySelector('button');
+        let timeoutId;
+
+        const dismiss = () => {
+          clearTimeout(timeoutId);
+          toast.classList.remove('animate-fade-in');
+          toast.classList.add('animate-fade-out');
+          toast.addEventListener('animationend', () => {
+            container.removeChild(toast);
+            showNext();
+          });
+        };
+
+        closeBtn.addEventListener('click', dismiss);
+        timeoutId = setTimeout(dismiss, 4000);
+
+        container.appendChild(toast);
+      }
+
+      // Simple fade animations using Tailwind's keyframes
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fade-out { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(10px); } }
+        .animate-fade-in { animation: fade-in 0.3s forwards; }
+        .animate-fade-out { animation: fade-out 0.3s forwards; }
+      `;
+      document.head.appendChild(style);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="flex h-screen">
+
+        <div class="w-1/4 bg-gray-200 p-4 overflow-y-auto sticky top-0 h-full">
+            <h2 class="text-xl font-semibold mb-4">Table of Contents</h2>
+            <ul id="toc" class="list-disc">
+                <li><a href="#introduction" class="toc-link">Introduction</a></li>
+                <li><a href="#getting-started" class="toc-link">Getting Started</a></li>
+                <li><a href="#installation" class="toc-link">Installation</a></li>
+                <li><a href="#usage" class="toc-link">Usage</a></li>
+                <li><a href="#configuration" class="toc-link">Configuration</a></li>
+                <li><a href="#advanced-features" class="toc-link">Advanced Features</a></li>
+                <li><a href="#troubleshooting" class="toc-link">Troubleshooting</a></li>
+                <li><a href="#faq" class="toc-link">FAQ</a></li>
+                <li><a href="#contributing" class="toc-link">Contributing</a></li>
+                <li><a href="#license" class="toc-link">License</a></li>
+            </ul>
+        </div>
+
+        <div class="w-3/4 p-4">
+            <h1 class="text-3xl font-bold mb-4">Documentation</h1>
+
+            <section id="introduction" class="mb-8">
+                <h2 class="text-2xl font-semibold mb-2">Introduction</h2>
+                <p class="text-gray-700">
+                    Welcome to the documentation! This document provides a comprehensive guide to using our product.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+            </section>
+
+            <section id="getting-started" class="mb-8">
+                <h2 class="text-2xl font-semibold mb-2">Getting Started</h2>
+                <p class="text-gray-700">
+                    Let's get you started! This section covers the basics of setting up and running the product. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+            </section>
+
+            <section id="installation" class="mb-8">
+                <h2 class="text-2xl font-semibold mb-2">Installation</h2>
+                <p class="text-gray-700">
+                    Follow these steps to install the product. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <pre class="bg-gray-100 p-2 rounded">
+                    <code>
+npm install -g your-package
+                    </code>
+                </pre>
+            </section>
+
+            <section id="usage" class="mb-8">
+                <h2 class="text-2xl font-semibold mb-2">Usage</h2>
+                <p class="text-gray-700">
+                    Learn how to use the product effectively. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+            </section>
+
+            <section id="configuration" class="mb-8">
+                <h2 class="text-2xl font-semibold mb-2">Configuration</h2>
+                <p class="text-gray-700">
+                    Configure the product to your needs. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+            </section>
+
+            <section id="advanced-features" class="mb-8">
+                <h2 class="text-2xl font-semibold mb-2">Advanced Features</h2>
+                <p class="text-gray-700">
+                    Explore the advanced features of the product. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+            </section>
+
+            <section id="troubleshooting" class="mb-8">
+                <h2 class="text-2xl font-semibold mb-2">Troubleshooting</h2>
+                <p class="text-gray-700">
+                    Find solutions to common problems. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+            </section>
+
+            <section id="faq" class="mb-8">
+                <h2 class="text-2xl font-semibold mb-2">FAQ</h2>
+                <p class="text-gray-700">
+                    Frequently asked questions. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+            </section>
+
+            <section id="contributing" class="mb-8">
+                <h2 class="text-2xl font-semibold mb-2">Contributing</h2>
+                <p class="text-gray-700">
+                    Learn how to contribute to the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+            </section>
+
+            <section id="license" class="mb-8">
+                <h2 class="text-2xl font-semibold mb-2">License</h2>
+                <p class="text-gray-700">
+                    This project is licensed under the MIT License. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+            </section>
+
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tocLinks = document.querySelectorAll('.toc-link');
+            const sections = document.querySelectorAll('section');
+
+            function highlightTOC() {
+                const scrollPosition = window.scrollY;
+                let inViewSection = null;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+
+                    if (scrollPosition >= sectionTop - 100 && scrollPosition < sectionTop + sectionHeight) {
+                        inViewSection = section;
+                    }
+                });
+
+                if (inViewSection) {
+                    const sectionId = inViewSection.id;
+                    tocLinks.forEach(link => {
+                        if (link.href.endsWith('#' + sectionId)) {
+                            link.classList.add('bg-blue-200');
+                        } else {
+                            link.classList.remove('bg-blue-200');
+                        }
+                    });
+                } else {
+                    tocLinks.forEach(link => {
+                        link.classList.remove('bg-blue-200');
+                    });
+                }
+            }
+
+            window.addEventListener('scroll', highlightTOC);
+
+            tocLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.href.split('#')[1];
+                    const targetSection = document.getElementById(targetId);
+
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 50,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            highlightTOC(); // Initial highlight
+        });
+    </script>
+
+</body>
+</html>

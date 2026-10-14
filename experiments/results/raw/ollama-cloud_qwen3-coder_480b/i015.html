@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toast Notification System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .toast-enter {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        .toast-enter-active {
+            transform: translateX(0);
+            opacity: 1;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .toast-exit {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .toast-exit-active {
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
+    <div class="max-w-md w-full text-center">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Toast Notification System</h1>
+        <p class="text-gray-600 mb-8">Click the button to enqueue toast notifications</p>
+        
+        <button id="notifyBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 transform hover:scale-105">
+            Notify
+        </button>
+        
+        <div class="mt-8 text-gray-500">
+            <p>Notifications appear one at a time</p>
+            <p>Auto-dismiss after 4 seconds</p>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="fixed top-4 right-4 z-50 space-y-2 w-full max-w-xs"></div>
+
+    <script>
+        class ToastManager {
+            constructor() {
+                this.toastQueue = [];
+                this.isShowing = false;
+                this.currentToast = null;
+                this.timeoutId = null;
+            }
+
+            enqueue(message) {
+                this.toastQueue.push(message);
+                if (!this.isShowing) {
+                    this.showNextToast();
+                }
+            }
+
+            showNextToast() {
+                if (this.toastQueue.length === 0) {
+                    this.isShowing = false;
+                    return;
+                }
+
+                this.isShowing = true;
+                const message = this.toastQueue.shift();
+                this.showToast(message);
+            }
+
+            showToast(message) {
+                const toastContainer = document.getElementById('toastContainer');
+                
+                // Create toast element
+                const toast = document.createElement('div');
+                toast.className = 'toast bg-white rounded-lg shadow-lg p-4 border-l-4 border-blue-500 toast-enter';
+                toast.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <p class="text-gray-800">${message}</p>
+                        </div>
+                        <button class="toast-close text-gray-500 hover:text-gray-700 ml-4">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                `;
+
+                toastContainer.appendChild(toast);
+
+                // Trigger enter animation
+                setTimeout(() => {
+                    toast.classList.remove('toast-enter');
+                    toast.classList.add('toast-enter-active');
+                }, 10);
+
+                this.currentToast = toast;
+
+                // Set auto-dismiss
+                this.timeoutId = setTimeout(() => {
+                    this.dismissToast();
+                }, 4000);
+
+                // Setup manual dismiss
+                const closeBtn = toast.querySelector('.toast-close');
+                closeBtn.addEventListener('click', () => {
+                    this.dismissToast();
+                });
+            }
+
+            dismissToast() {
+                if (!this.currentToast) return;
+
+                // Clear timeout if exists
+                if (this.timeoutId) {
+                    clearTimeout(this.timeoutId);
+                    this.timeoutId = null;
+                }
+
+                // Trigger exit animation
+                const toast = this.currentToast;
+                toast.classList.remove('toast-enter-active');
+                toast.classList.add('toast-exit-active');
+
+                // Remove element after animation
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                    this.currentToast = null;
+                    this.showNextToast();
+                }, 300);
+            }
+        }
+
+        // Initialize toast manager
+        const toastManager = new ToastManager();
+
+        // Setup notify button
+        document.getElementById('notifyBtn').addEventListener('click', () => {
+            const messages = [
+                'This is a toast notification!',
+                'Another notification in the queue',
+                'Notifications appear one at a time',
+                'This will auto-dismiss after 4 seconds',
+                'Manual dismiss is also available',
+                'Queue system ensures no overlap',
+                'New messages wait their turn'
+            ];
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            toastManager.enqueue(randomMessage);
+        });
+    </script>
+</body>
+</html>

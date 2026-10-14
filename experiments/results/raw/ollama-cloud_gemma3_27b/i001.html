@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Activity Feed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold text-center mb-8">Social Activity Feed</h1>
+
+        <div id="feed" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Posts will be appended here -->
+        </div>
+
+        <div id="loading" class="text-center py-4 hidden">
+            <svg class="animate-spin h-5 w-5 text-blue-500" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></circle>
+            </svg>
+            <p class="text-gray-600">Loading more posts...</p>
+        </div>
+    </div>
+
+    <script>
+        const feedElement = document.getElementById('feed');
+        const loadingElement = document.getElementById('loading');
+        let posts = [];
+        let loading = false;
+
+        function generateMockPost(id) {
+            const users = ["Alice", "Bob", "Charlie", "David", "Eve"];
+            const randomUser = users[Math.floor(Math.random() * users.length)];
+            const randomTime = Math.floor(Math.random() * 60) + 1;
+            return {
+                id: id,
+                user: randomUser,
+                content: `This is post number ${id} by ${randomUser}.  Some random content.`,
+                timestamp: `${randomTime} minutes ago`
+            };
+        }
+
+        function getPosts(start, count) {
+            const newPosts = [];
+            for (let i = start; i < start + count; i++) {
+                newPosts.push(generateMockPost(i));
+            }
+            return newPosts;
+        }
+
+        function renderPosts(postsToRender) {
+            postsToRender.forEach(post => {
+                const postCard = document.createElement('div');
+                postCard.classList.add('bg-white rounded-lg shadow-md p-4');
+                postCard.innerHTML = `
+                    <p class="text-gray-600 text-sm">${post.user} - ${post.timestamp}</p>
+                    <p class="text-gray-800">${post.content}</p>
+                `;
+                feedElement.appendChild(postCard);
+            });
+        }
+
+        function loadMorePosts() {
+            if (loading) return;
+
+            loading = true;
+            loadingElement.classList.remove('hidden');
+
+            setTimeout(() => {
+                const nextPosts = getPosts(posts.length, 20);
+                posts = posts.concat(nextPosts);
+                renderPosts(nextPosts);
+                loading = false;
+                loadingElement.classList.add('hidden');
+            }, 500);
+        }
+
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+                loadMorePosts();
+            }
+        });
+
+        // Initial load
+        loadMorePosts();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ContractReview - AI-Powered Contract Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <header class="bg-white shadow-md py-4">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <a href="#" class="text-2xl font-bold text-indigo-600">ContractReview</a>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#" class="hover:text-indigo-500">Features</a></li>
+                    <li><a href="#" class="hover:text-indigo-500">Pricing</a></li>
+                    <li><a href="#" class="hover:text-indigo-500">Contact</a></li>
+                    <li><a href="#" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">Request Demo</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-r from-indigo-50 to-purple-50 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl font-bold text-white mb-6">Unlock the Power of Your Contracts</h1>
+            <p class="text-xl text-gray-200 mb-12">AI-powered contract review that reduces risk, saves time, and protects your bottom line.</p>
+            <a href="#" class="bg-white text-indigo-600 px-8 py-3 rounded-md font-bold hover:bg-gray-100">Get Started - It's Free</a>
+        </div>
+    </section>
+
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">Trusted by Leading Legal Teams</h2>
+            <div class="flex justify-center items-center space-x-8">
+                <img src="https://via.placeholder.com/150x50" alt="Security Badge 1" class="w-32">
+                <img src="https://via.placeholder.com/150x50" alt="Security Badge 2" class="w-32">
+                <img src="https://via.placeholder.com/150x50" alt="Security Badge 3" class="w-32">
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">Key Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">AI-Powered Analysis</h3>
+                    <p class="text-gray-600">Our advanced AI algorithms automatically identify key clauses, risks, and opportunities within your contracts.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">Risk Scoring & Alerts</h3>
+                    <p class="text-gray-600">Receive instant alerts on potential risks and a comprehensive risk score for each contract, helping you prioritize review.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">Collaboration & Workflow</h3>
+                    <p class="text-gray-600">Seamlessly collaborate with your team, track review progress, and manage approvals all in one place.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">Calculate Your ROI</h2>
+            <p class="text-gray-600 text-center mb-8">See how ContractReview can save your organization time and money.</p>
+            <div class="flex justify-center">
+                <div class="w-full max-w-md">
+                    <label for="contractsPerMonth" class="block text-sm font-medium text-gray-700">Contracts Reviewed Per Month</label>
+                    <input type="number" id="contractsPerMonth" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter number of contracts">
+
+                    <label for="averageReviewTime" class="block mt-4 text-sm font-medium text-gray-700">Average Review Time (Hours/Contract)</label>
+                    <input type="number" id="averageReviewTime" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter average review time">
+
+                    <button class="bg-indigo-600 text-white px-4 py-2 rounded-md font-bold hover:bg-indigo-700 mt-4 block mx-auto">Calculate</button>
+                    <p class="text-center mt-4 text-gray-600">Estimated Savings: <span id="estimatedSavings">0</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-white">© 2024 ContractReview. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contractsPerMonthInput = document.getElementById('contractsPerMonth');
+            const averageReviewTimeInput = document.getElementById('averageReviewTime');
+            const calculateButton = document.querySelector('button');
+            const estimatedSavingsSpan = document.getElementById('estimatedSavings');
+
+            calculateButton.addEventListener('click', function() {
+                const contractsPerMonth = parseFloat(contractsPerMonthInput.value) || 0;
+                const averageReviewTime = parseFloat(averageReviewTimeInput.value) || 0;
+
+                const totalReviewHours = contractsPerMonth * averageReviewTime;
+                const hourlyRate = 150; // Example hourly rate
+                const estimatedSavings = totalReviewHours * hourlyRate;
+
+                estimatedSavingsSpan.textContent = estimatedSavings.toFixed(2);
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Switcher with Dynamic Widgets</title>
+  <script>
+    // Tailwind config: use class strategy for dark mode
+    tailwind = { config: { darkMode: 'class' } };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg-color: #f9fafb; /* light bg */
+      --text-color: #111827; /* light text */
+    }
+    .dark {
+      --bg-color: #1f2937; /* dark bg */
+      --text-color: #f9fafb; /* dark text */
+    }
+    .themed {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 themed transition-colors duration-300">
+  <header class="w-full max-w-3xl flex flex-col sm:flex-row justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold mb-4 sm:mb-0">Dynamic Theme Switcher</h1>
+    <div class="flex items-center space-x-2">
+      <label for="theme-select" class="font-medium">Theme:</label>
+      <select id="theme-select" class="rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-1">
+        <option value="system">System</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
+  </header>
+
+  <main class="w-full max-w-3xl flex flex-col items-stretch space-y-4">
+    <button id="add-widget" class="self-start bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">
+      Inject Sample Widget
+    </button>
+
+    <section id="widget-container" class="flex flex-col space-y-4">
+      <!-- Widgets will appear here -->
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const THEME_KEY = 'theme-preference';
+      const themeSelect = document.getElementById('theme-select');
+      const htmlEl = document.documentElement;
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+      // Apply theme based on stored preference or system
+      function applyTheme(theme) {
+        if (theme === 'system') {
+          htmlEl.classList.toggle('dark', prefersDark.matches);
+        } else if (theme === 'dark') {
+          htmlEl.classList.add('dark');
+        } else {
+          htmlEl.classList.remove('dark');
+        }
+        // Update CSS variables (handled by :root/.dark rules)
+      }
+
+      // Load saved theme
+      const savedTheme = localStorage.getItem(THEME_KEY) || 'system';
+      themeSelect.value = savedTheme;
+      applyTheme(savedTheme);
+
+      // Listen for changes in the select
+      themeSelect.addEventListener('change', () => {
+        const newTheme = themeSelect.value;
+        localStorage.setItem(THEME_KEY, newTheme);
+        applyTheme(newTheme);
+      });
+
+      // React to system theme changes when in 'system' mode
+      prefersDark.addEventListener('change', (e) => {
+        if (themeSelect.value === 'system') {
+          applyTheme('system');
+        }
+      });
+
+      // Function to add themed class to an element and its children
+      function themeElement(el) {
+        if (el.nodeType !== Node.ELEMENT_NODE) return;
+        el.classList.add('themed');
+        // Recursively apply to child elements
+        el.querySelectorAll('*').forEach(child => child.classList.add('themed'));
+      }
+
+      // MutationObserver to watch for new nodes
+      const observer = new MutationObserver(mutations => {
+        for (const mutation of mutations) {
+          mutation.addedNodes.forEach(node => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              themeElement(node);
+            }
+          });
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      // Sample widget injection
+      const widgetContainer = document.getElementById('widget-container');
+      document.getElementById('add-widget').addEventListener('click', () => {
+        const widget = document.createElement('div');
+        widget.className = 'p-4 rounded shadow-md border border-gray-300 dark:border-gray-600';
+        widget.innerHTML = `
+          <h2 class="text-lg font-semibold mb-2">Sample Widget</h2>
+          <p>This widget inherits the current theme colors via CSS variables.</p>
+          <button class="mt-2 bg-green-600 hover:bg-green-700 text-white py-1 px-3 rounded">Action</button>
+        `;
+        widgetContainer.appendChild(widget);
+        // Ensure the new widget gets themed classes
+        themeElement(widget);
+      });
+    })();
+  </script>
+</body>
+</html>

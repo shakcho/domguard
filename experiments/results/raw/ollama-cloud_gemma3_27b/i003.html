@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Switcher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --dark-bg: #1a202c;
+            --dark-text: #fff;
+            --light-bg: #fff;
+            --light-text: #000;
+        }
+
+        [data-theme="dark"] {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        [data-theme="light"] {
+            background-color: var(--light-bg);
+            color: var(--light-text);
+        }
+    </style>
+</head>
+<body class="transition-colors duration-300" data-theme="system">
+
+    <div class="container mx-auto p-4">
+        <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Theme Switcher</h1>
+
+            <div class="flex space-x-2">
+                <button id="light-theme" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Light
+                </button>
+                <button id="dark-theme" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                    Dark
+                </button>
+                <button id="system-theme" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                    System
+                </button>
+                <button id="inject-widget" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                    Inject Widget
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-8 p-6 bg-gray-100 rounded shadow-md" id="widget-container">
+            <p>This is where injected widgets will appear.</p>
+        </div>
+    </div>
+
+    <script>
+        const lightThemeButton = document.getElementById('light-theme');
+        const darkThemeButton = document.getElementById('dark-theme');
+        const systemThemeButton = document.getElementById('system-theme');
+        const injectWidgetButton = document.getElementById('inject-widget');
+        const body = document.body;
+        const widgetContainer = document.getElementById('widget-container');
+
+        function setTheme(theme) {
+            body.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            applyThemeToNewElements();
+        }
+
+        function applyThemeToNewElements() {
+            const newElements = document.querySelectorAll(':not([data-theme])');
+            newElements.forEach(element => {
+                if (body.getAttribute('data-theme') === 'dark') {
+                    element.classList.add('bg-gray-800', 'text-white');
+                } else {
+                    element.classList.add('bg-gray-100', 'text-gray-800');
+                }
+            });
+        }
+
+        lightThemeButton.addEventListener('click', () => setTheme('light'));
+        darkThemeButton.addEventListener('click', () => setTheme('dark'));
+        systemThemeButton.addEventListener('click', () => setTheme('system'));
+
+        function getSystemTheme() {
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        if (localStorage.getItem('theme')) {
+            setTheme(localStorage.getItem('theme'));
+        } else {
+            setTheme(getSystemTheme());
+        }
+
+        injectWidgetButton.addEventListener('click', () => {
+            const widget = document.createElement('div');
+            widget.classList.add('mt-4', 'p-4', 'bg-yellow-200', 'rounded', 'shadow-md');
+            widget.textContent = 'This is a sample widget!';
+            widgetContainer.appendChild(widget);
+            applyThemeToNewElements();
+        });
+
+        const observer = new MutationObserver(mutations => {
+            mutations.forEach(mutation => {
+                if (mutation.addedNodes.length) {
+                    applyThemeToNewElements();
+                }
+            });
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    </script>
+
+</body>
+</html>

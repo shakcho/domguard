@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Responsive Resizable Data Table</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .resizable {
+      resize: both;
+      overflow: auto;
+      min-width: 300px;
+      min-height: 200px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #e5e7eb;
+      padding: 0.5rem;
+      text-align: left;
+      white-space: nowrap;
+    }
+    th {
+      background: #f3f4f6;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex flex-col items-center p-6 min-h-screen">
+  <h1 class="text-2xl font-bold mb-4">Responsive Data Table in Resizable Container</h1>
+
+  <div id="tableContainer" class="resizable bg-white rounded shadow-md p-2 w-11/12 max-w-4xl">
+    <table id="dataTable">
+      <thead>
+        <tr id="headerRow"></tr>
+      </thead>
+      <tbody id="bodyRows"></tbody>
+    </table>
+  </div>
+
+  <button id="loadMoreBtn" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+    Load more rows
+  </button>
+
+  <script>
+    // ----- Data & Configuration -----
+    const columns = [
+      { key: 'id', label: 'ID' },
+      { key: 'name', label: 'Name' },
+      { key: 'email', label: 'Email' },
+      { key: 'age', label: 'Age' }
+    ];
+    const totalData = [];
+    const rowsPerLoad = 10;
+    let loadedRows = 0;
+
+    // Generate dummy data
+    for (let i = 1; i <= 200; i++) {
+      totalData.push({
+        id: i,
+        name: 'User ' + i,
+        email: `user${i}@example.com`,
+        age: Math.floor(Math.random() * 60) + 18
+      });
+    }
+
+    // ----- Rendering Functions -----
+    const headerRow = document.getElementById('headerRow');
+    const bodyRows = document.getElementById('bodyRows');
+
+    function renderHeader() {
+      headerRow.innerHTML = '';
+      columns.forEach(col => {
+        const th = document.createElement('th');
+        th.textContent = col.label;
+        th.dataset.key = col.key;
+        headerRow.appendChild(th);
+      });
+    }
+
+    function renderRows() {
+      const fragment = document.createDocumentFragment();
+      const slice = totalData.slice(loadedRows, loadedRows + rowsPerLoad);
+      slice.forEach(row => {
+        const tr = document.createElement('tr');
+        columns.forEach(col => {
+          const td = document.createElement('td');
+          td.textContent = row[col.key];
+          tr.appendChild(td);
+        });
+        fragment.appendChild(tr);
+      });
+      bodyRows.appendChild(fragment);
+      loadedRows += rowsPerLoad;
+      if (loadedRows >= totalData.length) {
+        document.getElementById('loadMoreBtn').disabled = true;
+        document.getElementById('loadMoreBtn').classList.add('opacity-50', 'cursor-not-allowed');
+      }
+    }
+
+    // ----- Resize Handling -----
+    const container = document.getElementById('tableContainer');
+    const table = document.getElementById('dataTable');
+
+    function adjustColumnWidths() {
+      const containerWidth = container.clientWidth - 2; // account for border
+      const colCount = columns.length;
+      const colWidth = Math.floor(containerWidth / colCount) - 1; // -1 for border rounding
+
+      // Apply width to header cells
+      headerRow.querySelectorAll('th').forEach(th => {
+        th.style.width = colWidth + 'px';
+      });
+      // Apply width to body cells
+      bodyRows.querySelectorAll('tr').forEach(tr => {
+        tr.querySelectorAll('td').forEach(td => {
+          td.style.width = colWidth + 'px';
+        });
+      });
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      adjustColumnWidths();
+    });
+    resizeObserver.observe(container);
+
+    // Also watch for new rows being added (MutationObserver)
+    const mutationObserver = new MutationObserver(() => {
+      adjustColumnWidths();
+    });
+    mutationObserver.observe(bodyRows, { childList: true, subtree: true });
+
+    // ----- Event Listeners -----
+    document.getElementById('loadMoreBtn').addEventListener('click', () => {
+      renderRows();
+    });
+
+    // Initial render
+    renderHeader();
+    renderRows();
+    // Initial width adjustment after DOM paint
+    requestAnimationFrame(adjustColumnWidths);
+  </script>
+</body>
+</html>

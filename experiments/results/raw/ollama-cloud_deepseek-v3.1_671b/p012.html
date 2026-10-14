@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshPlate Meal Kits</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .food-placeholder {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="400" height="300" fill="%23fbbf24"/><text x="200" y="150" font-family="Arial" font-size="20" text-anchor="middle" fill="white">Delicious Meal Image</text></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Hero Section -->
+    <section class="relative">
+        <div class="food-placeholder h-96 w-full"></div>
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+            <div class="text-center text-white px-4">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Chef-Crafted Meal Kits Delivered</h1>
+                <p class="text-xl mb-8">Fresh ingredients, easy recipes, delicious results</p>
+                <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12">Choose Your Plan</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Starter Plan -->
+                <div class="bg-white rounded-lg shadow-lg p-8 text-center">
+                    <h3 class="text-2xl font-semibold mb-4">Starter</h3>
+                    <p class="text-4xl font-bold text-green-600 mb-4">$9.99<span class="text-sm text-gray-500">/meal</span></p>
+                    <ul class="mb-6 space-y-2">
+                        <li>2 meals per week</li>
+                        <li>For 2 people</li>
+                        <li>Free delivery</li>
+                        <li>Basic recipes</li>
+                    </ul>
+                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-full w-full transition duration-300">
+                    Select Plan
+                    </button>
+                </div>
+
+                <!-- Popular Plan -->
+                <div class="bg-white rounded-lg shadow-2xl p-8 text-center transform scale-105">
+                    <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full mb-2 inline-block">MOST POPULAR</span>
+                    <h3 class="text-2xl font-semibold mb-4">Family</h3>
+                    <p class="text-4xl font-bold text-green-600 mb-4">$8.99<span class="text-sm text-gray-500">/meal</span></p>
+                    <ul class="mb-6 space-y-2">
+                        <li>4 meals per week</li>
+                        <li>For 4 people</li>
+                        <li>Free delivery</li>
+                        <li>Premium recipes</li>
+                        <li>Weekly dessert</li>
+                    </ul>
+                    <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-full w-full transition duration-300">
+                    Select Plan
+                    </button>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="bg-white rounded-lg shadow-lg p-8 text-center">
+                    <h3 class="text-2xl font-semibold mb-4">Premium</h3>
+                    <p class="text-4xl font-bold text-green-600 mb-4">$7.99<span class="text-sm text-gray-500">/meal</span></p>
+                    <ul class="mb-6 space-y-2">
+                        <li>6 meals per week</li>
+                        <li>For 4-6 people</li>
+                        <li>Free delivery</li>
+                        <li>Gourmet recipes</li>
+                        <li>Weekly dessert + appetizer</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-full w-full transition duration-300">
+                    Select Plan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sample Menus -->
+    <section class="py-16 bg-gray-100 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12">Sample Menu Items</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-48 bg-yellow-200 flex items-center justify-center">
+                        <span class="text-gray-700">Herb-Crusted Salmon</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-semibold text-lg mb-2">Mediterranean Salmon</h3>
+                        <p class="text-gray-600">With roasted vegetables and lemon herb sauce</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-48 bg-red-200 flex items-center justify-center">
+                        <span class="text-gray-700">Beef Stir Fry</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-semibold text-lg mb-2">Asian Beef Stir Fry</h3>
+                        <p class="text-gray-600">With fresh vegetables and ginger soy glaze</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="h-48 bg-green-200 flex items-center justify-center">
+                        <span class="text-gray-700">Vegetable Curry</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-semibold text-lg mb-2">Coconut Vegetable Curry</h3>
+                        <p class="text-gray-600">With jasmine rice and fresh herbs</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="font-semibold text-lg mb-2">How does the subscription work?</h3>
+                    <p class="text-gray-600">Choose your plan, select your meals each week, and we deliver everything you need right to your door. You can skip weeks or cancel anytime.</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="font-semibold text-lg mb-2">What if I have dietary restrictions?</h3>
+                    <p class="text-gray-600">We offer vegetarian, gluten-free, and dairy-free options. You can filter our menu to find meals that meet your dietary needs.</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="font-semibold text-lg mb-2">How long do the ingredients stay fresh?</h3>
+                    <p class="text-gray-600">We deliver all ingredients in insulated boxes with ice packs. Most ingredients will stay fresh for 5-7 days when refrigerated properly.</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="font-semibold text-lg mb-2">Can I change my delivery address?</h3>
+                    <p class="text-gray-600">Yes, you can update your delivery address up to 5 days before your next scheduled delivery through your account settings.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-16 bg-green-600 text-white">
+        <div class="max-w-4xl mx-auto text-center px-4">
+            <h2 class="text-3xl font-bold mb-6">Ready to transform your cooking?</h2>
+            <p class="text-xl mb-8">Join thousands of happy customers enjoying delicious home-cooked meals</p>
+            <button class="bg-white text-green-600 hover:bg-green-50 font-bold py-3 px-8 rounded-full text-lg transition duration-300">
+                Start Your Subscription
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <p>© 2023 FreshPlate Meal Kits. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple interactivity for plan selection and FAQ toggling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Plan selection buttons
+            const planButtons = document.querySelectorAll('button');
+            planButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    alert('Thank you for your interest! This would redirect to a signup page.');
+                });
+            });
+
+            // FAQ expansion (optional enhancement)
+            const faqItems = document.querySelectorAll('.bg-white.rounded-lg.shadow-md');
+            faqItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    this.classList.toggle('bg-green-50');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

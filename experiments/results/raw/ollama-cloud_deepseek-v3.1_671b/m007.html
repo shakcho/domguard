@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acme Console</title>
+  <style>
+    :root { --bg:#fff; --fg:#111827; --accent:#2563eb; --muted:#6b7280; --card:#f9fafb; }
+    body { background: var(--bg); color: var(--fg); font-family: system-ui, sans-serif; margin: 0; }
+    .header { display:flex; justify-content:space-between; padding:12px 20px; background:var(--card); }
+    .brand { font-weight:700; color:var(--accent); }
+    .flash { animation: flash .4s ease; }
+    @keyframes flash { from { opacity:.4 } to { opacity:1 } }
+    main { display:grid; grid-template-columns: 280px 1fr; gap:16px; padding:20px; }
+    .list li { padding:8px 12px; border-bottom:1px solid var(--card); }
+    [data-density="compact"] .list li { padding:4px 12px; }
+  </style>
+</head>
+<body>
+  <div id="header"></div>
+  <main>
+    <aside>
+      <div id="settings"></div>
+      <!-- feature widgets mount here -->
+      <div id="feature-aside"></div>
+    </aside>
+    <section>
+      <div id="list"></div>
+      <div id="feature-main"></div>
+    </section>
+  </main>
+
+  
+
+</html>
+
+  <script>
+/* theme.js */
+// theme.js — central theming for the app.
+// Components are expected to read CSS variables and the `data-theme` attribute.
+// The app supports a configurable theme that the user can change at runtime
+// via the Settings panel (see store.js -> state.settings.theme).
+const THEMES = {
+  light: { "--bg": "#ffffff", "--fg": "#111827", "--accent": "#2563eb", "--muted": "#6b7280", "--card": "#f9fafb" },
+  dark:  { "--bg": "#0b1020", "--fg": "#e5e7eb", "--accent": "#60a5fa", "--muted": "#9ca3af", "--card": "#111827" },
+  sepia: { "--bg": "#f4ecd8", "--fg": "#433422", "--accent": "#9a6b2f", "--muted": "#7c6f57", "--card": "#efe4c8" },
+};
+
+// Apply a theme by name. Sets data-theme and writes CSS variables on :root.
+// IMPORTANT: this mutates the <html> element's style and data-theme attribute.
+function applyTheme(name) {
+  const vars = THEMES[name] || THEMES.light;
+  const root = document.documentElement;
+  root.setAttribute("data-theme", name);
+  for (const [k, v] of Object.entries(vars)) {
+    root.style.setProperty(k, v);
+  }
+  // Notify listeners that the theme changed.
+  document.dispatchEvent(new CustomEvent("theme:changed", { detail: { name } }));
+}
+function currentTheme() {
+  return document.documentElement.getAttribute("data-theme") || "light";
+}
+
+
+/* store.js */
+// store.js — tiny observable app state.
+// Components subscribe with store.subscribe(fn) and read store.state.
+// Any mutation should go through store.set(patch), which notifies subscribers.
+
+const listeners = new Set();
+const store = {
+  state: {
+    user: { name: "Ada Lovelace", email: "ada@example.com" },
+    settings: { theme: "light", density: "comfortable", liveUpdates: true },
+    items: [],        // feature components may populate this
+    notifications: [],
+  },
+
+  subscribe(fn) {
+    listeners.add(fn);
+    return () => listeners.delete(fn);
+  },
+
+  // Shallow-merge a patch into state and notify everyone.
+  set(patch) {
+    store.state = { ...store.state, ...patch };
+    for (const fn of listeners) fn(store.state);
+  },
+
+  // Convenience for nested settings updates.
+  setSetting(key, value) {
+    store.set({ settings: { ...store.state.settings, [key]: value } });
+  },
+};
+
+
+/* components.js */
+// components.js — existing UI components, re-rendered on store changes.
+
+// Header shows the user and reflects theme changes.
+function mountHeader(root) {
+  function render(state) {
+    root.innerHTML = `
+      <div class="header">
+        <span class="brand">Acme Console</span>
+        <span class="user">${state.user.name}</span>
+      </div>`;
+  }
+  store.subscribe(render);
+  render(store.state);
+  // Keep a subtle highlight in sync with theme changes.
+  document.addEventListener("theme:changed", () => {
+    root.querySelector(".brand")?.classList.add("flash");
+  });
+}
+
+// Settings panel lets the user change theme/density at runtime.
+function mountSettings(root) {
+  function render(state) {
+    root.innerHTML = `
+      <form class="settings">
+        <label>Theme
+          <select name="theme">
+            ${["light", "dark", "sepia"].map((t) =>
+              `<option value="${t}" ${state.settings.theme === t ? "selected" : ""}>${t}</option>`).join("")}
+          </select>
+        </label>
+        <label>Density
+          <select name="density">
+            ${["comfortable", "compact"].map((d) =>
+              `<option value="${d}" ${state.settings.density === d ? "selected" : ""}>${d}</option>`).join("")}
+          </select>
+        </label>
+      </form>`;
+    root.querySelector('[name="theme"]').addEventListener("change", (e) => {
+      store.setSetting("theme", e.target.value);
+      applyTheme(e.target.value);
+    });
+    root.querySelector('[name="density"]').addEventListener("change", (e) => {
+      store.setSetting("density", e.target.value);
+    });
+  }
+  store.subscribe(render);
+  render(store.state);
+}
+
+// A simple list region other features can render into.
+function mountList(root) {
+  function render(state) {
+    root.innerHTML = `<ul class="list">${
+      state.items.map((it) => `<li data-id="${it.id}">${it.label}</li>`).join("")
+    }</ul>`;
+  }
+  store.subscribe(render);
+  render(store.state);
+}
+{ currentTheme };
+
+
+/* api.js */
+// api.js — mock backend. Returns promises so callers must handle async.
+// Latency is simulated; data is deterministic-ish for reproducibility.
+
+function delay(ms) { return new Promise((r) => setTimeout(r, ms)); }
+
+let _seq = 0;
+async function fetchItems(cursor = 0, pageSize = 20) {
+  await delay(120);
+  const items = Array.from({ length: pageSize }, (_, i) => ({
+    id: cursor + i,
+    label: `Item #${cursor + i}`,
+  }));
+  return { items, nextCursor: cursor + pageSize };
+}
+async function fetchNotifications() {
+  await delay(80);
+  _seq += 1;
+  return Array.from({ length: _seq % 5 }, (_, i) => ({
+    id: `${_seq}-${i}`,
+    text: `Notification ${_seq}-${i}`,
+    read: false,
+  }));
+}
+async function fetchMetrics() {
+  await delay(60);
+  return {
+    rps: 100 + (_seq % 50),
+    errorRate: ((_seq % 7) / 100).toFixed(3),
+    latencyMs: 40 + (_seq % 30),
+    activeUsers: 1200 + (_seq % 100),
+  };
+}
+async function saveSettings(settings) {
+  await delay(100);
+  return { ok: true, settings };
+}
+
+
+/* feature.js (generated) */
+
+function createFolderTree(items) {
+  const root = { id: "root", label: "All Items", children: [], expanded: true };
+  
+  function addToTree(item, node, depth = 0) {
+    const idStr = item.id.toString();
+    const currentDigit = idStr[depth];
+    
+    if (depth >= idStr.length) {
+      node.children.push({ ...item, type: "item" });
+      return;
+    }
+    
+    let folder = node.children.find(child => child.type === "folder" && child.digit === currentDigit);
+    
+    if (!folder) {
+      folder = {
+        id: `${node.id}-${currentDigit}`,
+        label: `Group ${currentDigit}`,
+        digit: currentDigit,
+        type: "folder",
+        children: [],
+        expanded: false
+      };
+      node.children.push(folder);
+    }
+    
+    addToTree(item, folder, depth + 1);
+  }
+  
+  items.forEach(item => addToTree(item, root));
+  return root;
+}
+
+function countItems(node) {
+  if (node.type === "item") return 1;
+  return node.children.reduce((total, child) => total + countItems(child), 0);
+}
+
+function renderFolder(node, onToggle) {
+  const isFolder = node.type === "folder";
+  const count = countItems(node);
+  const hasChildren = node.children.length > 0;
+  
+  return `
+    <div class="folder-item" data-id="${node.id}" data-type="${node.type}">
+      <div class="folder-header" style="padding-left: ${node.depth * 12}px">
+        ${isFolder ? `
+          <button class="folder-toggle" ${!hasChildren ? 'disabled' : ''}>
+            ${node.expanded ? '▼' : '▶'}
+          </button>
+        ` : '<span class="folder-spacer"></span>'}
+        
+        <span class="folder-label">${node.label}</span>
+        
+        ${isFolder ? `
+          <span class="folder-count">${count}</span>
+        ` : ''}
+      </div>
+      
+      ${isFolder && node.expanded ? `
+        <div class="folder-children">
+          ${node.children.map(child => renderFolder({ ...child, depth: (node.depth || 0) + 1 }, onToggle)).join('')}
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+function mountFeature(asideEl, mainEl) {
+  let tree = createFolderTree(store.state.items);
+  
+  function render(state) {
+    tree = createFolderTree(state.items);
+    
+    asideEl.innerHTML = `
+      <div class="folder-tree">
+        <div class="folder-tree-header">
+          <h3>Item Hierarchy</h3>
+          <button class="toggle-all">Expand All</button>
+        </div>
+        ${renderFolder(tree, toggleFolder)}
+      </div>
+    `;
+    
+    asideEl.querySelector(".toggle-all").addEventListener("click", toggleAllFolders);
+    asideEl.querySelectorAll(".folder-toggle").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const folderId = btn.closest(".folder-item").dataset.id;
+        toggleFolder(folderId);
+      });
+    });
+    
+    asideEl.querySelectorAll(".folder-header").forEach(header => {
+      header.addEventListener("click", (e) => {
+        if (e.target.classList.contains("folder-toggle")) return;
+        const folderId = header.closest(".folder-item").dataset.id;
+        if (header.closest(".folder-item").dataset.type === "folder") {
+          toggleFolder(folderId);
+        }
+      });
+    });
+  }
+  
+  function toggleFolder(folderId) {
+    function toggleNode(node) {
+      if (node.id === folderId && node.type === "folder") {
+        node.expanded = !node.expanded;
+        return true;
+      }
+      
+      if (node.children) {
+        for (const child of node.children) {
+          if (toggleNode(child)) return true;
+        }
+      }
+      return false;
+    }
+    
+    toggleNode(tree);
+    render(store.state);
+  }
+  
+  function toggleAllFolders() {
+    const allExpanded = tree.children.every(child => !child.expanded);
+    
+    function setAllNodes(node, expanded) {
+      if (node.type === "folder") {
+        node.expanded = expanded;
+      }
+      
+      if (node.children) {
+        node.children.forEach(child => setAllNodes(child, expanded));
+      }
+    }
+    
+    setAllNodes(tree, allExpanded);
+    render(store.state);
+  }
+  
+  store.subscribe(render);
+  render(store.state);
+  
+  const style = document.createElement("style");
+  style.textContent = `
+    .folder-tree {
+      background: var(--card);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+    
+    .folder-tree-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--muted);
+    }
+    
+    .folder-tree-header h3 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--fg);
+    }
+    
+    .toggle-all {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    
+    .folder-item {
+      margin: 2px 0;
+    }
+    
+    .folder-header {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 0;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    
+    .folder-header:hover {
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+    }
+    
+    .folder-toggle {
+      width: 16px;
+      height: 16px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .folder-toggle:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+    
+    .folder-spacer {
+      width: 16px;
+      display: inline-block;
+    }
+    
+    .folder-label {
+      font-size: 13px;
+      flex: 1;
+    }
+    
+    .folder-count {
+      background: var(--muted);
+      color: white;
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      min-width: 20px;
+      text-align: center;
+    }
+    
+    .folder-children {
+      margin-left: 12px;
+      border-left: 1px solid var(--muted);
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+/* bootstrap */
+try {
+  applyTheme(store.state.settings.theme);
+  mountHeader(document.getElementById("header"));
+  mountSettings(document.getElementById("settings"));
+  mountList(document.getElementById("list"));
+  if (typeof mountFeature === "function") {
+    mountFeature(document.getElementById("feature-aside"), document.getElementById("feature-main"));
+  }
+} catch (e) { /* analysis target is the source, not runtime */ }
+  </script>
+</body></html>

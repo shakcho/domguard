@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sortable Todo List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .dragging {
+            opacity: 0.5;
+            background-color: #f0f9ff;
+        }
+        .drag-over {
+            border-top: 2px solid #3b82f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-4">
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Sortable Todo List</h1>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="flex mb-4">
+                <input 
+                    type="text" 
+                    id="todo-input" 
+                    placeholder="Add a new task..." 
+                    class="flex-grow px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                <button 
+                    id="add-btn" 
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-r-lg transition duration-200"
+                >
+                    Add
+                </button>
+            </div>
+            
+            <ul id="todo-list" class="space-y-2">
+                <!-- Todo items will be inserted here -->
+            </ul>
+        </div>
+        
+        <div class="text-center text-gray-600">
+            <p>Drag and drop to reorder items. Changes are saved automatically.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const todoInput = document.getElementById('todo-input');
+            const addBtn = document.getElementById('add-btn');
+            const todoList = document.getElementById('todo-list');
+            
+            let dragItem = null;
+            
+            // Load todos from localStorage
+            function loadTodos() {
+                const todos = JSON.parse(localStorage.getItem('todos')) || [];
+                todoList.innerHTML = '';
+                todos.forEach((todo, index) => {
+                    createTodoElement(todo.text, index);
+                });
+                updatePositions();
+            }
+            
+            // Save todos to localStorage
+            function saveTodos() {
+                const todos = [];
+                document.querySelectorAll('#todo-list li').forEach(li => {
+                    todos.push({
+                        text: li.querySelector('.todo-text').textContent,
+                        position: parseInt(li.dataset.position)
+                    });
+                });
+                localStorage.setItem('todos', JSON.stringify(todos));
+            }
+            
+            // Create a new todo element
+            function createTodoElement(text, position) {
+                const li = document.createElement('li');
+                li.className = 'flex items-center justify-between bg-gray-50 p-3 rounded-lg cursor-move hover:bg-gray-100 transition duration-150';
+                li.draggable = true;
+                li.dataset.position = position;
+                
+                li.innerHTML = `
+                    <span class="todo-text flex-grow">${text}</span>
+                    <button class="delete-btn text-red-500 hover:text-red-700 ml-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                `;
+                
+                // Add drag events
+                li.addEventListener('dragstart', handleDragStart);
+                li.addEventListener('dragover', handleDragOver);
+                li.addEventListener('dragenter', handleDragEnter);
+                li.addEventListener('dragleave', handleDragLeave);
+                li.addEventListener('drop', handleDrop);
+                li.addEventListener('dragend', handleDragEnd);
+                
+                // Add delete functionality
+                li.querySelector('.delete-btn').addEventListener('click', () => {
+                    li.remove();
+                    saveTodos();
+                    updatePositions();
+                });
+                
+                todoList.appendChild(li);
+            }
+            
+            // Add new todo
+            function addTodo() {
+                const text = todoInput.value.trim();
+                if (text) {
+                    const position = todoList.children.length;
+                    createTodoElement(text, position);
+                    todoInput.value = '';
+                    saveTodos();
+                }
+            }
+            
+            // Drag and drop handlers
+            function handleDragStart(e) {
+                dragItem = this;
+                this.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', this.innerHTML);
+            }
+            
+            function handleDragOver(e) {
+                e.preventDefault();
+                return false;
+            }
+            
+            function handleDragEnter(e) {
+                this.classList.add('drag-over');
+            }
+            
+            function handleDragLeave() {
+                this.classList.remove('drag-over');
+            }
+            
+            function handleDrop(e) {
+                e.stopPropagation();
+                
+                if (dragItem !== this) {
+                    const rect = this.getBoundingClientRect();
+                    const midpoint = (rect.top + rect.bottom) / 2;
+                    
+                    if (e.clientY < midpoint) {
+                        this.parentNode.insertBefore(dragItem, this);
+                    } else {
+                        this.parentNode.insertBefore(dragItem, this.nextSibling);
+                    }
+                    
+                    saveTodos();
+                    updatePositions();
+                }
+                
+                this.classList.remove('drag-over');
+                return false;
+            }
+            
+            function handleDragEnd() {
+                this.classList.remove('dragging');
+                document.querySelectorAll('#todo-list li').forEach(li => {
+                    li.classList.remove('drag-over');
+                });
+            }
+            
+            // Update position attributes
+            function updatePositions() {
+                document.querySelectorAll('#todo-list li').forEach((li, index) => {
+                    li.dataset.position = index;
+                });
+            }
+            
+            // Set up MutationObserver to sync positions
+            const observer = new MutationObserver(() => {
+                updatePositions();
+            });
+            
+            observer.observe(todoList, {
+                childList: true,
+                subtree: true
+            });
+            
+            // Event listeners
+            addBtn.addEventListener('click', addTodo);
+            todoInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') addTodo();
+            });
+            
+            // Initialize
+            loadTodos();
+        });
+    </script>
+</body>
+</html>

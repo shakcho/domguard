@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FormFlow - No-Code Form Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .drag-drop-demo {
+            background-color: #f3f4f6;
+            border: 2px dashed #9ca3af;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .drag-drop-demo:hover {
+            background-color: #e5e7eb;
+            border-color: #6b7280;
+        }
+        .drag-item {
+            background: white;
+            padding: 1rem;
+            margin: 0.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            cursor: move;
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="bg-white font-sans">
+    <!-- Hero Section -->
+    <section class="bg-blue-600 text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Build Forms Without Code</h1>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Create beautiful, functional forms with our intuitive drag-and-drop builder. No technical skills required.</p>
+            <button class="bg-white text-blue-600 font-bold py-3 px-8 rounded-lg hover:bg-blue-50 transition duration-300">Get Started Free</button>
+        </div>
+    </section>
+
+    <!-- Three-Up Features -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="bg-blue-100 rounded-full p-4 w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Drag & Drop Interface</h3>
+                    <p class="text-gray-600">Easily add fields and arrange your form with simple drag-and-drop functionality.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-blue-100 rounded-full p-4 w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Secure & Reliable</h3>
+                    <p class="text-gray-600">All forms are secure, encrypted, and built to handle submissions with 99.9% uptime.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-blue-100 rounded-full p-4 w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Smart Integrations</h3>
+                    <p class="text-gray-600">Connect with your favorite tools like Slack, Google Sheets, and Zapier automatically.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Drag-and-Drop Demo -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-8">See How Easy It Is</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="drag-drop-demo rounded-lg mb-4" id="demoArea">
+                    <p class="text-gray-500">Drag elements from below to build your form</p>
+                </div>
+                <div class="flex flex-wrap justify-center" id="elementPalette">
+                    <div class="drag-item" draggable="true">Text Input</div>
+                    <div class="drag-item" draggable="true">Email Input</div>
+                    <div class="drag-item" draggable="true">Dropdown</div>
+                    <div class="drag-item" draggable="true">Checkbox</div>
+                    <div class="drag-item" draggable="true">Submit Button</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Form -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6 max-w-2xl">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold text-center mb-6">Get Started with FormFlow</h2>
+                <form id="leadForm">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2" for="name">Name</label>
+                        <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2" for="email">Email</label>
+                        <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 mb-2" for="company">Company</label>
+                        <input type="text" id="company" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">Start Building Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-16 bg-blue-600 text-white text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-4">Ready to Create Your Forms?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Join thousands of teams building better forms without code.</p>
+            <button class="bg-white text-blue-600 font-bold py-3 px-8 rounded-lg hover:bg-blue-50 transition duration-300">Sign Up Free</button>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-8 text-center">
+        <div class="container mx-auto px-6">
+            <p>&copy; 2023 FormFlow. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple drag and drop functionality for demo
+        document.addEventListener('DOMContentLoaded', function() {
+            const demoArea = document.getElementById('demoArea');
+            const elements = document.querySelectorAll('.drag-item');
+            
+            elements.forEach(element => {
+                element.addEventListener('dragstart', function(e) {
+                    e.dataTransfer.setData('text/plain', e.target.textContent);
+                    setTimeout(() => {
+                        e.target.classList.add('opacity-50');
+                    }, 0);
+                });
+                
+                element.addEventListener('dragend', function(e) {
+                    e.target.classList.remove('opacity-50');
+                });
+            });
+            
+            demoArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                demoArea.style.backgroundColor = '#e5e7eb';
+                demoArea.style.borderColor = '#6b7280';
+            });
+            
+            demoArea.addEventListener('dragleave', function() {
+                demoArea.style.backgroundColor = '#f3f4f6';
+                demoArea.style.borderColor = '#9ca3af';
+            });
+            
+            demoArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                demoArea.style.backgroundColor = '#f3f4f6';
+                demoArea.style.borderColor = '#9ca3af';
+                
+                const data = e.dataTransfer.getData('text/plain');
+                demoArea.innerHTML = '';
+                
+                const newElement = document.createElement('div');
+                newElement.className = 'drag-item';
+                newElement.textContent = data;
+                newElement.draggable = true;
+                
+                newElement.addEventListener('dragstart', function(ev) {
+                    ev.dataTransfer.setData('text/plain', ev.target.textContent);
+                    setTimeout(() => {
+                        ev.target.classList.add('opacity-50');
+                    }, 0);
+                });
+                
+                newElement.addEventListener('dragend', function(ev) {
+                    ev.target.classList.remove('opacity-50');
+                });
+                
+                demoArea.appendChild(newElement);
+            });
+            
+            // Form submission
+            document.getElementById('leadForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thanks for your interest! We\'ll be in touch soon.');
+                this.reset();
+            });
+        });
+    </script>
+</body>
+</html>

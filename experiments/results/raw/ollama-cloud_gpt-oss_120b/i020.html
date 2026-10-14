@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Markdown Editor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    /* Simple markdown styling */
+    .preview h1 { @apply text-3xl font-bold mt-4; }
+    .preview h2 { @apply text-2xl font-semibold mt-3; }
+    .preview h3 { @apply text-xl font-medium mt-2; }
+    .preview p { @apply my-2; }
+    .preview a { @apply text-blue-600 underline; }
+    .preview code { @apply bg-gray-100 px-1 py-0.5 rounded; }
+    .preview pre { @apply bg-gray-800 text-white p-3 rounded overflow-x-auto my-2; }
+    .preview ul { @apply list-disc pl-5 my-2; }
+    .preview ol { @apply list-decimal pl-5 my-2; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <div class="flex flex-col md:flex-row h-screen">
+    <!-- Editor Pane -->
+    <div class="flex-1 flex flex-col border-r border-gray-300 p-4 overflow-hidden">
+      <div class="flex justify-between items-center mb-2">
+        <h1 class="text-xl font-semibold">Markdown Editor</h1>
+        <div class="flex items-center space-x-4 text-sm">
+          <span id="status" class="text-gray-500">Idle</span>
+          <span id="counts" class="text-gray-500">Words: 0 | Chars: 0</span>
+        </div>
+      </div>
+      <textarea id="editor" class="flex-1 w-full p-2 border rounded resize-none focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Start typing markdown..."></textarea>
+    </div>
+
+    <!-- Preview Pane -->
+    <div class="flex-1 flex flex-col p-4 overflow-auto bg-white">
+      <h1 class="text-xl font-semibold mb-2">Preview</h1>
+      <div id="preview" class="preview prose prose-sm max-w-none"></div>
+    </div>
+  </div>
+
+  <script>
+    const editor = document.getElementById('editor');
+    const preview = document.getElementById('preview');
+    const status = document.getElementById('status');
+    const counts = document.getElementById('counts');
+
+    // Load saved content
+    const saved = localStorage.getItem('markdown-content') || '';
+    editor.value = saved;
+    updatePreview();
+    updateCounts();
+
+    // Debounce utility
+    function debounce(fn, delay) {
+      let timer;
+      return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+      };
+    }
+
+    // Update preview
+    function updatePreview() {
+      const raw = editor.value;
+      const html = marked.parse(raw);
+      preview.innerHTML = html;
+    }
+
+    // Update word/char counts
+    function updateCounts() {
+      const text = editor.value;
+      const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+      const chars = text.length;
+      counts.textContent = `Words: ${words} | Chars: ${chars}`;
+    }
+
+    // Autosave with debounce
+    const autosave = debounce(() => {
+      localStorage.setItem('markdown-content', editor.value);
+      status.textContent = 'Saved';
+      status.classList.remove('text-gray-500');
+      status.classList.add('text-green-600');
+      setTimeout(() => {
+        status.textContent = 'Idle';
+        status.classList.remove('text-green-600');
+        status.classList.add('text-gray-500');
+      }, 2000);
+    }, 1000);
+
+    // Input handler
+    editor.addEventListener('input', () => {
+      status.textContent = 'Saving...';
+      status.classList.remove('text-gray-500');
+      status.classList.add('text-blue-600');
+      updatePreview();
+      updateCounts();
+      autosave();
+    });
+  </script>
+</body>
+</html>

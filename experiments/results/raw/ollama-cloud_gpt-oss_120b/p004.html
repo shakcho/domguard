@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StorySprout – Kids Book Subscription</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#ff6f61',
+            secondary: '#ffb347',
+          },
+          fontFamily: {
+            playful: ['"Comic Sans MS"', 'cursive', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    .hero-bg {
+      background-image: url('https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1400&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+</head>
+<body class="font-playful bg-yellow-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-primary text-white py-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center px-4">
+      <h1 class="text-3xl font-bold">StorySprout</h1>
+      <nav class="space-x-4 hidden md:block">
+        <a href="#features" class="hover:underline">How It Works</a>
+        <a href="#testimonials" class="hover:underline">Testimonials</a>
+        <a href="#faq" class="hover:underline">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero-bg text-center text-white py-32 flex flex-col justify-center items-center">
+    <h2 class="text-5xl md:text-6xl font-bold drop-shadow-lg">Bright Stories Delivered Monthly</h2>
+    <p class="mt-4 text-xl md:text-2xl drop-shadow-lg">Spark imaginations, nurture reading habits, and grow together.</p>
+    <a href="#signup" class="mt-8 inline-block bg-secondary text-white font-semibold py-3 px-8 rounded-full hover:bg-primary transition">Start Your Free Trial</a>
+  </section>
+
+  <!-- Age Tier Feature Grid -->
+  <section id="features" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h3 class="text-3xl font-bold text-center mb-12 text-primary">Choose the Perfect Tier</h3>
+      <div class="grid gap-8 md:grid-cols-3">
+        <!-- Tier 1 -->
+        <div class="bg-primary/10 rounded-xl p-6 flex flex-col items-center text-center">
+          <div class="bg-primary text-white rounded-full w-20 h-20 flex items-center justify-center mb-4 text-2xl font-bold">0‑2</div>
+          <h4 class="text-xl font-semibold mb-2">Early Explorers</h4>
+          <p class="flex-1 mb-4">Board books, tactile pages, and simple stories to spark curiosity.</p>
+          <ul class="text-left mb-4 space-y-1">
+            <li>📚 2 board books</li>
+            <li>🧩 Interactive feel‑flaps</li>
+            <li>🎶 Sing‑along audio</li>
+          </ul>
+          <a href="#signup" class="mt-auto bg-primary text-white py-2 px-4 rounded-full hover:bg-primary/80 transition">Select</a>
+        </div>
+        <!-- Tier 2 -->
+        <div class="bg-primary/10 rounded-xl p-6 flex flex-col items-center text-center">
+          <div class="bg-primary text-white rounded-full w-20 h-20 flex items-center justify-center mb-4 text-2xl font-bold">3‑5</div>
+          <h4 class="text-xl font-semibold mb-2">Little Readers</h4>
+          <p class="flex-1 mb-4">Picture books with richer stories and gentle lessons.</p>
+          <ul class="text-left mb-4 space-y-1">
+            <li>📖 3 picture books</li>
+            <li>🖍️ Activity sheets</li>
+            <li>🌟 Bonus stickers</li>
+          </ul>
+          <a href="#signup" class="mt-auto bg-primary text-white py-2 px-4 rounded-full hover:bg-primary/80 transition">Select</a>
+        </div>
+        <!-- Tier 3 -->
+        <div class="bg-primary/10 rounded-xl p-6 flex flex-col items-center text-center">
+          <div class="bg-primary text-white rounded-full w-20 h-20 flex items-center justify-center mb-4 text-2xl font-bold">6‑8</div>
+          <h4 class="text-xl font-semibold mb-2">Story Adventurers</h4>
+          <p class="flex-1 mb-4">Chapter books that inspire imagination and early literacy.</p>
+          <ul class="text-left mb-4 space-y-1">
+            <li>📚 2 chapter books</li>
+            <li>✏️ Reading journal</li>
+            <li>🧩 Puzzle & game</li>
+          </ul>
+          <a href="#signup" class="mt-auto bg-primary text-white py-2 px-4 rounded-full hover:bg-primary/80 transition">Select</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials" class="py-16 bg-yellow-100">
+    <div class="container mx-auto px-4">
+      <h3 class="text-3xl font-bold text-center mb-12 text-primary">What Parents Say</h3>
+      <div class="grid gap-8 md:grid-cols-2">
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <p class="italic mb-4">"StorySprout turned bedtime into an adventure! My 4‑year‑old can't wait for the next box."</p>
+          <p class="font-semibold">— Maya L., Seattle</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <p class="italic mb-4">"The books are perfectly pitched for each age. The activity sheets keep my kids engaged for hours."</p>
+          <p class="font-semibold">— Carlos R., Austin</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <p class="italic mb-4">"I love the sustainable packaging. It's a win‑win for my kids and the planet."</p>
+          <p class="font-semibold">— Priya S., Boston</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <p class="italic mb-4">"The monthly surprise keeps our family reading habit alive. Highly recommend!"</p>
+          <p class="font-semibold">— Jamal K., Chicago</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h3 class="text-3xl font-bold text-center mb-12 text-primary">Frequently Asked Questions</h3>
+      <div class="space-y-4 max-w-2xl mx-auto">
+        <div class="border-b pb-4">
+          <button class="w-full text-left flex justify-between items-center focus:outline-none faq-question">
+            <span class="font-medium">How does the subscription work?</span>
+            <svg class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <p class="mt-2 hidden faq-answer text-gray-700">Each month we send a curated box of age‑appropriate books and activities straight to your door. You can pause, skip, or cancel anytime.</p>
+        </div>
+        <div class="border-b pb-4">
+          <button class="w-full text-left flex justify-between items-center focus:outline-none faq-question">
+            <span class="font-medium">What ages do you serve?</span>
+            <svg class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <p class="mt-2 hidden faq-answer text-gray-700">We have three tiers: 0‑2, 3‑5, and 6‑8 years old. Each tier receives books tailored to developmental milestones.</p>
+        </div>
+        <div class="border-b pb-4">
+          <button class="w-full text-left flex justify-between items-center focus:outline-none faq-question">
+            <span class="font-medium">Can I customize the books?</span>
+            <svg class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <p class="mt-2 hidden faq-answer text-gray-700">We select books based on age and reading level, but you can add a personal note or request specific themes via your account dashboard.</p>
+        </div>
+        <div class="border-b pb-4">
+          <button class="w-full text-left flex justify-between items-center focus:outline-none faq-question">
+            <span class="font-medium">What is the shipping policy?</span>
+            <svg class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <p class="mt-2 hidden faq-answer text-gray-700">We ship on the 1st of each month. Delivery typically takes 3‑5 business days within the U.S. International shipping is available at an additional cost.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section id="signup" class="py-16 bg-primary text-white text-center">
+    <div class="container mx-auto px-4">
+      <h3 class="text-3xl font-bold mb-4">Ready to Grow a Love of Reading?</h3>
+      <p class="mb-8">Join thousands of families who discover new stories every month.</p>
+      <a href="#" class="bg-secondary hover:bg-secondary/80 text-white font-semibold py-3 px-8 rounded-full transition">Start Your Free Trial</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-300 py-8">
+    <div class="container mx-auto px-4 text-center">
+      <p>&copy; 2026 StorySprout. All rights reserved.</p>
+      <div class="mt-4 space-x-4">
+        <a href="#" class="hover:text-white">Privacy</a>
+        <a href="#" class="hover:text-white">Terms</a>
+        <a href="#" class="hover:text-white">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FAQ Toggle Script -->
+  <script>
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const answer = btn.nextElementSibling;
+        const icon = btn.querySelector('svg');
+        const isOpen = !answer.classList.contains('hidden');
+        answer.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180', !isOpen);
+      });
+    });
+  </script>
+</body>
+</html>

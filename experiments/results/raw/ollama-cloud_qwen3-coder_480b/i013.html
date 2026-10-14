@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tag/Chips Input Control</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h1 class="text-2xl font-bold text-gray-800 mb-2">Tag Input</h1>
+            <p class="text-gray-600 mb-6">Type and press Enter or comma to add tags</p>
+            
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="tag-input">
+                    Tags
+                </label>
+                <div id="tag-container" class="flex flex-wrap items-center min-h-[42px] border border-gray-300 rounded-md px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
+                    <!-- Tags will be inserted here -->
+                    <input 
+                        type="text" 
+                        id="tag-input" 
+                        class="flex-grow outline-none min-w-[120px] text-gray-700"
+                        placeholder="Type a tag..."
+                    >
+                </div>
+                <input type="hidden" id="hidden-tags" name="tags">
+            </div>
+            
+            <div class="flex justify-between items-center">
+                <div id="tag-count" class="text-sm text-gray-500">
+                    0 tags
+                </div>
+                <button id="clear-all" class="text-sm text-red-500 hover:text-red-700">
+                    Clear All
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tagContainer = document.getElementById('tag-container');
+            const tagInput = document.getElementById('tag-input');
+            const hiddenTags = document.getElementById('hidden-tags');
+            const tagCount = document.getElementById('tag-count');
+            const clearAllBtn = document.getElementById('clear-all');
+            
+            let tags = [];
+            
+            // Create a tag element
+            function createTagElement(tagText) {
+                const tagElement = document.createElement('div');
+                tagElement.className = 'flex items-center bg-blue-100 text-blue-800 rounded-full px-3 py-1 text-sm font-medium mr-2 mb-2';
+                tagElement.innerHTML = `
+                    <span>${tagText}</span>
+                    <button class="ml-2 text-blue-600 hover:text-blue-800 focus:outline-none">
+                        &times;
+                    </button>
+                `;
+                
+                // Add event listener to remove button
+                const removeBtn = tagElement.querySelector('button');
+                removeBtn.addEventListener('click', () => {
+                    removeTag(tagText);
+                });
+                
+                return tagElement;
+            }
+            
+            // Add a new tag
+            function addTag(tagText) {
+                if (!tagText.trim() || tags.includes(tagText.trim())) return;
+                
+                const trimmedTag = tagText.trim();
+                tags.push(trimmedTag);
+                
+                const tagElement = createTagElement(trimmedTag);
+                tagContainer.insertBefore(tagElement, tagInput);
+                
+                updateTags();
+                tagInput.value = '';
+            }
+            
+            // Remove a tag
+            function removeTag(tagText) {
+                tags = tags.filter(tag => tag !== tagText);
+                updateTags();
+                
+                // Remove the tag element from DOM
+                const tagElements = tagContainer.querySelectorAll('div.flex');
+                tagElements.forEach(element => {
+                    const span = element.querySelector('span');
+                    if (span && span.textContent === tagText) {
+                        element.remove();
+                    }
+                });
+            }
+            
+            // Update hidden input and tag count
+            function updateTags() {
+                hiddenTags.value = tags.join(',');
+                tagCount.textContent = `${tags.length} ${tags.length === 1 ? 'tag' : 'tags'}`;
+                
+                // Dispatch input event
+                const event = new Event('input', {
+                    bubbles: true,
+                    cancelable: true,
+                });
+                hiddenTags.dispatchEvent(event);
+            }
+            
+            // Handle key events
+            tagInput.addEventListener('keydown', (e) => {
+                if ((e.key === 'Enter' || e.key === ',') && tagInput.value.trim()) {
+                    e.preventDefault();
+                    addTag(tagInput.value);
+                } else if (e.key === 'Backspace' && !tagInput.value.trim() && tags.length > 0) {
+                    // Remove last tag when backspace is pressed on empty input
+                    const lastTag = tags[tags.length - 1];
+                    removeTag(lastTag);
+                }
+            });
+            
+            // Handle paste event
+            tagInput.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const paste = (e.clipboardData || window.clipboardData).getData('text');
+                const pastedTags = paste.split(/[,;\n]/).map(tag => tag.trim()).filter(tag => tag);
+                
+                pastedTags.forEach(tag => {
+                    addTag(tag);
+                });
+            });
+            
+            // Clear all tags
+            clearAllBtn.addEventListener('click', () => {
+                tags = [];
+                const tagElements = tagContainer.querySelectorAll('div.flex');
+                tagElements.forEach(element => element.remove());
+                updateTags();
+                tagInput.value = '';
+                tagInput.focus();
+            });
+            
+            // Initialize with some sample tags
+            // addTag('Sample');
+            // addTag('Tags');
+        });
+    </script>
+</body>
+</html>

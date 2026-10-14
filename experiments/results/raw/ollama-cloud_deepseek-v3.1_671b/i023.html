@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Invoice Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#6366F1',
+                        accent: '#10B981'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div x-data="invoiceApp()" x-cloak class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+            <!-- Header -->
+            <div class="bg-primary text-white p-6">
+                <h1 class="text-2xl font-bold">Invoice Builder</h1>
+                <p class="text-primary-100">Create and manage your invoices</p>
+            </div>
+
+            <!-- Invoice Details -->
+            <div class="p-6 border-b">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h2 class="text-lg font-semibold mb-2">From</h2>
+                        <input type="text" placeholder="Your Company Name" class="w-full p-2 border rounded">
+                        <textarea placeholder="Your Address" class="w-full p-2 border rounded mt-2" rows="3"></textarea>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-semibold mb-2">To</h2>
+                        <input type="text" placeholder="Client Name" class="w-full p-2 border rounded">
+                        <textarea placeholder="Client Address" class="w-full p-2 border rounded mt-2" rows="3"></textarea>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Invoice #</label>
+                        <input type="text" placeholder="INV-001" class="w-full p-2 border rounded">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Date</label>
+                        <input type="date" class="w-full p-2 border rounded">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Due Date</label>
+                        <input type="date" class="w-full p-2 border rounded">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Line Items -->
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold">Line Items</h2>
+                    <button @click="addLineItem" class="bg-primary text-white px-4 py-2 rounded hover:bg-primary-600 transition">
+                        Add Item
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="text-left p-3">Description</th>
+                                <th class="text-left p-3">Quantity</th>
+                                <th class="text-left p-3">Unit Price</th>
+                                <th class="text-left p-3">Amount</th>
+                                <th class="text-left p-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template x-for="(item, index) in lineItems" :key="index">
+                                <tr>
+                                    <td class="p-3 border-t">
+                                        <input 
+                                            x-model="item.description" 
+                                            @input="calculateTotals"
+                                            placeholder="Item description" 
+                                            class="w-full p-2 border rounded"
+                                        >
+                                    </td>
+                                    <td class="p-3 border-t">
+                                        <input 
+                                            type="number" 
+                                            x-model="item.quantity" 
+                                            @input="calculateTotals"
+                                            min="0" 
+                                            class="w-20 p-2 border rounded text-right"
+                                        >
+                                    </td>
+                                    <td class="p-3 border-t">
+                                        <input 
+                                            type="number" 
+                                            x-model="item.unitPrice" 
+                                            @input="calculateTotals"
+                                            min="0" 
+                                            step="0.01" 
+                                            class="w-24 p-2 border rounded text-right"
+                                        >
+                                    </td>
+                                    <td class="p-3 border-t text-right" x-text="formatCurrency(item.quantity * item.unitPrice)"></td>
+                                    <td class="p-3 border-t">
+                                        <div class="flex space-x-2">
+                                            <button @click="duplicateLine(index)" class="text-secondary hover:text-secondary-700">
+                                                Duplicate
+                                            </button>
+                                            <button @click="removeLine(index)" class="text-red-600 hover:text-red-800">
+                                                Remove
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Totals -->
+                <div class="mt-8 ml-auto w-full md:w-1/2">
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="font-semibold">Subtotal:</span>
+                            <span x-text="formatCurrency(subtotal)"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-semibold">Tax (<input type="number" x-model="taxRate" @input="calculateTotals" min="0" max="100" step="0.1" class="w-16 p-1 border rounded text-right">%):</span>
+                            <span x-text="formatCurrency(taxAmount)"></span>
+                        </div>
+                        <div class="flex justify-between text-lg font-bold border-t pt-2">
+                            <span>Total:</span>
+                            <span x-text="formatCurrency(total)"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-gray-100 p-6 text-center">
+                <p class="text-gray-600">Thank you for your business!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function invoiceApp() {
+            return {
+                lineItems: [
+                    { description: '', quantity: 1, unitPrice: 0 }
+                ],
+                subtotal: 0,
+                taxRate: 0,
+                taxAmount: 0,
+                total: 0,
+                
+                init() {
+                    this.calculateTotals();
+                },
+                
+                addLineItem() {
+                    this.lineItems.push({ description: '', quantity: 1, unitPrice: 0 });
+                },
+                
+                removeLine(index) {
+                    if (this.lineItems.length > 1) {
+                        this.lineItems.splice(index, 1);
+                        this.calculateTotals();
+                    }
+                },
+                
+                duplicateLine(index) {
+                    const item = {...this.lineItems[index]};
+                    this.lineItems.splice(index + 1, 0, item);
+                    this.calculateTotals();
+                },
+                
+                calculateTotals() {
+                    this.subtotal = this.lineItems.reduce((sum, item) => {
+                        return sum + (item.quantity * item.unitPrice);
+                    }, 0);
+                    
+                    this.taxAmount = this.subtotal * (this.taxRate / 100);
+                    this.total = this.subtotal + this.taxAmount;
+                },
+                
+                formatCurrency(amount) {
+                    return new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD'
+                    }).format(amount);
+                }
+            }
+        }
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('invoiceApp', invoiceApp);
+        });
+    </script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+</body>
+</html>

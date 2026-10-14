@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freelance Designer Marketplace</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config (optional)
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4F46E5',
+            secondary: '#6366F1',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* Simple smooth scroll */
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="font-sans antialiased text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm sticky top-0 z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <a href="#" class="text-2xl font-bold text-primary">DesignHub</a>
+      <nav class="space-x-6 hidden md:block">
+        <a href="#how-it-works" class="text-gray-600 hover:text-primary">How it works</a>
+        <a href="#projects" class="text-gray-600 hover:text-primary">Top Projects</a>
+        <a href="#cta-client" class="text-gray-600 hover:text-primary">For Clients</a>
+        <a href="#cta-designer" class="text-gray-600 hover:text-primary">For Designers</a>
+      </nav>
+      <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
+        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200">
+      <nav class="px-2 pt-2 pb-4 space-y-1">
+        <a href="#how-it-works" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-100">How it works</a>
+        <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-100">Top Projects</a>
+        <a href="#cta-client" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-100">For Clients</a>
+        <a href="#cta-designer" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-100">For Designers</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-r from-primary to-secondary text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Find the Perfect Designer for Your Vision</h1>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">Connect with top freelance designers, showcase your projects, and bring ideas to life—all in one marketplace.</p>
+      <a href="#cta-client" class="inline-block bg-white text-primary font-semibold px-6 py-3 rounded-md hover:bg-gray-100 transition">Hire a Designer</a>
+    </div>
+  </section>
+
+  <!-- Designer Grid -->
+  <section class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-center mb-8">Featured Designers</h2>
+      <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <!-- Repeat card 8 times -->
+        <div class="bg-white rounded-lg shadow hover:shadow-lg transition p-4 text-center">
+          <img src="https://i.pravatar.cc/150?img=1" alt="Designer" class="w-24 h-24 rounded-full mx-auto mb-4">
+          <h3 class="font-semibold">Alex Rivera</h3>
+          <p class="text-sm text-gray-500">UI/UX Designer</p>
+          <a href="#" class="mt-3 inline-block text-primary hover:underline">View Portfolio</a>
+        </div>
+        <div class="bg-white rounded-lg shadow hover:shadow-lg transition p-4 text-center">
+          <img src="https://i.pravatar.cc/150?img=2" alt="Designer" class="w-24 h-24 rounded-full mx-auto mb-4">
+          <h3 class="font-semibold">Mia Chen</h3>
+          <p class="text-sm text-gray-500">Graphic Designer</p>
+          <a href="#" class="mt-3 inline-block text-primary hover:underline">View Portfolio</a>
+        </div>
+        <div class="bg-white rounded-lg shadow hover:shadow-lg transition p-4 text-center">
+          <img src="https://i.pravatar.cc/150?img=3" alt="Designer" class="w-24 h-24 rounded-full mx-auto mb-4">
+          <h3 class="font-semibold">Liam Patel</h3>
+          <p class="text-sm text-gray-500">Brand Designer</p>
+          <a href="#" class="mt-3 inline-block text-primary hover:underline">View Portfolio</a>
+        </div>
+        <div class="bg-white rounded-lg shadow hover:shadow-lg transition p-4 text-center">
+          <img src="https://i.pravatar.cc/150?img=4" alt="Designer" class="w-24 h-24 rounded-full mx-auto mb-4">
+          <h3 class="font-semibold">Sofia Gomez</h3>
+          <p class="text-sm text-gray-500">Illustrator</p>
+          <a href="#" class="mt-3 inline-block text-primary hover:underline">View Portfolio</a>
+        </div>
+        <div class="bg-white rounded-lg shadow hover:shadow-lg transition p-4 text-center">
+          <img src="https://i.pravatar.cc/150?img=5" alt="Designer" class="w-24 h-24 rounded-full mx-auto mb-4">
+          <h3 class="font-semibold">Ethan Lee</h3>
+          <p class="text-sm text-gray-500">Motion Designer</p>
+          <a href="#" class="mt-3 inline-block text-primary hover:underline">View Portfolio</a>
+        </div>
+        <div class="bg-white rounded-lg shadow hover:shadow-lg transition p-4 text-center">
+          <img src="https://i.pravatar.cc/150?img=6" alt="Designer" class="w-24 h-24 rounded-full mx-auto mb-4">
+          <h3 class="font-semibold">Ava Novak</h3>
+          <p class="text-sm text-gray-500">Web Designer</p>
+          <a href="#" class="mt-3 inline-block text-primary hover:underline">View Portfolio</a>
+        </div>
+        <div class="bg-white rounded-lg shadow hover:shadow-lg transition p-4 text-center">
+          <img src="https://i.pravatar.cc/150?img=7" alt="Designer" class="w-24 h-24 rounded-full mx-auto mb-4">
+          <h3 class="font-semibold">Noah Kim</h3>
+          <p class="text-sm text-gray-500">Product Designer</p>
+          <a href="#" class="mt-3 inline-block text-primary hover:underline">View Portfolio</a>
+        </div>
+        <div class="bg-white rounded-lg shadow hover:shadow-lg transition p-4 text-center">
+          <img src="https://i.pravatar.cc/150?img=8" alt="Designer" class="w-24 h-24 rounded-full mx-auto mb-4">
+          <h3 class="font-semibold">Isabella Ruiz</h3>
+          <p class="text-sm text-gray-500">Creative Director</p>
+          <a href="#" class="mt-3 inline-block text-primary hover:underline">View Portfolio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold mb-8">How It Works</h2>
+      <div class="grid gap-8 md:grid-cols-3">
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4 text-white text-2xl font-bold">1</div>
+          <h3 class="font-semibold text-lg mb-2">Post Your Project</h3>
+          <p class="text-gray-600">Describe your needs, budget, and timeline. Designers will browse and submit proposals.</p>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4 text-white text-2xl font-bold">2</div>
+          <h3 class="font-semibold text-lg mb-2">Choose a Designer</h3>
+          <p class="text-gray-600">Review portfolios, chat, and pick the perfect match for your vision.</p>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4 text-white text-2xl font-bold">3</div>
+          <h3 class="font-semibold text-lg mb-2">Collaborate & Deliver</h3>
+          <p class="text-gray-600">Work together through our platform and receive final assets on time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Top Projects Gallery -->
+  <section id="projects" class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center mb-8">Top Projects</h2>
+      <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+        <!-- Sample images from unsplash source -->
+        <img src="https://source.unsplash.com/collection/190727/800x600?sig=1" alt="Project 1" class="w-full h-48 object-cover rounded-lg shadow">
+        <img src="https://source.unsplash.com/collection/190727/800x600?sig=2" alt="Project 2" class="w-full h-48 object-cover rounded-lg shadow">
+        <img src="https://source.unsplash.com/collection/190727/800x600?sig=3" alt="Project 3" class="w-full h-48 object-cover rounded-lg shadow">
+        <img src="https://source.unsplash.com/collection/190727/800x600?sig=4" alt="Project 4" class="w-full h-48 object-cover rounded-lg shadow">
+        <img src="https://source.unsplash.com/collection/190727/800x600?sig=5" alt="Project 5" class="w-full h-48 object-cover rounded-lg shadow">
+        <img src="https://source.unsplash.com/collection/190727/800x600?sig=6" alt="Project 6" class="w-full h-48 object-cover rounded-lg shadow">
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA for Clients -->
+  <section id="cta-client" class="py-20 bg-primary text-white">
+    <div class="max-w-2xl mx-auto text-center px-4">
+      <h2 class="text-3xl font-bold mb-4">Ready to Hire a Designer?</h2>
+      <p class="mb-8">Post your project in minutes and get proposals from vetted professionals.</p>
+      <a href="#" class="inline-block bg-white text-primary font-semibold px-8 py-3 rounded-md hover:bg-gray-100 transition">Post a Project</a>
+    </div>
+  </section>
+
+  <!-- CTA for Designers -->
+  <section id="cta-designer" class="py-20 bg-white text-primary">
+    <div class="max-w-2xl mx-auto text-center px-4">
+      <h2 class="text-3xl font-bold mb-4">Join as a Designer</h2>
+      <p class="mb-8">Showcase your portfolio, connect with clients, and grow your freelance business.</p>
+      <a href="#" class="inline-block bg-primary text-white font-semibold px-8 py-3 rounded-md hover:bg-secondary transition">Create Your Profile</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-300 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-8">
+      <div>
+        <h3 class="text-white font-semibold mb-3">DesignHub</h3>
+        <p class="text-sm">Connecting clients with top freelance designers worldwide.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-3">Links</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:underline">Home</a></li>
+          <li><a href="#how-it-works" class="hover:underline">How it works</a></li>
+          <li><a href="#projects" class="hover:underline">Top Projects</a></li>
+          <li><a href="#cta-client" class="hover:underline">For Clients</a></li>
+          <li><a href="#cta-designer" class="hover:underline">For Designers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-3">Contact</h4>
+        <p class="text-sm">email@designhub.com</p>
+        <p class="text-sm">+1 (555) 123‑4567</p>
+      </div>
+    </div>
+    <div class="mt-8 text-center text-sm text-gray-500">
+      © 2026 DesignHub. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

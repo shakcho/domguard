@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Account Settings</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+<div class="max-w-2xl w-full bg-white rounded-lg shadow-lg p-6">
+  <h1 class="text-2xl font-bold mb-4 text-center">Account Settings</h1>
+
+  <div id="preview" class="mb-6 p-4 bg-blue-50 rounded">
+    <h2 class="text-xl font-semibold" id="preview-name">Your Name</h2>
+    <p class="text-gray-600" id="preview-email">you@example.com</p>
+  </div>
+
+  <form id="settings-form" class="space-y-4">
+    <div>
+      <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+      <input type="text" name="name" id="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="John Doe">
+    </div>
+
+    <div>
+      <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+      <input type="email" name="email" id="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="john@example.com">
+    </div>
+
+    <div class="flex items-center">
+      <input type="checkbox" name="notifications" id="notifications" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+      <label for="notifications" class="ml-2 block text-sm text-gray-700">Enable email notifications</label>
+    </div>
+
+    <div>
+      <label for="timezone" class="block text-sm font-medium text-gray-700">Timezone</label>
+      <select name="timezone" id="timezone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+        <option value="UTC">UTC</option>
+        <option value="America/New_York">America/New_York</option>
+        <option value="Europe/London">Europe/London</option>
+        <option value="Asia/Tokyo">Asia/Tokyo</option>
+      </select>
+    </div>
+  </form>
+</div>
+
+<script>
+(function(){
+  const form = document.getElementById('settings-form');
+  const inputs = form.querySelectorAll('input, select');
+
+  // Mock save function
+  function saveSettings(settings) {
+    console.log('Saving settings...', settings);
+    return new Promise(resolve => setTimeout(() => {
+      console.log('Settings saved.');
+      resolve();
+    }, 300));
+  }
+
+  // Gather current settings
+  function getSettings() {
+    return {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      notifications: document.getElementById('notifications').checked,
+      timezone: document.getElementById('timezone').value
+    };
+  }
+
+  // Dispatch custom event
+  function dispatchChange(settings) {
+    const event = new CustomEvent('settings:changed', { detail: settings });
+    document.dispatchEvent(event);
+  }
+
+  // Handle input changes
+  inputs.forEach(el => {
+    el.addEventListener('input', handleChange);
+    if (el.tagName === 'SELECT' || el.type === 'checkbox') {
+      el.addEventListener('change', handleChange);
+    }
+  });
+
+  function handleChange() {
+    const settings = getSettings();
+    saveSettings(settings).then(() => {
+      dispatchChange(settings);
+    });
+  }
+
+  // Listener for preview update
+  document.addEventListener('settings:changed', e => {
+    const { name, email } = e.detail;
+    document.getElementById('preview-name').textContent = name || 'Your Name';
+    document.getElementById('preview-email').textContent = email || 'you@example.com';
+  });
+
+  // Initialize preview with default values
+  dispatchChange(getSettings());
+})();
+</script>
+</body>
+</html>

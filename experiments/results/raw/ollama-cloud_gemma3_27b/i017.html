@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding Wizard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">Onboarding Wizard</h1>
+
+        <div class="bg-white shadow-md rounded-md p-6">
+            <div class="mb-4">
+                <div class="bg-gray-200 h-2 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="bg-blue-500 h-2" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <div id="step-1" class="block">
+                <h2 class="text-xl font-semibold mb-2">Step 1: Account Information</h2>
+                <label for="email" class="block mb-2">Email:</label>
+                <input type="email" id="email" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Enter your email">
+                <span id="email-error" class="text-red-500 hidden"></span>
+                <label for="password" class="block mt-2 mb-2">Password:</label>
+                <input type="password" id="password" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Enter your password">
+                <span id="password-error" class="text-red-500 hidden"></span>
+            </div>
+
+            <div id="step-2" class="hidden">
+                <h2 class="text-xl font-semibold mb-2">Step 2: Plan Selection</h2>
+                <div class="flex items-center mb-2">
+                    <input type="radio" id="basic" name="plan" value="basic" class="mr-2">
+                    <label for="basic">Basic Plan</label>
+                </div>
+                <div class="flex items-center mb-2">
+                    <input type="radio" id="premium" name="plan" value="premium" class="mr-2">
+                    <label for="premium">Premium Plan</label>
+                </div>
+                <span id="plan-error" class="text-red-500 hidden"></span>
+            </div>
+
+            <div id="step-3" class="hidden">
+                <h2 class="text-xl font-semibold mb-2">Step 3: Billing Information</h2>
+                <label for="card-number" class="block mb-2">Card Number:</label>
+                <input type="text" id="card-number" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Enter card number">
+                <span id="card-error" class="text-red-500 hidden"></span>
+                <label for="expiry-date" class="block mt-2 mb-2">Expiry Date:</label>
+                <input type="text" id="expiry-date" class="w-full p-2 border border-gray-300 rounded-md" placeholder="MM/YY">
+                <span id="expiry-error" class="text-red-500 hidden"></span>
+                <label for="cvv" class="block mt-2 mb-2">CVV:</label>
+                <input type="text" id="cvv" class="w-full p-2 border border-gray-300 rounded-md" placeholder="CVV">
+                <span id="cvv-error" class="text-red-500 hidden"></span>
+            </div>
+
+            <div id="step-4" class="hidden">
+                <h2 class="text-xl font-semibold mb-2">Step 4: Confirmation</h2>
+                <p>Please review your information:</p>
+                <div id="confirmation-details"></div>
+                <button id="finish-button" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md">Finish</button>
+            </div>
+
+            <div class="mt-4 flex justify-between items-center">
+                <button id="back-button" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-md" disabled>Back</button>
+                <button id="next-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const steps = {
+            1: document.getElementById('step-1'),
+            2: document.getElementById('step-2'),
+            3: document.getElementById('step-3'),
+            4: document.getElementById('step-4')
+        };
+        const backButton = document.getElementById('back-button');
+        const nextButton = document.getElementById('next-button');
+        const finishButton = document.getElementById('finish-button');
+        const progressBar = document.getElementById('progress-bar');
+
+        function showStep(stepNumber) {
+            for (const key in steps) {
+                steps[key].classList.remove('block');
+                steps[key].classList.add('hidden');
+            }
+            steps[stepNumber].classList.remove('hidden');
+            steps[stepNumber].classList.add('block');
+            currentStep = stepNumber;
+            updateProgressBar();
+            updateButtons();
+        }
+
+        function updateProgressBar() {
+            const progress = (currentStep / 4) * 100;
+            progressBar.style.width = progress + '%';
+        }
+
+        function updateButtons() {
+            backButton.disabled = currentStep === 1;
+            nextButton.disabled = false;
+            finishButton.hidden = true;
+
+            if (currentStep === 4) {
+                nextButton.hidden = true;
+                finishButton.hidden = false;
+            }
+        }
+
+        function validateStep(stepNumber) {
+            let isValid = true;
+            let errorMessage = '';
+
+            switch (stepNumber) {
+                case 1:
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+
+                    if (!email || !email.includes('@')) {
+                        isValid = false;
+                        errorMessage = 'Please enter a valid email address.';
+                        document.getElementById('email-error').textContent = errorMessage;
+                        document.getElementById('email-error').classList.remove('hidden');
+                    } else {
+                        document.getElementById('email-error').classList.add('hidden');
+                    }
+
+                    if (password.length < 8) {
+                        isValid = false;
+                        errorMessage = 'Password must be at least 8 characters long.';
+                        document.getElementById('password-error').textContent = errorMessage;
+                        document.getElementById('password-error').classList.remove('hidden');
+                    } else {
+                        document.getElementById('password-error').classList.add('hidden');
+                    }
+                    break;
+                case 2:
+                    const plan = document.querySelector('input[name="plan"]:checked');
+                    if (!plan) {
+                        isValid = false;
+                        errorMessage = 'Please select a plan.';
+                        document.getElementById('plan-error').textContent = errorMessage;
+                        document.getElementById('plan-error').classList.remove('hidden');
+                    } else {
+                        document.getElementById('plan-error').classList.add('hidden');
+                    }
+                    break;
+                case 3:
+                    const cardNumber = document.getElementById('card-number').value;
+                    const expiryDate = document.getElementById('expiry-date').value;
+                    const cvv = document.getElementById('cvv').value;
+
+                    if (!cardNumber || cardNumber.length < 16) {
+                        isValid = false;
+                        errorMessage = 'Please enter a valid card number.';
+                        document.getElementById('card-error').textContent = errorMessage;
+                        document.getElementById('card-error').classList.remove('hidden');
+                    } else {
+                        document.getElementById('card-error').classList.add('hidden');
+                    }
+
+                    if (!expiryDate || expiryDate.length !== 5 || !/^\d{2}\/\d{2}$/.test(expiryDate)) {
+                        isValid = false;
+                        errorMessage = 'Please enter a valid expiry date (MM/YY).';
+                        document.getElementById('expiry-error').textContent = errorMessage;
+                        document.getElementById('expiry-error').classList.remove('hidden');
+                    } else {
+                        document.getElementById('expiry-error').classList.add('hidden');
+                    }
+
+                    if (!cvv || cvv.length !== 3 || !/^\d+$/.test(cvv)) {
+                        isValid = false;
+                        errorMessage = 'Please enter a valid CVV.';
+                        document.getElementById('cvv-error').textContent = errorMessage;
+                        document.getElementById('cvv-error').classList.remove('hidden');
+                    } else {
+                        document.getElementById('cvv-error').classList.add('hidden');
+                    }
+                    break;
+            }
+
+            return isValid;
+        }
+
+        nextButton.addEventListener('click', () => {
+            if (validateStep(currentStep)) {
+                if (currentStep < 4) {
+                    showStep(currentStep + 1);
+                }
+            }
+        });
+
+        backButton.addEventListener('click', () => {
+            showStep(currentStep - 1);
+        });
+
+        finishButton.addEventListener('click', () => {
+            const confirmationDetails = document.getElementById('confirmation-details');
+            confirmationDetails.innerHTML = `
+                <p>Email: ${document.getElementById('email').value}</p>
+                <p>Plan: ${document.querySelector('input[name="plan"]:checked')?.value}</p>
+                <p>Card Number: ${document.getElementById('card-number').value.slice(-4)}</p>
+            `;
+            alert('Onboarding complete!');
+        });
+
+        showStep(1);
+    </script>
+
+</body>
+</html>

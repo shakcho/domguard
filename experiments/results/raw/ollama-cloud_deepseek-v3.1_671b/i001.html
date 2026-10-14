@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Activity Feed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8">Social Activity Feed</h1>
+        
+        <div id="feed" class="space-y-6">
+            <!-- Posts will be rendered here -->
+        </div>
+        
+        <div id="loading" class="hidden">
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <script>
+        // Mock data generator
+        function generateMockPosts(batchSize, offset = 0) {
+            const posts = [];
+            const users = ['John Doe', 'Jane Smith', 'Mike Johnson', 'Sarah Wilson', 'Alex Brown'];
+            const activities = [
+                'shared a new photo',
+                'commented on a post',
+                'liked a video',
+                'started following',
+                'updated their status'
+            ];
+            
+            for (let i = 0; i < batchSize; i++) {
+                const randomUser = users[Math.floor(Math.random() * users.length)];
+                const randomActivity = activities[Math.floor(Math.random() * activities.length)];
+                const randomTime = Math.floor(Math.random() * 24) + 1;
+                
+                posts.push({
+                    id: offset + i + 1,
+                    user: randomUser,
+                    activity: randomActivity,
+                    time: `${randomTime} hours ago`,
+                    content: `This is post content for item ${offset + i + 1}. Lorem ipsum dolor sit amet, consectetur adipiscing elit.`
+                });
+            }
+            
+            // Simulate network delay
+            return new Promise(resolve => {
+                setTimeout(() => resolve(posts), 1000);
+            });
+        }
+
+        // DOM elements
+        const feedElement = document.getElementById('feed');
+        const loadingElement = document.getElementById('loading');
+        
+        let currentOffset = 0;
+        const batchSize = 20;
+        let isLoading = false;
+        
+        // Function to render a post card
+        function renderPost(post) {
+            return `
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                            ${post.user.charAt(0)}
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="font-semibold">${post.user}</h3>
+                            <p class="text-gray-500 text-sm">${post.time}</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-2">
+                        <span class="font-medium">${post.user}</span> ${post.activity}
+                    </p>
+                    <p class="text-gray-600">${post.content}</p>
+                </div>
+            `;
+        }
+        
+        // Function to load more posts
+        async function loadMorePosts() {
+            if (isLoading) return;
+            
+            isLoading = true;
+            loadingElement.classList.remove('hidden');
+            
+            try {
+                const newPosts = await generateMockPosts(batchSize, currentOffset);
+                
+                newPosts.forEach(post => {
+                    const postElement = document.createElement('div');
+                    postElement.innerHTML = renderPost(post);
+                    feedElement.appendChild(postElement);
+                });
+                
+                currentOffset += batchSize;
+            } catch (error) {
+                console.error('Error loading posts:', error);
+            } finally {
+                isLoading = false;
+                loadingElement.classList.add('hidden');
+            }
+        }
+        
+        // Initial load
+        loadMorePosts();
+        
+        // Infinite scroll detection
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            if (scrollTop + windowHeight >= documentHeight - 100 && !isLoading) {
+                loadMorePosts();
+            }
+        });
+    </script>
+</body>
+</html>

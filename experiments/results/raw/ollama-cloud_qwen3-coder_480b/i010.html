@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Bar Example</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <h1 class="text-xl font-bold text-gray-800">MyWebsite</h1>
+                </div>
+                
+                <!-- Notification Bell -->
+                <div class="relative flex items-center">
+                    <button id="notification-bell" class="p-2 rounded-full hover:bg-gray-200 relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                        <!-- Unread Count Badge -->
+                        <span id="unread-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full">0</span>
+                    </button>
+                    
+                    <!-- Dropdown Menu -->
+                    <div id="notification-dropdown" class="absolute right-0 mt-48 w-80 bg-white rounded-md shadow-lg py-1 hidden z-50">
+                        <div class="px-4 py-2 border-b border-gray-200">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-lg font-semibold text-gray-800">Notifications</h3>
+                                <button id="mark-all-read" class="text-sm text-blue-500 hover:text-blue-700">Mark all as read</button>
+                            </div>
+                        </div>
+                        <div id="notification-list" class="max-h-96 overflow-y-auto">
+                            <!-- Notifications will be inserted here -->
+                            <div class="px-4 py-3 text-gray-500 text-center">No new notifications</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto p-4">
+        <h1 class="text-2xl font-bold text-gray-800 mb-4">Main Content</h1>
+        <p class="text-gray-600">This is a sample page with a notification system in the top navigation bar.</p>
+    </div>
+
+    <script>
+        // Mock notification data
+        let notifications = [
+            { id: 1, text: "Your order has been shipped", read: false, timestamp: "2023-05-01T10:30:00Z" },
+            { id: 2, text: "New message from John", read: false, timestamp: "2023-05-01T09:15:00Z" },
+            { id: 3, text: "Payment received for subscription", read: true, timestamp: "2023-04-30T16:45:00Z" }
+        ];
+        
+        // DOM Elements
+        const notificationBell = document.getElementById('notification-bell');
+        const notificationDropdown = document.getElementById('notification-dropdown');
+        const unreadCount = document.getElementById('unread-count');
+        const notificationList = document.getElementById('notification-list');
+        const markAllReadBtn = document.getElementById('mark-all-read');
+        
+        // Toggle dropdown visibility
+        notificationBell.addEventListener('click', () => {
+            notificationDropdown.classList.toggle('hidden');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!notificationBell.contains(event.target) && !notificationDropdown.contains(event.target)) {
+                notificationDropdown.classList.add('hidden');
+            }
+        });
+        
+        // Mark all as read
+        markAllReadBtn.addEventListener('click', () => {
+            notifications = notifications.map(notification => ({ ...notification, read: true }));
+            updateUnreadCount();
+            renderNotifications();
+        });
+        
+        // Mock async function to fetch notifications
+        async function fetchNotifications() {
+            // Simulate network delay
+            await new Promise(resolve => setTimeout(resolve, 300));
+            // In a real app, this would be an actual API call
+            return [...notifications];
+        }
+        
+        // Update unread count badge
+        function updateUnreadCount() {
+            const unread = notifications.filter(n => !n.read).length;
+            unreadCount.textContent = unread > 0 ? unread : '0';
+            unreadCount.classList.toggle('hidden', unread === 0);
+        }
+        
+        // Render notifications in dropdown
+        function renderNotifications() {
+            const unreadNotifications = notifications.filter(n => !n.read);
+            const readNotifications = notifications.filter(n => n.read);
+            
+            if (unreadNotifications.length === 0 && readNotifications.length === 0) {
+                notificationList.innerHTML = '<div class="px-4 py-3 text-gray-500 text-center">No notifications</div>';
+                return;
+            }
+            
+            notificationList.innerHTML = '';
+            
+            // Add unread notifications first
+            if (unreadNotifications.length > 0) {
+                const unreadHeader = document.createElement('div');
+                unreadHeader.className = 'px-4 py-2 bg-blue-50 text-blue-800 font-semibold';
+                unreadHeader.textContent = 'Unread';
+                notificationList.appendChild(unreadHeader);
+                
+                unreadNotifications.forEach(notification => {
+                    const item = createNotificationItem(notification);
+                    notificationList.appendChild(item);
+                });
+            }
+            
+            // Add read notifications
+            if (readNotifications.length > 0) {
+                const readHeader = document.createElement('div');
+                readHeader.className = 'px-4 py-2 bg-gray-50 text-gray-600 font-semibold border-t border-gray-200';
+                readHeader.textContent = 'Earlier';
+                notificationList.appendChild(readHeader);
+                
+                readNotifications.forEach(notification => {
+                    const item = createNotificationItem(notification);
+                    item.classList.add('opacity-75');
+                    notificationList.appendChild(item);
+                });
+            }
+        }
+        
+        // Create notification item element
+        function createNotificationItem(notification) {
+            const item = document.createElement('div');
+            item.className = 'px-4 py-3 border-b border-gray-200 hover:bg-gray-50 cursor-pointer';
+            item.innerHTML = `
+                <p class="text-gray-800">${notification.text}</p>
+                <p class="text-xs text-gray-500 mt-1">${formatDate(notification.timestamp)}</p>
+            `;
+            
+            // Mark as read on click
+            item.addEventListener('click', () => {
+                notification.read = true;
+                updateUnreadCount();
+                renderNotifications();
+            });
+            
+            return item;
+        }
+        
+        // Format date for display
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+        
+        // Poll for notifications
+        async function pollNotifications() {
+            try {
+                const data = await fetchNotifications();
+                notifications = data;
+                updateUnreadCount();
+                renderNotifications();
+            } catch (error) {
+                console.error('Error fetching notifications:', error);
+            }
+        }
+        
+        // Initial load
+        pollNotifications();
+        
+        // Poll every 5 seconds
+        setInterval(pollNotifications, 5000);
+    </script>
+</body>
+</html>

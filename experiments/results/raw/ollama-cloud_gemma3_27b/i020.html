@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Editor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex flex-col">
+
+    <header class="bg-blue-500 text-white py-4 px-6">
+        <h1 class="text-2xl font-bold">Live Markdown Editor</h1>
+    </header>
+
+    <main class="flex-1 flex overflow-hidden">
+        <div class="flex-1 p-4">
+            <h2 class="text-lg font-semibold mb-2">Markdown Input</h2>
+            <textarea id="markdownInput" class="w-full h-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-blue-500 resize-none" placeholder="Type your markdown here..."></textarea>
+            <p class="mt-2 text-sm">
+                Words: <span id="wordCount">0</span> | Characters: <span id="charCount">0</span>
+            </p>
+        </div>
+
+        <div class="flex-1 p-4">
+            <h2 class="text-lg font-semibold mb-2">HTML Preview</h2>
+            <div id="htmlPreview" class="border border-gray-300 rounded p-2 overflow-auto" style="height: 90vh;"></div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-200 py-2 px-6 text-center text-sm">
+        <p>Saved: <span id="savedIndicator">Not Saved</span></p>
+    </footer>
+
+    <script>
+        const markdownInput = document.getElementById('markdownInput');
+        const htmlPreview = document.getElementById('htmlPreview');
+        const wordCountSpan = document.getElementById('wordCount');
+        const charCountSpan = document.getElementById('charCount');
+        const savedIndicator = document.getElementById('savedIndicator');
+
+        let saveTimeout;
+        let lastSavedContent = '';
+
+        function updateCounts() {
+            const text = markdownInput.value;
+            const wordCount = text.trim().split(/\s+/).length;
+            const charCount = text.length;
+
+            wordCountSpan.textContent = wordCount;
+            charCountSpan.textContent = charCount;
+        }
+
+        function renderHTML() {
+            const markdownText = markdownInput.value;
+            const html = marked.parse(markdownText);
+            htmlPreview.innerHTML = html;
+        }
+
+        function saveContent() {
+            const content = markdownInput.value;
+            if (content !== lastSavedContent) {
+                // Simulate saving to local storage or a server
+                lastSavedContent = content;
+                savedIndicator.textContent = 'Saved!';
+                clearTimeout(saveTimeout);
+                saveTimeout = setTimeout(() => {
+                    savedIndicator.textContent = 'Not Saved';
+                }, 2000);
+            }
+        }
+
+        markdownInput.addEventListener('input', () => {
+            updateCounts();
+            renderHTML();
+            saveContent();
+        });
+
+        // Initial render and counts
+        updateCounts();
+        renderHTML();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</body>
+</html>

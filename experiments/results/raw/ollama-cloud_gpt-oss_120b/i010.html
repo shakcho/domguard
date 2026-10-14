@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Notification Navbar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+        <div class="flex-shrink-0">
+          <a href="#" class="text-xl font-bold text-gray-800">MyApp</a>
+        </div>
+        <div class="relative">
+          <button id="bellBtn" class="relative focus:outline-none">
+            <!-- Bell Icon -->
+            <svg class="h-6 w-6 text-gray-600 hover:text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C8.67 6.165 8 7.388 8 9v5.159c0 .538-.214 1.055-.595 1.436L6 17h9z" />
+            </svg>
+            <!-- Unread badge -->
+            <span id="unreadBadge" class="hidden absolute -top-1 -right-1 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+          </button>
+          <!-- Dropdown -->
+          <div id="dropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-10">
+            <div class="flex justify-between items-center px-4 py-2 border-b">
+              <h3 class="text-sm font-medium text-gray-900">Notifications</h3>
+              <button id="markAllRead" class="text-sm text-blue-600 hover:underline">Mark all as read</button>
+            </div>
+            <ul id="notificationList" class="max-h-60 overflow-y-auto py-2">
+              <!-- Notification items will be injected here -->
+            </ul>
+            <div class="px-4 py-2 text-center text-sm text-gray-500">
+              No more notifications.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="flex-grow flex items-center justify-center">
+    <h1 class="text-2xl text-gray-700">Welcome to the Dashboard</h1>
+  </main>
+
+  <script>
+    // Mock async fetchNotifications
+    async function fetchNotifications() {
+      // Simulate network latency
+      await new Promise(r => setTimeout(r, 500));
+      // Randomly generate 0-2 new notifications
+      const count = Math.floor(Math.random() * 3);
+      const newNotifs = [];
+      for (let i = 0; i < count; i++) {
+        const id = Date.now() + Math.random();
+        newNotifs.push({
+          id,
+          message: 'You have a new message #' + Math.floor(Math.random() * 1000),
+          read: false,
+          timestamp: new Date().toLocaleTimeString()
+        });
+      }
+      return newNotifs;
+    }
+
+    const notifications = [];
+    const bellBtn = document.getElementById('bellBtn');
+    const dropdown = document.getElementById('dropdown');
+    const notificationList = document.getElementById('notificationList');
+    const unreadBadge = document.getElementById('unreadBadge');
+    const markAllReadBtn = document.getElementById('markAllRead');
+
+    function updateBadge() {
+      const unreadCount = notifications.filter(n => !n.read).length;
+      if (unreadCount > 0) {
+        unreadBadge.textContent = unreadCount;
+        unreadBadge.classList.remove('hidden');
+      } else {
+        unreadBadge.classList.add('hidden');
+      }
+    }
+
+    function renderNotifications() {
+      notificationList.innerHTML = '';
+      if (notifications.length === 0) {
+        const empty = document.createElement('li');
+        empty.className = 'px-4 py-2 text-gray-500 text-sm';
+        empty.textContent = 'No notifications.';
+        notificationList.appendChild(empty);
+        return;
+      }
+      notifications.slice().reverse().forEach(notif => {
+        const li = document.createElement('li');
+        li.className = 'px-4 py-2 hover:bg-gray-100 cursor-pointer';
+        li.innerHTML = `
+          <div class="flex justify-between items-center">
+            <p class="text-sm ${notif.read ? 'text-gray-600' : 'font-medium text-gray-800'}">${notif.message}</p>
+            <span class="text-xs text-gray-400">${notif.timestamp}</span>
+          </div>
+        `;
+        li.addEventListener('click', () => {
+          notif.read = true;
+          updateBadge();
+          renderNotifications();
+        });
+        notificationList.appendChild(li);
+      });
+    }
+
+    async function pollNotifications() {
+      const newNotifs = await fetchNotifications();
+      if (newNotifs.length) {
+        notifications.push(...newNotifs);
+        updateBadge();
+        renderNotifications();
+      }
+    }
+
+    // Initial load
+    pollNotifications();
+
+    // Poll every 5 seconds
+    const intervalId = setInterval(pollNotifications, 5000);
+
+    // Toggle dropdown
+    bellBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle('hidden');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!dropdown.contains(e.target) && !bellBtn.contains(e.target)) {
+        dropdown.classList.add('hidden');
+      }
+    });
+
+    // Mark all as read
+    markAllReadBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      notifications.forEach(n => n.read = true);
+      updateBadge();
+      renderNotifications();
+    });
+
+    // Cleanup on unload
+    window.addEventListener('beforeunload', () => {
+      clearInterval(intervalId);
+    });
+  </script>
+</body>
+</html>

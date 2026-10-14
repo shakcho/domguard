@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Switcher with Dynamic Widget Support</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Theme management
+        const themeManager = {
+            currentTheme: 'system',
+            themes: {
+                light: {
+                    'bg-color': 'bg-white',
+                    'text-color': 'text-gray-900',
+                    'widget-bg': 'bg-gray-100',
+                    'button-bg': 'bg-blue-500',
+                    'button-hover': 'hover:bg-blue-600'
+                },
+                dark: {
+                    'bg-color': 'bg-gray-900',
+                    'text-color': 'text-white',
+                    'widget-bg': 'bg-gray-800',
+                    'button-bg': 'bg-purple-600',
+                    'button-hover': 'hover:bg-purple-700'
+                }
+            },
+            
+            init() {
+                // Check for saved theme preference
+                const savedTheme = localStorage.getItem('theme') || 'system';
+                this.setTheme(savedTheme);
+                this.setupObservers();
+            },
+            
+            setTheme(theme) {
+                this.currentTheme = theme;
+                localStorage.setItem('theme', theme);
+                
+                let appliedTheme = theme;
+                if (theme === 'system') {
+                    appliedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                
+                this.applyTheme(appliedTheme);
+                this.updateThemeButtons(theme);
+            },
+            
+            applyTheme(theme) {
+                const themeClasses = this.themes[theme];
+                document.documentElement.classList.remove('light', 'dark');
+                document.documentElement.classList.add(theme);
+                
+                // Apply CSS variables
+                Object.entries(themeClasses).forEach(([key, value]) => {
+                    document.documentElement.style.setProperty(`--${key}`, value);
+                });
+                
+                // Apply classes to existing elements
+                this.applyClassesToElements(theme);
+            },
+            
+            applyClassesToElements(theme) {
+                const themeClasses = this.themes[theme];
+                document.body.className = `${themeClasses['bg-color']} ${themeClasses['text-color']} min-h-screen transition-colors duration-200`;
+                
+                // Update all elements with data-theme-class attributes
+                document.querySelectorAll('[data-theme-class]').forEach(el => {
+                    const themeKey = el.getAttribute('data-theme-class');
+                    if (themeClasses[themeKey]) {
+                        el.className = themeClasses[themeKey];
+                    }
+                });
+            },
+            
+            updateThemeButtons(activeTheme) {
+                document.querySelectorAll('[data-theme-btn]').forEach(btn => {
+                    btn.classList.remove('ring-2', 'ring-offset-2');
+                    if (btn.dataset.themeBtn === activeTheme) {
+                        btn.classList.add('ring-2', 'ring-offset-2', 'ring-blue-500');
+                    }
+                });
+            },
+            
+            setupObservers() {
+                // Watch for DOM changes to apply theme to new elements
+                const observer = new MutationObserver(mutations => {
+                    mutations.forEach(mutation => {
+                        mutation.addedNodes.forEach(node => {
+                            if (node.nodeType === 1) { // Element node
+                                this.applyThemeToNewElement(node);
+                            }
+                        });
+                    });
+                });
+                
+                observer.observe(document.body, {
+                    childList: true,
+                    subtree: true
+                });
+                
+                // Watch for system theme changes
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                    if (this.currentTheme === 'system') {
+                        this.setTheme('system');
+                    }
+                });
+            },
+            
+            applyThemeToNewElement(element) {
+                const currentTheme = this.currentTheme === 'system' 
+                    ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+                    : this.currentTheme;
+                    
+                const themeClasses = this.themes[currentTheme];
+                
+                // Apply to the element itself if it has data-theme-class
+                if (element.hasAttribute('data-theme-class')) {
+                    const themeKey = element.getAttribute('data-theme-class');
+                    if (themeClasses[themeKey]) {
+                        element.className = themeClasses[themeKey];
+                    }
+                }
+                
+                // Apply to child elements with data-theme-class
+                element.querySelectorAll('[data-theme-class]').forEach(el => {
+                    const themeKey = el.getAttribute('data-theme-class');
+                    if (themeClasses[themeKey]) {
+                        el.className = themeClasses[themeKey];
+                    }
+                });
+            }
+        };
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            themeManager.init();
+            
+            // Theme switcher event listeners
+            document.querySelectorAll('[data-theme-btn]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    themeManager.setTheme(btn.dataset.themeBtn);
+                });
+            });
+            
+            // Widget injection
+            document.getElementById('inject-widget').addEventListener('click', () => {
+                const widget = document.createElement('div');
+                widget.className = 'p-6 rounded-lg shadow-lg my-4';
+                widget.setAttribute('data-theme-class', 'widget-bg');
+                widget.innerHTML = `
+                    <h3 class="text-lg font-bold mb-2">Dynamic Widget</h3>
+                    <p class="mb-3">This widget was injected after page load and automatically themed!</p>
+                    <button class="px-4 py-2 rounded text-white font-medium" data-theme-class="button-bg">
+                        Themed Button
+                    </button>
+                `;
+                document.getElementById('widget-container').appendChild(widget);
+            });
+        });
+    </script>
+    <style>
+        :root {
+            --bg-color: '';
+            --text-color: '';
+            --widget-bg: '';
+            --button-bg: '';
+            --button-hover: '';
+        }
+    </style>
+</head>
+<body class="min-h-screen transition-colors duration-200">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-12 text-center">
+            <h1 class="text-3xl font-bold mb-2">Theme Switcher Demo</h1>
+            <p class="text-lg opacity-75">With dynamic widget support</p>
+        </header>
+        
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-opacity-50 p-6 rounded-lg shadow-lg mb-8">
+                <h2 class="text-xl font-semibold mb-4">Theme Controls</h2>
+                <div class="flex flex-wrap gap-3">
+                    <button 
+                        data-theme-btn="light"
+                        class="px-4 py-2 rounded-lg font-medium transition-all"
+                        data-theme-class="button-bg"
+                    >
+                        Light Theme
+                    </button>
+                    <button 
+                        data-theme-btn="dark"
+                        class="px-4 py-2 rounded-lg font-medium text-white transition-all"
+                        data-theme-class="button-bg"
+                    >
+                        Dark Theme
+                    </button>
+                    <button 
+                        data-theme-btn="system"
+                        class="px-4 py-2 rounded-lg font-medium transition-all"
+                        data-theme-class="button-bg"
+                    >
+                        System Theme
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-opacity-50 p-6 rounded-lg shadow-lg mb-8">
+                <h2 class="text-xl font-semibold mb-4">Widget Demo</h2>
+                <button 
+                    id="inject-widget"
+                    class="px-4 py-2 rounded font-medium mb-4"
+                    data-theme-class="button-bg"
+                >
+                    Inject Sample Widget
+                </button>
+                <div id="widget-container">
+                    <div class="p-6 rounded-lg shadow-lg mb-4" data-theme-class="widget-bg">
+                        <h3 class="text-lg font-bold mb-2">Static Widget</h3>
+                        <p>This widget was present on page load</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-opacity-50 p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold mb-4">How It Works</h2>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li>Switch between light, dark, and system themes</li>
+                    <li>Widgets injected after page load are automatically themed</li>
+                    <li>Theme preference is saved in localStorage</li>
+                    <li>System theme respects OS/browser settings</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

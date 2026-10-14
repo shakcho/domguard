@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Switcher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --color-bg: #ffffff;
+            --color-text: #000000;
+            --color-primary: #3b82f6;
+        }
+
+        [data-theme="dark"] {
+            --color-bg: #1f2937;
+            --color-text: #f9fafb;
+            --color-primary: #60a5fa;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .theme-widget {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+            background-color: var(--color-primary);
+            color: white;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+    <div class="text-center">
+        <h1 class="text-4xl font-bold mb-6">Theme Switcher Demo</h1>
+        <div class="flex gap-4 justify-center mb-8">
+            <button id="theme-light" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Light</button>
+            <button id="theme-dark" class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-800">Dark</button>
+            <button id="theme-system" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">System</button>
+        </div>
+        <button id="inject-widget" class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 mb-8">Inject Sample Widget</button>
+        <div id="widget-container"></div>
+    </div>
+
+    <script>
+        let currentTheme = 'system';
+
+        function applyTheme(theme) {
+            currentTheme = theme;
+            const html = document.documentElement;
+            
+            if (theme === 'system') {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                html.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+            } else {
+                html.setAttribute('data-theme', theme);
+            }
+            
+            localStorage.setItem('theme', theme);
+        }
+
+        function applyThemeToElement(element) {
+            if (currentTheme === 'system') {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                element.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+            } else {
+                element.setAttribute('data-theme', currentTheme);
+            }
+        }
+
+        function injectSampleWidget() {
+            const widget = document.createElement('div');
+            widget.className = 'theme-widget';
+            widget.innerHTML = '<p>This is a dynamically injected widget</p>';
+            document.getElementById('widget-container').appendChild(widget);
+        }
+
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                mutation.addedNodes.forEach((node) => {
+                    if (node.nodeType === 1) {
+                        applyThemeToElement(node);
+                        node.querySelectorAll('*').forEach(child => applyThemeToElement(child));
+                    }
+                });
+            });
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+
+        document.getElementById('theme-light').addEventListener('click', () => applyTheme('light'));
+        document.getElementById('theme-dark').addEventListener('click', () => applyTheme('dark'));
+        document.getElementById('theme-system').addEventListener('click', () => applyTheme('system'));
+        document.getElementById('inject-widget').addEventListener('click', injectSampleWidget);
+
+        const savedTheme = localStorage.getItem('theme') || 'system';
+        applyTheme(savedTheme);
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (currentTheme === 'system') {
+                applyTheme('system');
+            }
+        });
+    </script>
+</body>
+</html>

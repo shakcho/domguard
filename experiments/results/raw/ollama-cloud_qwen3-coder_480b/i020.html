@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Markdown Editor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-gray-800">Live Markdown Editor</h1>
+            <p class="text-gray-600">Edit on the left, preview on the right</p>
+        </header>
+
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-4">
+            <div class="flex flex-col md:flex-row">
+                <!-- Editor Pane -->
+                <div class="w-full md:w-1/2 border-r border-gray-200">
+                    <div class="p-4 bg-gray-50 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-gray-700">Markdown Editor</h2>
+                    </div>
+                    <textarea 
+                        id="editor" 
+                        class="w-full h-96 p-4 text-gray-700 resize-none focus:outline-none"
+                        placeholder="Start writing your markdown here..."
+                    ></textarea>
+                </div>
+
+                <!-- Preview Pane -->
+                <div class="w-full md:w-1/2">
+                    <div class="p-4 bg-gray-50 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-gray-700">Preview</h2>
+                    </div>
+                    <div id="preview" class="h-96 overflow-auto p-4 bg-white"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="flex flex-wrap items-center justify-between bg-white rounded-lg shadow p-4">
+            <div class="flex space-x-4">
+                <div class="text-gray-700">
+                    <span class="font-medium">Words:</span>
+                    <span id="word-count" class="ml-1">0</span>
+                </div>
+                <div class="text-gray-700">
+                    <span class="font-medium">Characters:</span>
+                    <span id="char-count" class="ml-1">0</span>
+                </div>
+            </div>
+            <div class="flex items-center">
+                <div id="save-indicator" class="flex items-center">
+                    <div class="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                    <span class="text-gray-700">Saved</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const editor = document.getElementById('editor');
+        const preview = document.getElementById('preview');
+        const wordCount = document.getElementById('word-count');
+        const charCount = document.getElementById('char-count');
+        const saveIndicator = document.getElementById('save-indicator');
+
+        // Initial content
+        editor.value = `# Welcome to the Markdown Editor
+
+## Features
+- Real-time preview
+- Word and character count
+- Auto-save indicator
+
+**Try editing this text!**
+
+> This is a blockquote
+
+\`\`\`javascript
+// This is a code block
+console.log('Hello, world!');
+\`\`\`
+
+1. First item
+2. Second item
+3. Third item
+
+[Visit GitHub](https://github.com)`;
+
+        // Update preview function
+        function updatePreview() {
+            preview.innerHTML = marked.parse(editor.value);
+        }
+
+        // Update counts function
+        function updateCounts() {
+            const text = editor.value;
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            const chars = text.length;
+            
+            wordCount.textContent = words;
+            charCount.textContent = chars;
+        }
+
+        // Save indicator function
+        function showSaving() {
+            saveIndicator.innerHTML = `
+                <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                <span class="text-gray-700">Saving...</span>
+            `;
+        }
+
+        function showSaved() {
+            saveIndicator.innerHTML = `
+                <div class="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                <span class="text-gray-700">Saved</span>
+            `;
+        }
+
+        // Debounce function
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        // Autosave function
+        const autosave = debounce(() => {
+            // In a real app, this would save to localStorage or a server
+            showSaved();
+        }, 1000);
+
+        // Event listeners
+        editor.addEventListener('input', () => {
+            updatePreview();
+            updateCounts();
+            showSaving();
+            autosave();
+        });
+
+        // Initialize
+        updatePreview();
+        updateCounts();
+    </script>
+</body>
+</html>

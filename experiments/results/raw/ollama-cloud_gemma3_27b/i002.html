@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Operations Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold text-center mb-8">Real-Time Operations Dashboard</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
+
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <h2 class="text-xl font-semibold mb-2">Requests/Sec</h2>
+                <div class="text-3xl font-bold" id="requestsPerSec">0</div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <h2 class="text-xl font-semibold mb-2">Error Rate (%)</h2>
+                <div class="text-3xl font-bold" id="errorRate">0</div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <h2 class="text-xl font-semibold mb-2">Latency (ms)</h2>
+                <div class="text-3xl font-bold" id="latency">0</div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <h2 class="text-xl font-semibold mb-2">Active Users</h2>
+                <div class="text-3xl font-bold" id="activeUsers">0</div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <h2 class="text-xl font-semibold mb-2">CPU (%)</h2>
+                <div class="text-3xl font-bold" id="cpuUsage">0</div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <h2 class="text-xl font-semibold mb-2">Memory (GB)</h2>
+                <div class="text-3xl font-bold" id="memoryUsage">0</div>
+            </div>
+        </div>
+
+        <div class="text-center mt-8">
+            <button id="pauseResumeButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Pause</button>
+        </div>
+    </div>
+
+    <script>
+        let isRunning = true;
+        let previousValues = {
+            requestsPerSec: 0,
+            errorRate: 0,
+            latency: 0,
+            activeUsers: 0,
+            cpuUsage: 0,
+            memoryUsage: 0
+        };
+
+        async function getMetrics() {
+            // Mock API call
+            await new Promise(resolve => setTimeout(resolve, 500));
+            return {
+                requestsPerSec: Math.floor(Math.random() * 1000),
+                errorRate: (Math.random() * 10).toFixed(2),
+                latency: (Math.random() * 100).toFixed(0),
+                activeUsers: Math.floor(Math.random() * 500),
+                cpuUsage: (Math.random() * 100).toFixed(0),
+                memoryUsage: (Math.random() * 8).toFixed(2)
+            };
+        }
+
+        async function updateMetrics() {
+            if (isRunning) {
+                try {
+                    const metrics = await getMetrics();
+
+                    document.getElementById('requestsPerSec').innerText = metrics.requestsPerSec;
+                    document.getElementById('errorRate').innerText = metrics.errorRate;
+                    document.getElementById('latency').innerText = metrics.latency;
+                    document.getElementById('activeUsers').innerText = metrics.activeUsers;
+                    document.getElementById('cpuUsage').innerText = metrics.cpuUsage;
+                    document.getElementById('memoryUsage').innerText = metrics.memoryUsage;
+
+                    animateValueChange('requestsPerSec', metrics.requestsPerSec, previousValues.requestsPerSec);
+                    animateValueChange('errorRate', metrics.errorRate, previousValues.errorRate);
+                    animateValueChange('latency', metrics.latency, previousValues.latency);
+                    animateValueChange('activeUsers', metrics.activeUsers, previousValues.activeUsers);
+                    animateValueChange('cpuUsage', metrics.cpuUsage, previousValues.cpuUsage);
+                    animateValueChange('memoryUsage', metrics.memoryUsage, previousValues.memoryUsage);
+
+                    previousValues = { ...metrics };
+
+                } catch (error) {
+                    console.error("Error fetching metrics:", error);
+                }
+            }
+        }
+
+        function animateValueChange(elementId, newValue, oldValue) {
+            const element = document.getElementById(elementId);
+            let start = oldValue;
+            let end = newValue;
+            const duration = 1000; // ms
+            const startTime = performance.now();
+
+            function animationStep(currentTime) {
+                const progress = (currentTime - startTime) / duration;
+                const currentValue = start + (end - start) * progress;
+
+                element.innerText = currentValue.toFixed(0);
+
+                if (progress < 1) {
+                    requestAnimationFrame(animationStep);
+                } else {
+                    element.innerText = newValue.toFixed(0);
+                }
+            }
+
+            requestAnimationFrame(animationStep);
+        }
+
+        document.getElementById('pauseResumeButton').addEventListener('click', () => {
+            isRunning = !isRunning;
+            const button = document.getElementById('pauseResumeButton');
+            button.innerText = isRunning ? 'Pause' : 'Resume';
+        });
+
+        // Initial update and then every second
+        updateMetrics();
+        setInterval(updateMetrics, 1000);
+    </script>
+
+</body>
+</html>

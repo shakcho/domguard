@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vault | Bitcoin Self-Custody. Uncompromising Security.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bitcoin: '#F7931A',
+                        dark: '#0F0F0F',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .bg-gradient-bitcoin { background: linear-gradient(135deg, #F7931A 0%, #8B4513 100%); }
+    </style>
+</head>
+<body class="bg-dark text-white">
+    <!-- Header -->
+    <header class="container mx-auto px-4 py-6 flex justify-between items-center">
+        <div class="text-2xl font-bold">Vault</div>
+        <nav>
+            <ul class="hidden md:flex space-x-8">
+                <li><a href="#features" class="hover:text-bitcoin transition-colors">Features</a></li>
+                <li><a href="#faq" class="hover:text-bitcoin transition-colors">FAQ</a></li>
+                <li><a href="#get-started" class="bg-bitcoin text-white px-6 py-2 rounded-md font-semibold hover:opacity-90 transition-opacity">Get Started</a></li>
+            </ul>
+            <button class="md:hidden">☰</button>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="container mx-auto px-4 py-20 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6">Take Full Control.<br>Your Keys, Your Bitcoin.</h1>
+        <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">The most secure, non-custodial Bitcoin vault. Engineered for maximum security and sovereign ownership.</p>
+        <a href="#get-started" class="bg-gradient-bitcoin text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-lg transition-shadow">Secure Your Bitcoin Now</a>
+    </section>
+
+    <!-- Three Pillars -->
+    <section id="features" class="bg-black py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-16">The Pillars of True Self-Custody</h2>
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Pillar 1 -->
+                <div class="text-center p-6 bg-gray-900 rounded-xl">
+                    <div class="w-16 h-16 bg-bitcoin rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Ironclad Custody</h3>
+                    <p class="text-gray-400">Your private keys are generated and stored offline. We never have access. Multi-signature and hardware security module integration.</p>
+                </div>
+                <!-- Pillar 2 -->
+                <div class="text-center p-6 bg-gray-900 rounded-xl">
+                    <div class="w-16 h-16 bg-bitcoin rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Robust Recovery</h3>
+                    <p class="text-gray-400">Social recovery and encrypted shard backup. Regain access without single points of failure. Your safety net, without compromises.</p>
+                </div>
+                <!-- Pillar 3 -->
+                <div class="text-center p-6 bg-gray-900 rounded-xl">
+                    <div class="w-16 h-16 bg-bitcoin rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3a12 12 0 00-8.5 3A12.04 12.04 0 003 8.5a12 12 0 003 8.5 12 12 0 008.5 3 12 12 0 008.5-3 12 12 0 003-8.5 12 12 0 00-3-8.5A12 12 0 0012 3z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Absolute Privacy</h3>
+                    <p class="text-gray-400">Zero-knowledge architecture. No identity linking. Your transactions and holdings remain confidential, as Bitcoin intended.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="container mx-auto px-4 py-20">
+        <h2 class="text-3xl font-bold text-center mb-16">Frequently Asked Questions</h2>
+        <div class="max-w-3xl mx-auto space-y-6">
+            <!-- FAQ Item -->
+            <div class="bg-gray-900 rounded-lg p-6">
+                <button onclick="toggleFAQ(this)" class="flex justify-between items-center w-full text-left font-semibold">
+                    <span>How is Vault more secure than an exchange?</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="mt-4 text-gray-400 hidden">
+                    Vault is a non-custodial solution, meaning you retain full control of your private keys. Unlike exchanges, which are constant targets for hackers and are susceptible to regulatory seizure, your Bitcoin in Vault is secured by military-grade encryption and is never held by a third party.
+                </div>
+            </div>
+            <!-- FAQ Item -->
+            <div class="bg-gray-900 rounded-lg p-6">
+                <button onclick="toggleFAQ(this)" class="flex justify-between items-center w-full text-left font-semibold">
+                    <span>What happens if I lose my recovery phrase?</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="mt-4 text-gray-400 hidden">
+                    We've engineered a robust social recovery system. You can appoint trusted contacts who can help you regain access without any single person having full control. This eliminates the single point of failure inherent in a seed phrase while maintaining ultimate security.
+                </div>
+            </div>
+            <!-- FAQ Item -->
+            <div class="bg-gray-900 rounded-lg p-6">
+                <button onclick="toggleFAQ(this)" class="flex justify-between items-center w-full text-left font-semibold">
+                    <span>Is Vault open source?</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="mt-4 text-gray-400 hidden">
+                    Yes. We believe in transparency and security through scrutiny. Our core protocols and smart contracts are fully open source and have been audited by leading security firms. You can verify the code yourself on our GitHub.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="get-started" class="bg-gradient-bitcoin py-20 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Take Sovereignty Over Your Bitcoin?</h2>
+            <p class="text-xl mb-10 max-w-2xl mx-auto">Join thousands of Bitcoiners who have chosen uncompromising security.</p>
+            <a href="#" class="bg-white text-bitcoin px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors inline-block">Create Your Vault Now</a>
+            <p class="mt-6 text-sm">No email required. Start in seconds.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="container mx-auto px-4 py-10 text-center text-gray-400">
+        <p>© 2023 Vault. All rights reserved. For the sovereign individual.</p>
+        <p class="mt-2 text-sm"><a href="#" class="hover:text-bitcoin">Privacy Policy</a> | <a href="#" class="hover:text-bitcoin">Terms of Service</a></p>
+    </footer>
+
+    <script>
+        function toggleFAQ(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('svg');
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+    </script>
+</body>
+</html>

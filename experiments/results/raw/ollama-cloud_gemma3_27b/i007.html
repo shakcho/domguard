@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Carousel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <div class="relative overflow-hidden">
+        <div class="carousel-container w-full">
+            <div class="carousel-slides flex transition-transform duration-500 ease-in-out">
+                <div class="carousel-slide w-full flex-shrink-0">
+                    <img src="https://source.unsplash.com/1600x900/?nature,landscape,1" alt="Slide 1" class="w-full h-full object-cover">
+                </div>
+                <div class="carousel-slide w-full flex-shrink-0">
+                    <img src="https://source.unsplash.com/1600x900/?mountains,scenery,2" alt="Slide 2" class="w-full h-full object-cover">
+                </div>
+                <div class="carousel-slide w-full flex-shrink-0">
+                    <img src="https://source.unsplash.com/1600x900/?ocean,beach,3" alt="Slide 3" class="w-full h-full object-cover">
+                </div>
+                <div class="carousel-slide w-full flex-shrink-0">
+                    <img src="https://source.unsplash.com/1600x900/?forest,trees,4" alt="Slide 4" class="w-full h-full object-cover">
+                </div>
+                <div class="carousel-slide w-full flex-shrink-0">
+                    <img src="https://source.unsplash.com/1600x900/?city,urban,5" alt="Slide 5" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+            <div class="flex space-x-2">
+                <button class="carousel-button prev bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+                    &lt;
+                </button>
+                <div class="carousel-indicators flex space-x-2">
+                    <button class="indicator-button active bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-index="0"></button>
+                    <button class="indicator-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded" data-index="1"></button>
+                    <button class="indicator-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded" data-index="2"></button>
+                    <button class="indicator-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded" data-index="3"></button>
+                    <button class="indicator-button bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded" data-index="4"></button>
+                </div>
+                <button class="carousel-button next bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+                    &gt;
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const carouselContainer = document.querySelector('.carousel-container');
+        const carouselSlides = document.querySelector('.carousel-slides');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const prevButton = document.querySelector('.prev');
+        const nextButton = document.querySelector('.next');
+        const indicatorButtons = document.querySelectorAll('.indicator-button');
+
+        let currentSlide = 0;
+        let intervalId;
+
+        function goToSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            carouselSlides.style.transform = `translateX(-${index * 100}%)`;
+            currentSlide = index;
+            updateIndicators();
+        }
+
+        function updateIndicators() {
+            indicatorButtons.forEach((button, index) => {
+                button.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function startTimer() {
+            intervalId = setInterval(() => {
+                goToSlide((currentSlide + 1) % slides.length);
+            }, 3000);
+        }
+
+        function resetTimer() {
+            clearInterval(intervalId);
+            startTimer();
+        }
+
+        prevButton.addEventListener('click', () => {
+            goToSlide(currentSlide - 1);
+            resetTimer();
+        });
+
+        nextButton.addEventListener('click', () => {
+            goToSlide(currentSlide + 1);
+            resetTimer();
+        });
+
+        indicatorButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                const index = parseInt(button.dataset.index);
+                goToSlide(index);
+                resetTimer();
+            });
+        });
+
+        carouselContainer.addEventListener('mouseenter', () => {
+            clearInterval(intervalId);
+        });
+
+        carouselContainer.addEventListener('mouseleave', () => {
+            startTimer();
+        });
+
+        startTimer();
+        updateIndicators();
+    </script>
+
+</body>
+</html>

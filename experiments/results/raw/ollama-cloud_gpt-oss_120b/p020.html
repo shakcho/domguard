@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Bitcoin Self‑Custody</title>
+  <meta name="description" content="Take full control of your Bitcoin with a security‑first self‑custody solution.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config for dark mode and custom colors
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#F7931A', // Bitcoin orange
+            secondary: '#0F172A', // dark slate
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* Simple smooth scroll for anchor links */
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans antialiased">
+  <!-- Navigation -->
+  <header class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <a href="#" class="text-2xl font-bold text-primary">BitGuard</a>
+      <nav class="hidden md:flex space-x-6">
+        <a href="#features" class="hover:text-primary transition-colors">Features</a>
+        <a href="#faq" class="hover:text-primary transition-colors">FAQ</a>
+        <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
+      </nav>
+      <button id="themeToggle" class="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+        <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800 dark:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 3v1m0 16v1m8.66-12.34l-.71.71M5.05 18.95l-.71.71M21 12h-1M4 12H3m15.66 5.66l-.71-.71M5.05 5.05l-.71-.71"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-primary text-white py-20">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Your Bitcoin, Your Rules</h1>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+        A security‑first self‑custody platform that puts you in full control of your assets. No middlemen, no compromises.
+      </p>
+      <a href="#cta" class="inline-block bg-white text-primary font-semibold py-3 px-8 rounded-full hover:bg-gray-100 transition-colors">
+        Get Started Securely
+      </a>
+    </div>
+  </section>
+
+  <!-- Pillars -->
+  <section id="features" class="py-16 bg-gray-100 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-gray-100">Built on Three Pillars</h2>
+      <div class="grid gap-8 md:grid-cols-3">
+        <!-- Custody -->
+        <div class="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 text-center">
+          <svg class="h-12 w-12 mx-auto text-primary mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 14c-4.418 0-8 1.79-8 4v2h16v-2c0-2.21-3.582-4-8-4z"/>
+          </svg>
+          <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-100">Custody</h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            Store your Bitcoin in a hardware‑isolated vault. Private keys never leave your device, ensuring absolute ownership.
+          </p>
+        </div>
+        <!-- Recovery -->
+        <div class="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 text-center">
+          <svg class="h-12 w-12 mx-auto text-primary mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8v4l3 3m6-6a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-100">Recovery</h3>
+          <p class="text-gray-600 dark:text-gray-3">
+            Multi‑factor recovery with Shamir's Secret Sharing. Split your seed across trusted devices, recover safely even if one is lost.
+          </p>
+        </div>
+        <!-- Privacy -->
+        <div class="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 text-center">
+          <svg class="h-12 w-12 mx-auto text-primary mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 11c0-1.657-1.343-3-3-3S6 9.343 6 11s1.343 3 3 3 3-1.343 3-3z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 14c-4.418 0-8 1.79-8 4v2h16v-2c0-2.21-3.582-4-8-4z"/>
+          </svg>
+          <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-100">Privacy</h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            Zero‑knowledge architecture. No personal data is stored on our servers, and all communications are end‑to‑end encrypted.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-16 bg-white dark:bg-gray-900">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8 text-gray-800 dark:text-gray-100">Frequently Asked Questions</h2>
+      <div class="space-y-4">
+        <div class="border border-gray-200 dark:border-gray-700 rounded-md">
+          <button class="w-full text-left px-4 py-3 flex justify-between items-center focus:outline-none faq-question">
+            <span class="font-medium text-gray-800 dark:text-gray-100">How does self‑custody differ from an exchange?</span>
+            <svg class="h-5 w-5 text-gray-500 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="px-4 pb-4 hidden faq-answer text-gray-600 dark:text-gray-300">
+            With self‑custody, you hold the private keys on your own hardware. Exchanges hold the keys for you, which introduces custodial risk.
+          </div>
+        </div>
+        <div class="border border-gray-200 dark:border-gray-700 rounded-md">
+          <button class="w-full text-left px-4 py-3 flex justify-between items-center focus:outline-none faq-question">
+            <span class="font-medium text-gray-800 dark:text-gray-100">What happens if I lose my device?</span>
+            <svg class="h-5 w-5 text-gray-500 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="px-4 pb-4 hidden faq-answer text-gray-600 dark:text-gray-300">
+            Our recovery system uses Shamir's Secret Sharing. As long as you retain the required number of shares, you can reconstruct your seed.
+          </div>
+        </div>
+        <div class="border border-gray-200 dark:border-gray-700 rounded-md">
+          <button class="w-full text-left px-4 py-3 flex justify-between items-center focus:outline-none faq-question">
+            <span class="font-medium text-gray-800 dark:text-gray-100">Is my data stored on your servers?</span>
+            <svg class="h-5 w-5 text-gray-500 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="px-4 pb-4 hidden faq-answer text-gray-600 dark:text-gray-300">
+            No. We never store private keys or personal identifiers. All sensitive operations happen locally on your device.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section id="cta" class="py-20 bg-primary text-white">
+    <div class="max-w-2xl mx-auto text-center px-4">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">Take Control of Your Bitcoin Today</h2>
+      <p class="mb-8 text-lg">
+        Join thousands of security‑focused users who trust BitGuard for self‑custody.
+      </p>
+      <a href="#" class="inline-block bg-white text-primary font-semibold py-3 px-10 rounded-full hover:bg-gray-100 transition-colors">
+        Secure My Bitcoin
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-300 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="mb-4">&copy; 2026 BitGuard. All rights reserved.</p>
+      <div class="flex justify-center space-x-6">
+        <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+        <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const root = document.documentElement;
+
+    function setTheme(dark) {
+      if (dark) {
+        root.classList.add('dark');
+        themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.66-12.34l-.71.71M5.05 18.95l-.71.71M21 12h-1M4 12H3m15.66 5.66l-.71-.71M5.05 5.05l-.71-.71"/>';
+      } else {
+        root.classList.remove('dark');
+        themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9z"/>';
+      }
+    }
+
+    // Initialize theme based on system preference
+    setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = root.classList.contains('dark');
+      setTheme(!isDark);
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const answer = button.nextElementSibling;
+        const icon = button.querySelector('svg');
+        const isOpen = !answer.classList.contains('hidden');
+
+        // Close all others
+        document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
+        document.querySelectorAll('.faq-question svg').forEach(i => i.classList.remove('rotate-180'));
+
+        if (!isOpen) {
+          answer.classList.remove('hidden');
+          icon.classList.add('rotate-180');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

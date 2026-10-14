@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Meal Kit Subscription</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans antialiased">
+
+  <!-- Header -->
+  <header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+      <h1 class="text-2xl font-bold text-green-600">FreshBox</h1>
+      <nav class="space-x-4 hidden md:block">
+        <a href="#pricing" class="text-gray-700 hover:text-green-600">Pricing</a>
+        <a href="#menus" class="text-gray-700 hover:text-green-600">Menus</a>
+        <a href="#faq" class="text-gray-700 hover:text-green-600">FAQ</a>
+        <a href="#cta" class="text-gray-700 hover:text-green-600">Subscribe</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative bg-gray-800">
+    <div class="absolute inset-0">
+      <img src="https://via.placeholder.com/1600x900?text=Delicious+Meal+Kit" alt="Meal kit" class="w-full h-full object-cover opacity-70">
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 py-24 sm:py-32 lg:py-40 text-center">
+      <h2 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
+        Fresh, Healthy Meals Delivered to Your Door
+      </h2>
+      <p class="mt-6 text-xl text-gray-200 max-w-3xl mx-auto">
+        Choose from chef‑crafted recipes, get fresh ingredients, and cook in 30 minutes or less.
+      </p>
+      <a href="#cta" class="mt-8 inline-block bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-md shadow-lg transition">
+        Get Started
+      </a>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h3 class="text-3xl font-bold text-center text-gray-900 mb-12">Choose Your Plan</h3>
+      <div class="grid gap-8 md:grid-cols-3">
+        <!-- Basic -->
+        <div class="border border-gray-200 rounded-lg p-6 flex flex-col">
+          <h4 class="text-xl font-semibold mb-4 text-gray-800">Basic</h4>
+          <p class="text-4xl font-bold text-green-600 mb-4">$29<span class="text-base font-medium text-gray-500">/week</span></p>
+          <ul class="flex-1 space-y-2 mb-6">
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>3 meals per week</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>2 servings per meal</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Free delivery</li>
+          </ul>
+          <a href="#cta" class="mt-auto bg-green-600 hover:bg-green-700 text-white text-center py-2 rounded-md transition">Select</a>
+        </div>
+        <!-- Standard -->
+        <div class="border border-green-600 rounded-lg p-6 flex flex-col bg-green-50">
+          <h4 class="text-xl font-semibold mb-4 text-green-800">Standard</h4>
+          <p class="text-4xl font-bold text-green-600 mb-4">$49<span class="text-base font-medium text-gray-500">/week</span></p>
+          <ul class="flex-1 space-y-2 mb-6">
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>5 meals per week</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>2‑4 servings per meal</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Premium recipes</li>
+          </ul>
+          <a href="#cta" class="mt-auto bg-green-600 hover:bg-green-700 text-white text-center py-2 rounded-md transition">Select</a>
+        </div>
+        <!-- Premium -->
+        <div class="border border-gray-200 rounded-lg p-6 flex flex-col">
+          <h4 class="text-xl font-semibold mb-4 text-gray-800">Premium</h4>
+          <p class="text-4xl font-bold text-green-600 mb-4">$79<span class="text-base font-medium text-gray-500">/week</span></p>
+          <ul class="flex-1 space-y-2 mb-6">
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>7 meals per week</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Family‑size portions</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Exclusive chef’s menu</li>
+          </ul>
+          <a href="#cta" class="mt-auto bg-green-600 hover:bg-green-700 text-white text-center py-2 rounded-md transition">Select</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sample Menus -->
+  <section id="menus" class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h3 class="text-3xl font-bold text-center text-gray-900 mb-12">Sample Menus</h3>
+      <div class="grid gap-8 md:grid-cols-3">
+        <!-- Menu 1 -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+          <img src="https://via.placeholder.com/400x250?text=Menu+1" alt="Menu 1" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h4 class="font-semibold text-lg mb-2">Mediterranean Delight</h4>
+            <ul class="list-disc list-inside text-gray-600 space-y-1">
+              <li>Greek Chicken Souvlaki</li>
+              <li>Quinoa Tabbouleh</li>
+              <li>Roasted Veggies</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Menu 2 -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+          <img src="https://via.placeholder.com/400x250?text=Menu+2" alt="Menu 2" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h4 class="font-semibold text-lg mb-2">Asian Fusion</h4>
+            <ul class="list-disc list-inside text-gray-600 space-y-1">
+              <li>Teriyaki Salmon</li>
+              <li>Stir‑Fried Noodles</li>
+              <li>Sesame Broccoli</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Menu 3 -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+          <img src="https://via.placeholder.com/400x250?text=Menu+3" alt="Menu 3" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h4 class="font-semibold text-lg mb-2">Comfort Classics</h4>
+            <ul class="list-disc list-inside text-gray-600 space-y-1">
+              <li>Beef Stroganoff</li>
+              <li>Garlic Mashed Potatoes</li>
+              <li>Green Bean Almondine</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h3 class="text-3xl font-bold text-center text-gray-900 mb-12">Frequently Asked Questions</h3>
+      <div class="space-y-4">
+        <div class="border border-gray-200 rounded-md">
+          <button class="w-full text-left px-4 py-3 flex justify-between items-center focus:outline-none faq-toggle">
+            <span class="font-medium text-gray-800">How does the subscription work?</span>
+            <svg class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="px-4 pb-4 hidden faq-content text-gray-600">
+            You choose a plan, select your delivery frequency, and we’ll ship fresh ingredients to your door each week. You can pause or cancel anytime.
+          </div>
+        </div>
+        <div class="border border-gray-200 rounded-md">
+          <button class="w-full text-left px-4 py-3 flex justify-between items-center focus:outline-none faq-toggle">
+            <span class="font-medium text-gray-800">Are the ingredients organic?</span>
+            <svg class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="px-4 pb-4 hidden faq-content text-gray-600">
+            We source the highest quality ingredients. Many of our items are certified organic, and we clearly label them in each recipe.
+          </div>
+        </div>
+        <div class="border border-gray-200 rounded-md">
+          <button class="w-full text-left px-4 py-3 flex justify-between items-center focus:outline-none faq-toggle">
+            <span class="font-medium text-gray-800">Can I customize meals?</span>
+            <svg class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="px-4 pb-4 hidden faq-content text-gray-600">
+            Yes! You can swap out proteins, adjust serving sizes, or skip a delivery through your account dashboard.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section id="cta" class="py-20 bg-green-600 text-white">
+    <div class="max-w-2xl mx-auto text-center px-4">
+      <h2 class="text-4xl font-bold mb-6">Ready to Cook Something Amazing?</h2>
+      <p class="mb-8 text-lg">Join thousands of happy home chefs and get fresh meals delivered every week.</p>
+      <a href="#" class="inline-block bg-white text-green-600 font-semibold py-3 px-8 rounded-md hover:bg-gray-100 transition">
+        Start Your Subscription
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-300 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p>&copy; 2026 FreshBox. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- FAQ Script -->
+  <script>
+    document.querySelectorAll('.faq-toggle').forEach(button => {
+      button.addEventListener('click', () => {
+        const content = button.nextElementSibling;
+        const icon = button.querySelector('svg');
+        const isOpen = !content.classList.contains('hidden');
+
+        // Close all others
+        document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+        document.querySelectorAll('.faq-toggle svg').forEach(i => i.classList.remove('rotate-180'));
+
+        if (!isOpen) {
+          content.classList.remove('hidden');
+          icon.classList.add('rotate-180');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

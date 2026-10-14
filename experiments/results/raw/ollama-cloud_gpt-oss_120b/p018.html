@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Corporate L&amp;D Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config for custom colors if needed
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2563EB',
+            secondary: '#1E40AF',
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="font-sans antialiased text-gray-800 bg-gray-50">
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+      <a href="#" class="text-2xl font-bold text-primary">LearnHub</a>
+      <nav class="hidden md:flex space-x-6">
+        <a href="#benefits" class="text-gray-600 hover:text-primary">Benefits</a>
+        <a href="#use-cases" class="text-gray-600 hover:text-primary">Use Cases</a>
+        <a href="#customers" class="text-gray-600 hover:text-primary">Customers</a>
+        <a href="#demo" class="text-gray-600 hover:text-primary">Demo</a>
+      </nav>
+      <button id="mobileMenuBtn" class="md:hidden text-gray-600 focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden bg-white border-t border-gray-200">
+      <nav class="px-4 py-2 space-y-1">
+        <a href="#benefits" class="block text-gray-600 hover:text-primary">Benefits</a>
+        <a href="#use-cases" class="block text-gray-600 hover:text-primary">Use Cases</a>
+        <a href="#customers" class="block text-gray-600 hover:text-primary">Customers</a>
+        <a href="#demo" class="block text-gray-600 hover:text-primary">Demo</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-primary text-white py-20">
+    <div class="max-w-4xl mx-auto text-center px-4">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Empower Your Workforce with Continuous Learning</h1>
+      <p class="text-lg md:text-xl mb-8">A unified platform that drives skill development, engagement, and measurable ROI for modern enterprises.</p>
+      <a href="#demo" class="inline-block bg-white text-primary font-semibold py-3 px-8 rounded-full hover:bg-gray-100 transition">
+        Request a Demo
+      </a>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section id="benefits" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center mb-12">Why Choose LearnHub?</h2>
+      <div class="grid gap-8 md:grid-cols-3">
+        <div class="bg-gray-50 p-6 rounded-lg text-center shadow-sm">
+          <svg class="w-12 h-12 mx-auto mb-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 14c-4.418 0-8 1.79-8 4v2h16v-2c0-2.21-3.582-4-8-4z"/>
+          </svg>
+          <h3 class="text-xl font-semibold mb-2">Personalized Learning Paths</h3>
+          <p class="text-gray-600">AI‑driven recommendations match each employee’s role, goals, and skill gaps.</p>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-lg text-center shadow-sm">
+          <svg class="w-12 h-12 mx-auto mb-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m2 0a2 2 0 012 2v6H5v-6a2 2 0 012-2h2m6 0V8a4 4 0 00-8 0v4"/>
+          </svg>
+          <h3 class="text-xl font-semibold mb-2">Robust Analytics</h3>
+          <p class="text-gray-600">Track engagement, completion rates, and ROI with real‑time dashboards.</p>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-lg text-center shadow-sm">
+          <svg class="w-12 h-12 mx-auto mb-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 7h18M3 12h18M3 17h18"/>
+          </svg>
+          <h3 class="text-xl font-semibold mb-2">Seamless Integration</h3>
+          <p class="text-gray-600">Connect with HRIS, LMS, and productivity tools via native APIs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Role‑Based Use Cases -->
+  <section id="use-cases" class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center mb-12">Tailored for Every Role</h2>
+      <div class="grid gap-8 md:grid-cols-3">
+        <div class="bg-white p-6 rounded-lg shadow-md flex flex-col">
+          <img src="https://via.placeholder.com/80?text=HR" alt="HR Manager" class="mx-auto mb-4">
+          <h3 class="text-xl font-semibold mb-2 text-center">HR Managers</h3>
+          <p class="text-gray-600 flex-grow">Design company‑wide learning strategies, monitor compliance, and measure impact across the organization.</p>
+          <a href="#demo" class="mt-4 inline-block text-primary font-medium hover:underline text-center">See How</a>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md flex flex-col">
+          <img src="https://via.placeholder.com/80?text=LC" alt="Learning Coordinator" class="mx-auto mb-4">
+          <h3 class="text-xl font-semibold mb-2 text-center">Learning Coordinators</h3>
+          <p class="text-gray-600 flex-grow">Curate content libraries, schedule workshops, and track learner progress with ease.</p>
+          <a href="#demo" class="mt-4 inline-block text-primary font-medium hover:underline text-center">See How</a>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md flex flex-col">
+          <img src="https://via.placeholder.com/80?text=Emp" alt="Employee" class="mx-auto mb-4">
+          <h3 class="text-xl font-semibold mb-2 text-center">Employees</h3>
+          <p class="text-gray-600 flex-grow">Access personalized courses, earn certifications, and advance your career path.</p>
+          <a href="#demo" class="mt-4 inline-block text-primary font-medium hover:underline text-center">See How</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Logos -->
+  <section id="customers" class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-center mb-8">Trusted by Leading Companies</h2>
+      <div class="flex flex-wrap items-center justify-center gap-8">
+        <img src="https://via.placeholder.com/150x50?text=Logo+1" alt="Customer 1" class="h-12 object-contain">
+        <img src="https://via.placeholder.com/150x50?text=Logo+2" alt="Customer 2" class="h-12 object-contain">
+        <img src="https://via.placeholder.com/150x50?text=Logo+3" alt="Customer 3" class="h-12 object-contain">
+        <img src="https://via.placeholder.com/150x50?text=Logo+4" alt="Customer 4" class="h-12 object-contain">
+        <img src="https://via.placeholder.com/150x50?text=Logo+5" alt="Customer 5" class="h-12 object-contain">
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo CTA -->
+  <section id="demo" class="py-20 bg-primary text-white">
+    <div class="max-w-2xl mx-auto text-center px-4">
+      <h2 class="text-3xl font-bold mb-4">Ready to Transform Learning?</h2>
+      <p class="mb-8">Schedule a personalized demo and see how LearnHub can accelerate your organization’s growth.</p>
+      <form id="demoForm" class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <input type="email" id="email" required placeholder="Enter your email"
+               class="w-full sm:w-auto px-4 py-2 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-white">
+        <button type="submit"
+                class="bg-white text-primary font-semibold px-6 py-2 rounded-md hover:bg-gray-100 transition">
+          Request Demo
+        </button>
+      </form>
+      <p id="formMessage" class="mt-4 text-sm hidden"></p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-300 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-sm">&copy; 2026 LearnHub. All rights reserved.</p>
+      <div class="flex space-x-4 mt-4 md:mt-0">
+        <a href="#" class="hover:text-white">Privacy</a>
+        <a href="#" class="hover:text-white">Terms</a>
+        <a href="#" class="hover:text-white">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Demo form placeholder handling
+    const demoForm = document.getElementById('demoForm');
+    const formMessage = document.getElementById('formMessage');
+    demoForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      // Simulate async request
+      formMessage.textContent = 'Sending...';
+      formMessage.classList.remove('hidden');
+      setTimeout(() => {
+        formMessage.textContent = `Thanks, ${email}! We'll be in touch shortly.`;
+        demoForm.reset();
+      }, 1200);
+    });
+  </script>
+</body>
+</html>

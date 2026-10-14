@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Instant Search Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom highlight style */
+    .highlight {
+      @apply bg-yellow-200;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white rounded-lg shadow-md w-full max-w-2xl p-6">
+    <h1 class="text-2xl font-bold mb-4 text-center">Instant Search</h1>
+    <input id="searchInput" type="text" placeholder="Type to search..."
+      class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
+    />
+    <p id="status" class="text-sm text-gray-600 h-5"></p>
+    <ul id="results" class="mt-2 space-y-2"></ul>
+  </div>
+
+  <script>
+    // Mock data set
+    const DATA = [
+      "Apple", "Apricot", "Avocado", "Banana", "Blackberry", "Blueberry",
+      "Cherry", "Coconut", "Cranberry", "Date", "Dragonfruit", "Durian",
+      "Elderberry", "Fig", "Grape", "Grapefruit", "Guava", "Honeydew",
+      "Jackfruit", "Kiwi", "Lemon", "Lime", "Mango", "Melon", "Nectarine",
+      "Orange", "Papaya", "Peach", "Pear", "Pineapple", "Plum", "Pomegranate",
+      "Raspberry", "Strawberry", "Tangerine", "Watermelon"
+    ];
+
+    // Simulated async search (returns a promise)
+    function search(query) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          const lower = query.trim().toLowerCase();
+          if (!lower) {
+            resolve([]);
+            return;
+          }
+          const filtered = DATA.filter(item => item.toLowerCase().includes(lower));
+          resolve(filtered);
+        }, 500); // simulate network latency
+      });
+    }
+
+    // Debounce utility
+    function debounce(fn, delay) {
+      let timer;
+      return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+      };
+    }
+
+    // Highlight matching part
+    function highlight(text, query) {
+      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`(${escaped})`, 'gi');
+      return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    // DOM elements
+    const input = document.getElementById('searchInput');
+    const statusEl = document.getElementById('status');
+    const resultsEl = document.getElementById('results');
+
+    // Render results
+    function renderResults(items, query) {
+      resultsEl.innerHTML = '';
+      if (items.length === 0) {
+        resultsEl.innerHTML = '<li class="text-gray-500">No results found.</li>';
+        return;
+      }
+      const fragment = document.createDocumentFragment();
+      items.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'p-2 rounded hover:bg-gray-100';
+        li.innerHTML = highlight(item, query);
+        fragment.appendChild(li);
+      });
+      resultsEl.appendChild(fragment);
+    }
+
+    // Main search handler
+    const handleSearch = debounce(async () => {
+      const query = input.value;
+      if (!query.trim()) {
+        statusEl.textContent = '';
+        resultsEl.innerHTML = '';
+        return;
+      }
+      statusEl.textContent = 'Searching…';
+      const results = await search(query);
+      statusEl.textContent = '';
+      renderResults(results, query);
+    }, 300);
+
+    input.addEventListener('input', handleSearch);
+  </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .error-message {
+            display: none;
+            color: #e53e3e;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        input.error {
+            border-color: #e53e3e;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Checkout</h1>
+        <form id="checkout-form" class="space-y-4">
+            <div>
+                <label for="card-number" class="block text-sm font-medium text-gray-700">Credit Card Number</label>
+                <input type="text" id="card-number" placeholder="1234 5678 9012 3456" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                <div id="card-error" class="error-message">Please enter a valid card number</div>
+            </div>
+            <div>
+                <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                <input type="text" id="phone" placeholder="(123) 456-7890" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                <div id="phone-error" class="error-message">Please enter a valid phone number</div>
+            </div>
+            <div>
+                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Complete Purchase</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cardInput = document.getElementById('card-number');
+            const phoneInput = document.getElementById('phone');
+            const cardError = document.getElementById('card-error');
+            const phoneError = document.getElementById('phone-error');
+            const form = document.getElementById('checkout-form');
+
+            function formatCardNumber(value) {
+                const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+                const matches = v.match(/\d{4,16}/g);
+                const match = matches && matches[0] || '';
+                const parts = [];
+                for (let i = 0, len = match.length; i < len; i += 4) {
+                    parts.push(match.substring(i, i + 4));
+                }
+                if (parts.length) {
+                    return parts.join(' ');
+                } else {
+                    return value;
+                }
+            }
+
+            function formatPhoneNumber(value) {
+                const numbers = value.replace(/\D/g, '');
+                const char = numbers.split('');
+                if (char.length === 0) return '';
+                if (char.length < 4) return '(' + numbers;
+                if (char.length < 7) return '(' + char.slice(0,3).join('') + ') ' + char.slice(3).join('');
+                return '(' + char.slice(0,3).join('') + ') ' + char.slice(3,6).join('') + '-' + char.slice(6,10).join('');
+            }
+
+            function validateCardNumber(value) {
+                const digits = value.replace(/\s+/g, '');
+                return /^\d{16}$/.test(digits);
+            }
+
+            function validatePhoneNumber(value) {
+                const digits = value.replace(/\D/g, '');
+                return digits.length === 10;
+            }
+
+            cardInput.addEventListener('input', function(e) {
+                const formatted = formatCardNumber(e.target.value);
+                if (e.target.value !== formatted) {
+                    e.target.value = formatted;
+                    const event = new Event('change', { bubbles: true });
+                    e.target.dispatchEvent(event);
+                }
+                
+                if (validateCardNumber(formatted)) {
+                    cardError.style.display = 'none';
+                    cardInput.classList.remove('error');
+                } else {
+                    cardError.style.display = 'block';
+                    cardInput.classList.add('error');
+                }
+            });
+
+            phoneInput.addEventListener('input', function(e) {
+                const formatted = formatPhoneNumber(e.target.value);
+                if (e.target.value !== formatted) {
+                    e.target.value = formatted;
+                    const event = new Event('change', { bubbles: true });
+                    e.target.dispatchEvent(event);
+                }
+                
+                if (validatePhoneNumber(formatted)) {
+                    phoneError.style.display = 'none';
+                    phoneInput.classList.remove('error');
+                } else {
+                    phoneError.style.display = 'block';
+                    phoneInput.classList.add('error');
+                }
+            });
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const isCardValid = validateCardNumber(cardInput.value);
+                const isPhoneValid = validatePhoneNumber(phoneInput.value);
+                
+                if (!isCardValid) {
+                    cardError.style.display = 'block';
+                    cardInput.classList.add('error');
+                }
+                
+                if (!isPhoneValid) {
+                    phoneError.style.display = 'block';
+                    phoneInput.classList.add('error');
+                }
+                
+                if (isCardValid && isPhoneValid) {
+                    alert('Order submitted successfully!');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

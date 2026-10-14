@@ -1,0 +1,7 @@
+{"model":"ollama-cloud/deepseek-v3.1:671b","promptId":"p003","bytes":0,"ms":908938,"ok":false,"error":"Failed after 3 attempts. Last error: Cannot connect to API: Headers Timeout Error"}
+{"model":"ollama-cloud/deepseek-v3.1:671b","promptId":"p005","bytes":0,"ms":2297995,"ok":false,"error":"Failed after 3 attempts. Last error: Cannot connect to API: read ECONNRESET"}
+{"model":"ollama-cloud/deepseek-v3.1:671b","promptId":"p009","bytes":14011,"ms":219996,"ok":true}
+{"model":"ollama-cloud/deepseek-v3.1:671b","promptId":"p010","bytes":17069,"ms":1616180,"ok":true}
+{"model":"ollama-cloud/deepseek-v3.1:671b","promptId":"p013","bytes":21140,"ms":1498472,"ok":true}
+{"model":"ollama-cloud/gemma3:27b","promptId":"p008","bytes":7591,"ms":889005,"ok":true}
+{"model":"ollama-cloud/gemma3:27b","promptId":"p009","bytes":6203,"ms":61326,"ok":true}

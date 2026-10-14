@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Serenity – Meditation App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config for calm color palette
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4F8A8B',
+            secondary: '#A7C5BD',
+            accent: '#E0F2F1',
+            dark: '#2E3A3E',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="font-sans antialiased text-gray-800 bg-white">
+  <!-- Header -->
+  <header class="bg-white shadow-sm sticky top-0 z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <a href="#" class="text-2xl font-bold text-primary">Serenity</a>
+      <nav class="hidden md:flex space-x-8">
+        <a href="#how-it-works" class="text-gray-600 hover:text-primary transition">How it works</a>
+        <a href="#testimonials" class="text-gray-600 hover:text-primary transition">Testimonials</a>
+        <a href="#pricing" class="text-gray-600 hover:text-primary transition">Pricing</a>
+        <a href="#cta" class="text-gray-600 hover:text-primary transition">Get Started</a>
+      </nav>
+      <a href="#cta" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition hidden md:inline-block">Start Free</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-primary text-white py-20">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Find Your Inner Calm</h1>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+        Guided meditations, breathing exercises, and mindfulness tools to help you relax, focus, and thrive.
+      </p>
+      <a href="#cta" class="inline-block bg-white text-primary font-semibold px-8 py-3 rounded-full hover:bg-gray-100 transition">
+        Start Your Free Trial
+      </a>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-dark mb-12">How It Works</h2>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <!-- Step 1 -->
+        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+          <div class="flex items-center justify-center w-12 h-12 mx-auto bg-primary text-white rounded-full mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 14c-4.418 0-8 1.79-8 4v2h16v-2c0-2.21-3.582-4-8-4z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Create Your Profile</h3>
+          <p class="text-sm text-gray-600">Tell us your goals and preferences to personalize your journey.</p>
+        </div>
+        <!-- Step 2 -->
+        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+          <div class="flex items-center justify-center w-12 h-12 mx-auto bg-primary text-white rounded-full mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12h6m-3-3v6" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Choose a Session</h3>
+          <p class="text-sm text-gray-600">Pick from guided meditations, breathing exercises, or sleep stories.</p>
+        </div>
+        <!-- Step 3 -->
+        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+          <div class="flex items-center justify-center w-12 h-12 mx-auto bg-primary text-white rounded-full mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M14 5l7 7-7 7M5 5l7 7-7 7" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Practice Mindfully</h3>
+          <p class="text-sm text-gray-600">Follow soothing audio, visuals, and gentle guidance.</p>
+        </div>
+        <!-- Step 4 -->
+        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+          <div class="flex items-center justify-center w-12 h-12 mx-auto bg-primary text-white rounded-full mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Track Progress</h3>
+          <p class="text-sm text-gray-600">View insights, streaks, and celebrate your growth.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials" class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-dark mb-12">What Our Users Say</h2>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <!-- Testimonial 1 -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+          <p class="text-gray-700 mb-4">"Serenity has transformed my evenings. I fall asleep faster and wake up feeling refreshed."</p>
+          <div class="flex items-center">
+            <img src="https://i.pravatar.cc/48?img=1" alt="Avatar" class="w-12 h-12 rounded-full mr-3">
+            <div>
+              <p class="font-semibold">Aisha K.</p>
+              <p class="text-sm text-gray-500">Product Designer</p>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial 2 -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+          <p class="text-gray-700 mb-4">"The guided sessions are perfect for my busy schedule. I feel calmer throughout the day."</p>
+          <div class="flex items-center">
+            <img src="https://i.pravatar.cc/48?img=2" alt="Avatar" class="w-12 h-12 rounded-full mr-3">
+            <div>
+              <p class="font-semibold">Liam S.</p>
+              <p class="text-sm text-gray-500">Software Engineer</p>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial 3 -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+          <p class="text-gray-700 mb-4">"I love the progress tracker. Seeing my streaks motivates me to keep meditating."</p>
+          <div class="flex items-center">
+            <img src="https://i.pravatar.cc/48?img=3" alt="Avatar" class="w-12 h-12 rounded-full mr-3">
+            <div>
+              <p class="font-semibold">Maya R.</p>
+              <p class="text-sm text-gray-500">Teacher</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-dark mb-8">Choose Your Plan</h2>
+      <div class="flex flex-col md:flex-row justify-center gap-8">
+        <!-- Free -->
+        <div class="bg-white rounded-lg shadow-md p-8 flex-1 max-w-sm mx-auto">
+          <h3 class="text-xl font-semibold mb-4">Free</h3>
+          <p class="text-4xl font-bold mb-4">$0<span class="text-base font-medium text-gray-500">/mo</span></p>
+          <ul class="text-left mb-6 space-y-2">
+            <li class="flex items-center"><svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Access to basic meditations</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Progress tracking</li>
+            <li class="flex items-center text-gray-400"><svg class="w-5 h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>Offline mode</li>
+          </ul>
+          <button class="w-full bg-primary text-white py-2 rounded-md hover:bg-primary/90 transition">Get Started</button>
+        </div>
+        <!-- Pro -->
+        <div class="bg-white rounded-lg shadow-xl p-8 flex-1 max-w-sm mx-auto border-2 border-primary">
+          <h3 class="text-xl font-semibold mb-4">Pro</h3>
+          <p class="text-4xl font-bold mb-4">$9.99<span class="text-base font-medium text-gray-500">/mo</span></p>
+          <ul class="text-left mb-6 space-y-2">
+            <li class="flex items-center"><svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>All Free features</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Premium guided meditations</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Offline download</li>
+          </ul>
+          <button class="w-full bg-primary text-white py-2 rounded-md hover:bg-primary/90 transition">Start Free Trial</button>
+        </div>
+        <!-- Premium -->
+        <div class="bg-white rounded-lg shadow-md p-8 flex-1 max-w-sm mx-auto">
+          <h3 class="text-xl font-semibold mb-4">Premium</h3>
+          <p class="text-4xl font-bold mb-4">$14.99<span class="text-base font-medium text-gray-500">/mo</span></p>
+          <ul class="text-left mb-6 space-y-2">
+            <li class="flex items-center"><svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>All Pro features</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Personalized coaching</li>
+            <li class="flex items-center"><svg class="w-5 h-5 text-primary mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Exclusive content</li>
+          </ul>
+          <button class="w-full bg-primary text-white py-2 rounded-md hover:bg-primary/90 transition">Upgrade Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section id="cta" class="py-20 bg-primary text-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Start Your Journey?</h2>
+      <p class="text-lg md:text-xl mb-8">Join thousands who have discovered calm, focus, and balance with Serenity.</p>
+      <a href="#" class="inline-block bg-white text-primary font-semibold px-8 py-3 rounded-full hover:bg-gray-100 transition">
+        Get Started – It's Free
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-gray-300 py-8">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-sm">&copy; 2026 Serenity. All rights reserved.</p>
+      <div class="flex space-x-4 mt-4 md:mt-0">
+        <a href="#" class="hover:text-white transition">Privacy</a>
+        <a href="#" class="hover:text-white transition">Terms</a>
+        <a href="#" class="hover:text-white transition">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Optional smooth scroll script -->
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

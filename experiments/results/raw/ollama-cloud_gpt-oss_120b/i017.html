@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Onboarding Wizard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .step { display: none; }
+    .step.active { display: block; }
+    .error { border-color: #f87171; }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6">
+    <h2 class="text-2xl font-bold mb-4 text-center">Welcome to the Onboarding Wizard</h2>
+
+    <!-- Progress Bar -->
+    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-6">
+      <div id="progress" class="bg-blue-600 h-2.5 rounded-full transition-all duration-300" style="width:0%"></div>
+    </div>
+
+    <!-- Steps Container -->
+    <form id="wizardForm" novalidate>
+      <!-- Step 1 -->
+      <div class="step active" data-step="1">
+        <h3 class="text-xl font-semibold mb-4">Step 1: Choose User Type</h3>
+        <label class="block mb-2">
+          <input type="radio" name="userType" value="individual" class="mr-2" required>
+          Individual
+        </label>
+        <label class="block mb-2">
+          <input type="radio" name="userType" value="business" class="mr-2" required>
+          Business
+        </label>
+        <p class="text-sm text-gray-500 mt-2">Select the type of account you want to create.</p>
+      </div>
+
+      <!-- Step 2 (conditionally shown) -->
+      <div class="step" data-step="2">
+        <h3 class="text-xl font-semibold mb-4">Step 2: Company Details</h3>
+        <div class="mb-4">
+          <label class="block mb-1 font-medium">Company Name<span class="text-red-600">*</span></label>
+          <input type="text" name="companyName" class="w-full border rounded px-3 py-2" required>
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1 font-medium">Company Email<span class="text-red-600">*</span></label>
+          <input type="email" name="companyEmail" class="w-full border rounded px-3 py-2" required>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step" data-step="3">
+        <h3 class="text-xl font-semibold mb-4">Step 3: Preferences</h3>
+        <div class="mb-4">
+          <label class="block mb-1 font-medium">Preferred Contact Method<span class="text-red-600">*</span></label>
+          <select name="contactMethod" class="w-full border rounded px-3 py-2" required>
+            <option value="">Select...</option>
+            <option value="email">Email</option>
+            <option value="phone">Phone</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="inline-flex items-center">
+            <input type="checkbox" name="subscribe" class="mr-2">
+            Subscribe to newsletter
+          </label>
+        </div>
+      </div>
+
+      <!-- Step 4: Summary -->
+      <div class="step" data-step="4">
+        <h3 class="text-xl font-semibold mb-4">Step 4: Review & Finish</h3>
+        <div id="summary" class="space-y-2 text-gray-700"></div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="flex justify-between mt-6">
+        <button type="button" id="backBtn" class="px-4 py-2 bg-gray-300 text-gray-800 rounded disabled:opacity-50" disabled>Back</button>
+        <button type="button" id="nextBtn" class="px-4 py-2 bg-blue-600 text-white rounded">Next</button>
+        <button type="submit" id="finishBtn" class="px-4 py-2 bg-green-600 text-white rounded hidden">Finish</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('wizardForm');
+    const steps = Array.from(document.querySelectorAll('.step'));
+    const progressBar = document.getElementById('progress');
+    const backBtn = document.getElementById('backBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const finishBtn = document.getElementById('finishBtn');
+    const summaryDiv = document.getElementById('summary');
+
+    let currentIndex = 0;
+
+    // Determine which steps are visible based on selections
+    function updateVisibleSteps() {
+      const userType = form.elements['userType']?.value;
+      steps.forEach(step => {
+        const stepNum = parseInt(step.dataset.step);
+        if (stepNum === 2) {
+          step.style.display = (userType === 'business') ? 'block' : 'none';
+        }
+      });
+    }
+
+    function getVisibleSteps() {
+      return steps.filter(step => {
+        const stepNum = parseInt(step.dataset.step);
+        if (stepNum === 2) {
+          const userType = form.elements['userType']?.value;
+          return userType === 'business';
+        }
+        return true;
+      });
+    }
+
+    function showStep(index) {
+      const visible = getVisibleSteps();
+      visible.forEach((step, i) => {
+        step.classList.toggle('active', i === index);
+      });
+      backBtn.disabled = index === 0;
+      const isLast = index === visible.length - 1;
+      nextBtn.classList.toggle('hidden', isLast);
+      finishBtn.classList.toggle('hidden', !isLast);
+      // Update progress
+      const percent = ((index + 1) / visible.length) * 100;
+      progressBar.style.width = percent + '%';
+    }
+
+    function validateStep(index) {
+      const visible = getVisibleSteps();
+      const step = visible[index];
+      const inputs = Array.from(step.querySelectorAll('input, select, textarea')).filter(el => el.offsetParent !== null);
+      let valid = true;
+      inputs.forEach(input => {
+        if (!input.checkValidity()) {
+          valid = false;
+          input.classList.add('error');
+        } else {
+          input.classList.remove('error');
+        }
+      });
+      return valid;
+    }
+
+    function collectData() {
+      const data = new FormData(form);
+      const obj = {};
+      for (let [key, value] of data.entries()) {
+        if (obj[key]) {
+          if (!Array.isArray(obj[key])) obj[key] = [obj[key]];
+          obj[key].push(value);
+        } else {
+          obj[key] = value;
+        }
+      }
+      // Handle unchecked checkbox
+      if (!form.elements['subscribe'].checked) obj['subscribe'] = 'No';
+      else obj['subscribe'] = 'Yes';
+      return obj;
+    }
+
+    function renderSummary() {
+      const data = collectData();
+      summaryDiv.innerHTML = '';
+      for (let [key, value] of Object.entries(data)) {
+        const div = document.createElement('div');
+        div.innerHTML = `<strong class="capitalize">${key}:</strong> ${value}`;
+        summaryDiv.appendChild(div);
+      }
+    }
+
+    // Event Listeners
+    backBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        showStep(currentIndex);
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (!validateStep(currentIndex)) return;
+      const visible = getVisibleSteps();
+      if (currentIndex < visible.length - 1) {
+        currentIndex++;
+        // If moving to summary step, render it
+        if (visible[currentIndex].dataset.step === '4') renderSummary();
+        showStep(currentIndex);
+      }
+    });
+
+    finishBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (!validateStep(currentIndex)) return;
+      const data = collectData();
+      alert('Onboarding complete!\\n' + JSON.stringify(data, null, 2));
+      form.reset();
+      updateVisibleSteps();
+      currentIndex = 0;
+      showStep(currentIndex);
+    });
+
+    // Re-run validation when fields change
+    form.addEventListener('change', (e) => {
+      updateVisibleSteps();
+      const visible = getVisibleSteps();
+      // Adjust currentIndex if current step got hidden
+      const currentStepNum = parseInt(visible[currentIndex]?.dataset.step);
+      if (!visible[currentIndex]) {
+        currentIndex = 0;
+      }
+      showStep(currentIndex);
+    });
+
+    // Initial setup
+    updateVisibleSteps();
+    showStep(currentIndex);
+  </script>
+</body>
+</html>

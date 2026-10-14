@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instant Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Instant Search</h1>
+        
+        <div class="max-w-2xl mx-auto">
+            <div class="relative">
+                <input 
+                    id="searchInput"
+                    type="text" 
+                    placeholder="Start typing to search..." 
+                    class="w-full p-4 text-lg border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                >
+                <div id="searchIndicator" class="absolute right-3 top-4 text-gray-400 hidden">
+                    <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </div>
+            </div>
+            
+            <div id="resultsContainer" class="mt-6">
+                <div id="initialMessage" class="text-center py-12 text-gray-500">
+                    <p>Type something to start searching</p>
+                </div>
+                <div id="resultsList" class="space-y-4 hidden"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock data for search
+        const mockData = [
+            "Apple iPhone 13 Pro",
+            "Samsung Galaxy S22 Ultra",
+            "Google Pixel 6 Pro",
+            "MacBook Pro 16-inch",
+            "Dell XPS 13 Laptop",
+            "Sony WH-1000XM4 Headphones",
+            "AirPods Pro",
+            "iPad Air",
+            "Nintendo Switch",
+            "PlayStation 5",
+            "Xbox Series X",
+            "Tesla Model 3",
+            "Amazon Echo Dot",
+            "Fitbit Versa 3",
+            "Canon EOS R5 Camera"
+        ];
+
+        // Mock async search function
+        async function search(query) {
+            // Simulate network delay
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
+            if (!query) return [];
+            
+            const lowerQuery = query.toLowerCase();
+            return mockData
+                .filter(item => item.toLowerCase().includes(lowerQuery))
+                .map(item => {
+                    const index = item.toLowerCase().indexOf(lowerQuery);
+                    if (index === -1) return { text: item, highlight: [] };
+                    
+                    return {
+                        text: item,
+                        highlight: [
+                            { start: index, end: index + query.length }
+                        ]
+                    };
+                });
+        }
+
+        // DOM Elements
+        const searchInput = document.getElementById('searchInput');
+        const searchIndicator = document.getElementById('searchIndicator');
+        const resultsList = document.getElementById('resultsList');
+        const initialMessage = document.getElementById('initialMessage');
+
+        // State
+        let searchTimeout;
+        let currentQuery = '';
+
+        // Highlight matches in text
+        function highlightText(text, highlights) {
+            if (!highlights.length) return text;
+            
+            let result = '';
+            let lastIndex = 0;
+            
+            highlights.forEach(({ start, end }) => {
+                // Add text before highlight
+                result += text.slice(lastIndex, start);
+                // Add highlighted text
+                result += `<span class="bg-yellow-300 font-bold">${text.slice(start, end)}</span>`;
+                lastIndex = end;
+            });
+            
+            // Add remaining text
+            result += text.slice(lastIndex);
+            return result;
+        }
+
+        // Render results
+        function renderResults(results) {
+            if (results.length === 0) {
+                resultsList.innerHTML = '<div class="text-center py-8 text-gray-500">No results found</div>';
+            } else {
+                resultsList.innerHTML = results
+                    .map(item => `
+                        <div class="bg-white p-4 rounded-lg shadow border border-gray-200">
+                            <div class="text-lg text-gray-800">${highlightText(item.text, item.highlight)}</div>
+                        </div>
+                    `)
+                    .join('');
+            }
+        }
+
+        // Show searching state
+        function showSearching() {
+            searchIndicator.classList.remove('hidden');
+        }
+
+        // Hide searching state
+        function hideSearching() {
+            searchIndicator.classList.add('hidden');
+        }
+
+        // Perform search with debounce
+        async function performSearch(query) {
+            currentQuery = query;
+            
+            if (!query) {
+                initialMessage.classList.remove('hidden');
+                resultsList.classList.add('hidden');
+                hideSearching();
+                return;
+            }
+            
+            initialMessage.classList.add('hidden');
+            resultsList.classList.remove('hidden');
+            showSearching();
+            
+            try {
+                const results = await search(query);
+                // Only update if this is still the current query
+                if (currentQuery === query) {
+                    renderResults(results);
+                }
+            } catch (error) {
+                console.error('Search error:', error);
+            } finally {
+                if (currentQuery === query) {
+                    hideSearching();
+                }
+            }
+        }
+
+        // Event listener with debounce
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value;
+            
+            // Clear previous timeout
+            clearTimeout(searchTimeout);
+            
+            // Set new timeout
+            searchTimeout = setTimeout(() => {
+                performSearch(query);
+            }, 300);
+        });
+
+        // Focus the search input on page load
+        searchInput.focus();
+    </script>
+</body>
+</html>

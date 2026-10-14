@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Data Table</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .resizable-container {
+            resize: both;
+            overflow: auto;
+            border: 2px solid #cbd5e0;
+            min-width: 300px;
+            min-height: 200px;
+        }
+        .table-container {
+            height: calc(100% - 50px);
+            overflow: auto;
+        }
+        .load-more-btn {
+            position: sticky;
+            bottom: 0;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-6">Responsive Data Table</h1>
+        <p class="text-center mb-6">Resize the container below and watch the table adapt</p>
+        
+        <div id="container" class="resizable-container bg-white rounded-lg shadow-lg p-4">
+            <div class="table-container">
+                <table id="dataTable" class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody" class="bg-white divide-y divide-gray-200">
+                        <!-- Rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="load-more-btn py-3 text-center">
+                <button id="loadMoreBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Load More Rows
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data
+        const sampleData = [
+            { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Developer', status: 'Active' },
+            { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'Designer', status: 'Active' },
+            { id: 3, name: 'Robert Johnson', email: 'robert@example.com', role: 'Manager', status: 'Inactive' },
+            { id: 4, name: 'Emily Davis', email: 'emily@example.com', role: 'Developer', status: 'Active' },
+            { id: 5, name: 'Michael Wilson', email: 'michael@example.com', role: 'Analyst', status: 'Active' },
+            { id: 6, name: 'Sarah Brown', email: 'sarah@example.com', role: 'Designer', status: 'Inactive' },
+            { id: 7, name: 'David Miller', email: 'david@example.com', role: 'Developer', status: 'Active' },
+            { id: 8, name: 'Lisa Taylor', email: 'lisa@example.com', role: 'Manager', status: 'Active' },
+            { id: 9, name: 'James Anderson', email: 'james@example.com', role: 'Analyst', status: 'Inactive' },
+            { id: 10, name: 'Jennifer Thomas', email: 'jennifer@example.com', role: 'Developer', status: 'Active' }
+        ];
+
+        // State management
+        let allData = [...sampleData];
+        let displayedData = [];
+        let rowsPerPage = 5;
+        let currentPage = 0;
+
+        // DOM elements
+        const container = document.getElementById('container');
+        const tableBody = document.getElementById('tableBody');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+        // Initialize table
+        function initTable() {
+            displayedData = [];
+            currentPage = 0;
+            loadMoreRows();
+        }
+
+        // Load more rows
+        function loadMoreRows() {
+            const start = currentPage * rowsPerPage;
+            const newRows = allData.slice(start, start + rowsPerPage);
+            displayedData = displayedData.concat(newRows);
+            renderTable();
+            currentPage++;
+            
+            // Disable button if all rows are loaded
+            if (displayedData.length >= allData.length) {
+                loadMoreBtn.disabled = true;
+                loadMoreBtn.textContent = 'All Rows Loaded';
+            }
+        }
+
+        // Render table rows
+        function renderTable() {
+            tableBody.innerHTML = '';
+            
+            displayedData.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-gray-50';
+                tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${row.id}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${row.name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${row.email}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${row.role}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                            ${row.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                            ${row.status}
+                        </span>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // Resize observer to handle container resizing
+        const resizeObserver = new ResizeObserver(entries => {
+            for (let entry of entries) {
+                // Trigger re-render on resize
+                renderTable();
+            }
+        });
+
+        // Mutation observer to handle content changes
+        const mutationObserver = new MutationObserver(mutations => {
+            mutations.forEach(mutation => {
+                if (mutation.type === 'childList' || mutation.type === 'attributes') {
+                    // Trigger re-render on content changes
+                    renderTable();
+                }
+            });
+        });
+
+        // Initialize observers
+        resizeObserver.observe(container);
+        mutationObserver.observe(container, {
+            attributes: true,
+            childList: true,
+            subtree: true
+        });
+
+        // Event listeners
+        loadMoreBtn.addEventListener('click', loadMoreRows);
+
+        // Initialize the table
+        initTable();
+    </script>
+</body>
+</html>

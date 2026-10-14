@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Accordion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+        .faq-toggle {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Frequently Asked Questions</h1>
+        <div class="space-y-4">
+            <div class="faq-item border-b border-gray-200 pb-4" id="faq-1">
+                <button class="flex justify-between items-center w-full text-left font-semibold text-gray-700 hover:text-gray-900 focus:outline-none" onclick="toggleFaq('faq-1')">
+                    <span>What is your return policy?</span>
+                    <svg class="faq-toggle w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="faq-answer mt-2 text-gray-600">
+                    <p>We offer a 30-day return policy on all items. Products must be in original condition with tags attached.</p>
+                </div>
+            </div>
+
+            <div class="faq-item border-b border-gray-200 pb-4" id="faq-2">
+                <button class="flex justify-between items-center w-full text-left font-semibold text-gray-700 hover:text-gray-900 focus:outline-none" onclick="toggleFaq('faq-2')">
+                    <span>How long does shipping take?</span>
+                    <svg class="faq-toggle w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="faq-answer mt-2 text-gray-600">
+                    <p>Standard shipping takes 3-5 business days. Express shipping is available for next day delivery.</p>
+                </div>
+            </div>
+
+            <div class="faq-item border-b border-gray-200 pb-4" id="faq-3">
+                <button class="flex justify-between items-center w-full text-left font-semibold text-gray-700 hover:text-gray-900 focus:outline-none" onclick="toggleFaq('faq-3')">
+                    <span>Do you offer international shipping?</span>
+                    <svg class="faq-toggle w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="faq-answer mt-2 text-gray-600">
+                    <p>Yes, we ship to over 50 countries worldwide. International shipping rates and times vary by destination.</p>
+                </div>
+            </div>
+
+            <div class="faq-item border-b border-gray-200 pb-4" id="faq-4">
+                <button class="flex justify-between items-center w-full text-left font-semibold text-gray-700 hover:text-gray-900 focus:outline-none" onclick="toggleFaq('faq-4')">
+                    <span>How can I track my order?</span>
+                    <svg class="faq-toggle w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="faq-answer mt-2 text-gray-600">
+                    <p>Once your order ships, you'll receive a tracking number via email. You can also check your order status in your account dashboard.</p>
+                </div>
+            </div>
+
+            <div class="faq-item border-b border-gray-200 pb-4" id="faq-5">
+                <button class="flex justify-between items-center w-full text-left font-semibold text-gray-700 hover:text-gray-900 focus:outline-none" onclick="toggleFaq('faq-5')">
+                    <span>What payment methods do you accept?</span>
+                    <svg class="faq-toggle w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="faq-answer mt-2 text-gray-600">
+                    <p>We accept all major credit cards, PayPal, Apple Pay, and Google Pay.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleFaq(id) {
+            const item = document.getElementById(id);
+            const isActive = item.classList.contains('active');
+            
+            // Close all FAQs
+            document.querySelectorAll('.faq-item').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Open clicked one if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+                window.location.hash = id;
+            } else {
+                window.location.hash = '';
+            }
+        }
+
+        function openFaqFromHash() {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                const targetItem = document.getElementById(hash);
+                if (targetItem && targetItem.classList.contains('faq-item')) {
+                    // Close all FAQs first
+                    document.querySelectorAll('.faq-item').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    // Open the target FAQ
+                    targetItem.classList.add('active');
+                }
+            }
+        }
+
+        // Open FAQ based on hash on page load
+        document.addEventListener('DOMContentLoaded', openFaqFromHash);
+
+        // React to browser back/forward navigation
+        window.addEventListener('hashchange', openFaqFromHash);
+    </script>
+</body>
+</html>

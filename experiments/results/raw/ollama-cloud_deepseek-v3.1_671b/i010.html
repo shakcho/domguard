@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .notification-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            width: 320px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-semibold">MyApp</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="relative">
+                        <button id="notification-bell" class="p-2 rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.001 6.001 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                            </svg>
+                            <span id="unread-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full hidden">0</span>
+                        </button>
+                        <div id="notification-dropdown" class="notification-dropdown mt-2 bg-white rounded-md shadow-lg overflow-hidden">
+                            <div class="px-4 py-2 border-b border-gray-200 flex justify-between items-center bg-gray-50">
+                                <h3 class="text-sm font-medium text-gray-900">Notifications</h3>
+                                <button id="mark-all-read" class="text-xs text-blue-600 hover:text-blue-800">Mark all as read</button>
+                            </div>
+                            <div id="notification-list" class="p-2 space-y-2"></div>
+                            <div class="px-4 py-2 border-t border-gray-200 bg-gray-50 text-center text-xs text-gray-500">
+                                No more notifications
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        let notifications = [];
+        let unreadCount = 0;
+        const pollInterval = 5000;
+
+        function fetchNotifications() {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const mockNotifications = [
+                        { id: Date.now() + Math.random(), message: 'New message received', read: false },
+                        { id: Date.now() + Math.random(), message: 'System update available', read: false },
+                        { id: Date.now() + Math.random(), message: 'Your profile was viewed', read: false }
+                    ];
+                    resolve(mockNotifications);
+                }, 1000);
+            });
+        }
+
+        function updateUnreadCount() {
+            unreadCount = notifications.filter(n => !n.read).length;
+            const badge = document.getElementById('unread-count');
+            if (unreadCount > 0) {
+                badge.classList.remove('hidden');
+                badge.textContent = unreadCount;
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function renderNotifications() {
+            const list = document.getElementById('notification-list');
+            list.innerHTML = '';
+            notifications.slice().reverse().forEach(notification => {
+                const item = document.createElement('div');
+                item.className = `p-3 rounded-lg ${notification.read ? 'bg-gray-100' : 'bg-blue-50'}`;
+                item.innerHTML = `
+                    <p class="text-sm ${notification.read ? 'text-gray-600' : 'text-blue-800'}">${notification.message}</p>
+                    <p class="text-xs text-gray-400 mt-1">${new Date().toLocaleTimeString()}</p>
+                `;
+                if (!notification.read) {
+                    item.addEventListener('click', () => markAsRead(notification.id));
+                }
+                list.appendChild(item);
+            });
+        }
+
+        function markAsRead(id) {
+            const notification = notifications.find(n => n.id === id);
+            if (notification && !notification.read) {
+                notification.read = true;
+                updateUnreadCount();
+                renderNotifications();
+            }
+        }
+
+        function markAllAsRead() {
+            notifications.forEach(notification => {
+                notification.read = true;
+            });
+            updateUnreadCount();
+            renderNotifications();
+        }
+
+        async function pollNotifications() {
+            try {
+                const newNotifications = await fetchNotifications();
+                notifications = [...notifications, ...newNotifications];
+                updateUnreadCount();
+                renderNotifications();
+            } catch (error) {
+                console.error('Failed to fetch notifications:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const bell = document.getElementById('notification-bell');
+            const dropdown = document.getElementById('notification-dropdown');
+            const markAllBtn = document.getElementById('mark-all-read');
+
+            bell.addEventListener('click', () => {
+                dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            });
+
+            markAllBtn.addEventListener('click', markAllAsRead);
+
+            document.addEventListener('click', (event) => {
+                if (!bell.contains(event.target) && !dropdown.contains(event.target)) {
+                    dropdown.style.display = 'none';
+                }
+            });
+
+            setInterval(pollNotifications, pollInterval);
+            pollNotifications();
+        });
+    </script>
+</body>
+</html>

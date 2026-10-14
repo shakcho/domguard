@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal CRM – Stay Organized, Grow Relationships</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config for custom colors if needed
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6',
+            secondary: '#6366f1',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* Simple smooth scroll */
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="font-sans antialiased text-gray-800 bg-gray-50">
+
+  <!-- Hero -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        Your Personal CRM, Simplified
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Keep track of contacts, follow‑ups, and notes in one beautiful, easy‑to‑use dashboard.
+      </p>
+      <a href="#pricing" class="inline-block bg-primary text-white font-medium py-3 px-8 rounded-md hover:bg-primary/90 transition">
+        Get Started Free
+      </a>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="bg-gray-100 py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl font-semibold text-center text-gray-800 mb-12">Why Choose Our CRM?</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Benefit 1 -->
+        <div class="bg-white rounded-lg shadow-sm p-6 text-center">
+          <svg class="w-12 h-12 mx-auto text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          <h3 class="text-xl font-medium text-gray-800 mb-2">All‑in‑One Dashboard</h3>
+          <p class="text-gray-600">View contacts, tasks, and notes at a glance—no more juggling spreadsheets.</p>
+        </div>
+        <!-- Benefit 2 -->
+        <div class="bg-white rounded-lg shadow-sm p-6 text-center">
+          <svg class="w-12 h-12 mx-auto text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2zM6 12h12M6 16h12"/>
+          </svg>
+          <h3 class="text-xl font-medium text-gray-800 mb-2">Smart Reminders</h3>
+          <p class="text-gray-600">Never miss a follow‑up with automated email and push notifications.</p>
+        </div>
+        <!-- Benefit 3 -->
+        <div class="bg-white rounded-lg shadow-sm p-6 text-center">
+          <svg class="w-12 h-12 mx-auto text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 7h18M3 12h18M3 17h18"/>
+          </svg>
+          <h3 class="text-xl font-medium text-gray-800 mb-2">Secure & Private</h3>
+          <p class="text-gray-600">Your data is encrypted end‑to‑end and never sold to third parties.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshot -->
+  <section class="py-20">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-semibold text-gray-800 mb-8">See It In Action</h2>
+      <img src="https://images.unsplash.com/photo-1587614382346-4ecf2c9c0e2b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNjA3fDB8MHxzZWFyY2h8Mnx8Y3JtfGVufDB8fHx8MTY5MjY5NzYwMA&ixlib=rb-4.0.3&q=80&w=1200"
+           alt="CRM dashboard screenshot"
+           class="rounded-lg shadow-lg w-full object-cover">
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="bg-gray-100 py-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl font-semibold text-center text-gray-800 mb-12">What Users Say</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="bg-white rounded-lg p-6 shadow-sm flex flex-col h-full">
+          <p class="text-gray-600 flex-grow">"I finally have a place to keep all my client notes. The reminders keep me on top of every follow‑up!"</p>
+          <div class="mt-4 flex items-center">
+            <img src="https://i.pravatar.cc/48?img=1" alt="Avatar" class="w-12 h-12 rounded-full mr-3">
+            <div>
+              <p class="font-medium text-gray-800">Alex Rivera</p>
+              <p class="text-sm text-gray-500">Freelance Designer</p>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial 2 -->
+        <div class="bg-white rounded-lg p-6 shadow-sm flex flex-col h-full">
+          <p class="text-gray-600 flex-grow">"The dashboard is clean and intuitive. I love how I can see everything at a glance."</p>
+          <div class="mt-4 flex items-center">
+            <img src="https://i.pravatar.cc/48?img=2" alt="Avatar" class="w-12 h-12 rounded-full mr-3">
+            <div>
+              <p class="font-medium text-gray-800">Sofia Patel</p>
+              <p class="text-sm text-gray-500">Startup Founder</p>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial 3 -->
+        <div class="bg-white rounded-lg p-6 shadow-sm flex flex-col h-full">
+          <p class="text-gray-600 flex-grow">"Security was my biggest concern, and this CRM delivers with end‑to‑end encryption."</p>
+          <div class="mt-4 flex items-center">
+            <img src="https://i.pravatar.cc/48?img=3" alt="Avatar" class="w-12 h-12 rounded-full mr-3">
+            <div>
+              <p class="font-medium text-gray-800">Liam O'Connor</p>
+              <p class="text-sm text-gray-500">Consultant</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-20">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-semibold text-gray-800 mb-12">Simple Pricing</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Free Plan -->
+        <div class="border border-gray-300 rounded-lg p-8 flex flex-col">
+          <h3 class="text-xl font-medium text-gray-800 mb-4">Free</h3>
+          <p class="text-4xl font-bold text-primary mb-4">$0<span class="text-base font-medium text-gray-600">/mo</span></p>
+          <ul class="text-left mb-6 flex-1">
+            <li class="flex items-center mb-2"><svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Unlimited contacts</li>
+            <li class="flex items-center mb-2"><svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Basic reminders</li>
+            <li class="flex items-center text-gray-400"><svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>Advanced analytics</li>
+          </ul>
+          <a href="#" class="bg-primary text-white py-2 rounded-md hover:bg-primary/90 transition">Start Free</a>
+        </div>
+        <!-- Pro Plan -->
+        <div class="border-2 border-primary rounded-lg p-8 flex flex-col bg-primary/5">
+          <h3 class="text-xl font-medium text-primary mb-4">Pro</h3>
+          <p class="text-4xl font-bold text-primary mb-4">$9<span class="text-base font-medium text-gray-600">/mo</span></p>
+          <ul class="text-left mb-6 flex-1">
+            <li class="flex items-center mb-2"><svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Unlimited contacts</li>
+            <li class="flex items-center mb-2"><svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Smart reminders</li>
+            <li class="flex items-center mb-2"><svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Analytics dashboard</li>
+          </ul>
+          <a href="#" class="bg-primary text-white py-2 rounded-md hover:bg-primary/90 transition">Choose Pro</a>
+        </div>
+        <!-- Enterprise Plan -->
+        <div class="border border-gray-300 rounded-lg p-8 flex flex-col">
+          <h3 class="text-xl font-medium text-gray-800 mb-4">Enterprise</h3>
+          <p class="text-4xl font-bold text-primary mb-4">Custom<span class="text-base font-medium text-gray-600"></span></p>
+          <ul class="text-left mb-6 flex-1">
+            <li class="flex items-center mb-2"><svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>All Pro features</li>
+            <li class="flex items-center mb-2"><svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Dedicated account manager</li>
+            <li class="flex items-center mb-2"><svg class="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Custom integrations</li>
+          </ul>
+          <a href="#" class="bg-primary text-white py-2 rounded-md hover:bg-primary/90 transition">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="bg-primary py-20">
+    <div class="max-w-3xl mx-auto text-center px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Organize Your Relationships?</h2>
+      <p class="text-lg text-white mb-8">Start your free trial today and see how easy staying connected can be.</p>
+      <a href="#" class="bg-white text-primary font-medium py-3 px-8 rounded-md hover:bg-gray-100 transition">Start Free Trial</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 py-8">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-sm">&copy; 2026 Personal CRM. All rights reserved.</p>
+      <div class="flex space-x-4 mt-4 md:mt-0">
+        <a href="#" class="hover:text-white transition">Privacy Policy</a>
+        <a href="#" class="hover:text-white transition">Terms of Service</a>
+        <a href="#" class="hover:text-white transition">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threaded Discussion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .comment-node {
+            transition: all 0.3s ease;
+        }
+        .collapse-icon {
+            transition: transform 0.2s ease;
+        }
+        .rotate-90 {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-4">
+    <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl font-bold text-center my-8 text-gray-800">Threaded Discussion</h1>
+        <div id="comments-container" class="space-y-4"></div>
+    </div>
+
+    <script>
+        // Sample data structure
+        const commentsData = {
+            "1": {
+                id: "1",
+                author: "Alice",
+                content: "This is the first comment",
+                timestamp: "2023-05-01T10:00:00Z",
+                replies: ["2", "3"]
+            },
+            "2": {
+                id: "2",
+                author: "Bob",
+                content: "Replying to the first comment",
+                timestamp: "2023-05-01T11:00:00Z",
+                replies: ["4"]
+            },
+            "3": {
+                id: "3",
+                author: "Charlie",
+                content: "Another reply to the first comment",
+                timestamp: "2023-05-01T12:00:00Z",
+                replies: []
+            },
+            "4": {
+                id: "4",
+                author: "David",
+                content: "Replying to Bob's comment",
+                timestamp: "2023-05-01T13:00:00Z",
+                replies: ["5"]
+            },
+            "5": {
+                id: "5",
+                author: "Eve",
+                content: "Deep nested comment",
+                timestamp: "2023-05-01T14:00:00Z",
+                replies: []
+            }
+        };
+
+        // State management
+        const state = {
+            comments: {...commentsData},
+            collapsed: new Set(),
+            replyTo: null
+        };
+
+        // Utility functions
+        const formatDate = (dateString) => {
+            const date = new Date(dateString);
+            return date.toLocaleString();
+        };
+
+        // Render functions
+        const renderComment = (commentId, depth = 0) => {
+            const comment = state.comments[commentId];
+            if (!comment) return '';
+
+            const isCollapsed = state.collapsed.has(commentId);
+            const hasReplies = comment.replies.length > 0;
+            const marginLeft = depth > 0 ? `${depth * 20}px` : '0';
+
+            return `
+                <div class="comment-node bg-white rounded-lg shadow p-4 mb-4" style="margin-left: ${marginLeft}">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="font-bold text-gray-800">${comment.author}</div>
+                            <div class="text-xs text-gray-500 mb-2">${formatDate(comment.timestamp)}</div>
+                        </div>
+                        ${hasReplies ? `
+                            <button 
+                                class="collapse-toggle text-gray-500 hover:text-gray-700"
+                                data-id="${commentId}"
+                            >
+                                <svg 
+                                    class="w-5 h-5 collapse-icon ${isCollapsed ? '' : 'rotate-90'}" 
+                                    fill="none" 
+                                    stroke="currentColor" 
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </button>
+                        ` : ''}
+                    </div>
+                    <p class="text-gray-700 mb-3">${comment.content}</p>
+                    <div class="flex space-x-3">
+                        <button 
+                            class="reply-button text-blue-600 hover:text-blue-800 text-sm font-medium"
+                            data-id="${commentId}"
+                        >
+                            Reply
+                        </button>
+                    </div>
+
+                    ${state.replyTo === commentId ? `
+                        <div class="mt-4 reply-form-container">
+                            <textarea 
+                                class="w-full p-3 border border-gray-300 rounded-lg mb-2" 
+                                placeholder="Write your reply..." 
+                                rows="3"
+                            ></textarea>
+                            <div class="flex space-x-2">
+                                <button 
+                                    class="submit-reply bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                                    data-id="${commentId}"
+                                >
+                                    Submit
+                                </button>
+                                <button 
+                                    class="cancel-reply bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400"
+                                    data-id="${commentId}"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    ${!isCollapsed && hasReplies ? `
+                        <div class="replies-container mt-4">
+                            ${comment.replies.map(replyId => renderComment(replyId, depth + 1)).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        };
+
+        const renderComments = () => {
+            const container = document.getElementById('comments-container');
+            const topLevelComments = Object.values(state.comments)
+                .filter(comment => !Object.values(state.comments).some(c => c.replies.includes(comment.id)));
+
+            container.innerHTML = topLevelComments
+                .map(comment => renderComment(comment.id))
+                .join('');
+        };
+
+        // Event handlers
+        const handleCollapseToggle = (e) => {
+            const commentId = e.currentTarget.dataset.id;
+            if (state.collapsed.has(commentId)) {
+                state.collapsed.delete(commentId);
+            } else {
+                state.collapsed.add(commentId);
+            }
+            renderComments();
+        };
+
+        const handleReplyClick = (e) => {
+            const commentId = e.currentTarget.dataset.id;
+            state.replyTo = commentId;
+            renderComments();
+        };
+
+        const handleCancelReply = (e) => {
+            state.replyTo = null;
+            renderComments();
+        };
+
+        const handleSubmitReply = (e) => {
+            const commentId = e.currentTarget.dataset.id;
+            const textarea = document.querySelector(`.comment-node[data-id="${commentId}"] textarea`);
+            const content = textarea.value.trim();
+
+            if (content) {
+                const newId = `${Date.now()}`;
+                const newComment = {
+                    id: newId,
+                    author: "You",
+                    content: content,
+                    timestamp: new Date().toISOString(),
+                    replies: []
+                };
+
+                state.comments[newId] = newComment;
+                state.comments[commentId].replies.push(newId);
+                state.replyTo = null;
+                renderComments();
+            }
+        };
+
+        // Event delegation
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.collapse-toggle')) {
+                handleCollapseToggle(e);
+            } else if (e.target.closest('.reply-button')) {
+                handleReplyClick(e);
+            } else if (e.target.closest('.cancel-reply')) {
+                handleCancelReply(e);
+            } else if (e.target.closest('.submit-reply')) {
+                handleSubmitReply(e);
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderComments();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tag Input</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white shadow-md rounded-md p-6 w-96">
+        <h2 class="text-xl font-bold mb-4">Tag Input</h2>
+
+        <div class="relative">
+            <input type="text" id="tagInput" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Add tags...">
+            <div id="tagContainer" class="mt-2 flex flex-wrap"></div>
+            <input type="hidden" id="tagList" name="tagList" value="">
+            <p class="mt-2 text-gray-600">Total Tags: <span id="tagCount">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        const tagInput = document.getElementById('tagInput');
+        const tagContainer = document.getElementById('tagContainer');
+        const tagList = document.getElementById('tagList');
+        const tagCount = document.getElementById('tagCount');
+
+        let tags = [];
+
+        function updateTagCount() {
+            tagCount.textContent = tags.length;
+            tagList.value = JSON.stringify(tags);
+        }
+
+        function addTag(tagText) {
+            if (tagText.trim() !== "") {
+                const tag = document.createElement('span');
+                tag.classList.add('bg-blue-100', 'text-blue-800', 'rounded-full', 'px-2', 'py-1', 'm-1', 'inline-block');
+                tag.textContent = tagText;
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'x';
+                removeButton.classList.add('ml-1', 'text-red-500', 'hover:text-red-700', 'font-bold', 'cursor-pointer');
+                removeButton.addEventListener('click', () => {
+                    removeTag(tagText);
+                });
+
+                tag.appendChild(removeButton);
+                tagContainer.appendChild(tag);
+                tags.push(tagText);
+                updateTagCount();
+            }
+        }
+
+        function removeTag(tagText) {
+            tags = tags.filter(tag => tag !== tagText);
+            const tagElements = tagContainer.querySelectorAll('span');
+            tagElements.forEach(element => {
+                if (element.textContent.includes(tagText)) {
+                    element.remove();
+                }
+            });
+            updateTagCount();
+        }
+
+        tagInput.addEventListener('keydown', (event) => {
+            if (event.key === ',' || event.key === 'Enter') {
+                event.preventDefault();
+                const tagText = tagInput.value.trim();
+                if (tagText !== "") {
+                    addTag(tagText);
+                    tagInput.value = '';
+                }
+            } else if (event.key === 'Backspace' && tagInput.value === '' && tags.length > 0) {
+                event.preventDefault();
+                removeTag(tags[tags.length - 1]);
+            }
+        });
+
+        tagInput.addEventListener('input', () => {
+            // Dispatch 'input' event with the current tag list
+            const event = new Event('input', {
+                bubbles: true,
+                cancelable: true,
+            });
+            tagInput.dispatchEvent(event);
+        });
+
+        // Initial update of tag count and hidden field
+        updateTagCount();
+    </script>
+</body>
+</html>

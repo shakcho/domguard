@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .toc-active {
+            @apply text-blue-600 font-semibold border-l-4 border-blue-500 pl-3;
+        }
+        .toc-link {
+            @apply block py-2 px-4 text-gray-700 hover:bg-gray-100 transition-colors duration-200;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="flex">
+        <!-- Sidebar Table of Contents -->
+        <aside class="w-64 bg-white shadow-md h-screen sticky top-0 overflow-y-auto">
+            <div class="p-4 border-b">
+                <h2 class="text-xl font-bold text-gray-800">Documentation</h2>
+            </div>
+            <nav class="toc-nav py-4">
+                <a href="#introduction" class="toc-link">Introduction</a>
+                <a href="#getting-started" class="toc-link">Getting Started</a>
+                <a href="#installation" class="toc-link">Installation</a>
+                <a href="#configuration" class="toc-link">Configuration</a>
+                <a href="#usage" class="toc-link">Usage</a>
+                <a href="#api-reference" class="toc-link">API Reference</a>
+                <a href="#troubleshooting" class="toc-link">Troubleshooting</a>
+                <a href="#faq" class="toc-link">FAQ</a>
+                <a href="#conclusion" class="toc-link">Conclusion</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 max-w-4xl mx-auto">
+            <article class="prose lg:prose-xl">
+                <section id="introduction" class="mb-12">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-4">Introduction</h1>
+                    <p class="text-gray-700 mb-4">Welcome to our comprehensive documentation. This guide will help you understand how to use our platform effectively. Whether you're a beginner or an advanced user, you'll find valuable information here.</p>
+                    <p class="text-gray-700">Our documentation is organized into logical sections to help you quickly find what you need. Use the navigation on the left to jump between sections.</p>
+                </section>
+
+                <section id="getting-started" class="mb-12">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Getting Started</h2>
+                    <p class="text-gray-700 mb-4">Before diving into the specifics, let's cover the basics of how our system works.</p>
+                    <ul class="list-disc pl-6 text-gray-700 mb-4">
+                        <li>Understand the core concepts</li>
+                        <li>Set up your development environment</li>
+                        <li>Run your first example</li>
+                    </ul>
+                    <p class="text-gray-700">By the end of this section, you'll have a working setup and understand the fundamental principles.</p>
+                </section>
+
+                <section id="installation" class="mb-12">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Installation</h2>
+                    <p class="text-gray-700 mb-4">Installing our software is straightforward. Follow these steps:</p>
+                    <pre class="bg-gray-800 text-white p-4 rounded mb-4"><code>npm install our-package
+# or
+yarn add our-package</code></pre>
+                    <p class="text-gray-700">After installation, verify everything is working correctly by running:</p>
+                    <pre class="bg-gray-800 text-white p-4 rounded"><code>npx our-package --version</code></pre>
+                </section>
+
+                <section id="configuration" class="mb-12">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Configuration</h2>
+                    <p class="text-gray-700 mb-4">Customize the behavior of our tool with these configuration options:</p>
+                    <div class="bg-white border rounded p-4 mb-4">
+                        <h3 class="font-bold text-lg mb-2">config.json</h3>
+                        <pre class="bg-gray-100 p-3 rounded"><code>{
+  "apiUrl": "https://api.example.com",
+  "timeout": 5000,
+  "retries": 3
+}</code></pre>
+                    </div>
+                    <p class="text-gray-700">Place this file in your project root directory to override default settings.</p>
+                </section>
+
+                <section id="usage" class="mb-12">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Usage</h2>
+                    <p class="text-gray-700 mb-4">Here's how to use our main features:</p>
+                    <h3 class="text-xl font-semibold mb-2">Basic Example</h3>
+                    <pre class="bg-gray-800 text-white p-4 rounded mb-4"><code>import { initialize } from 'our-package';
+
+const app = initialize({
+  // configuration options
+});
+
+app.run();</code></pre>
+                    <h3 class="text-xl font-semibold mb-2">Advanced Usage</h3>
+                    <p class="text-gray-700">For more complex scenarios, you can customize behavior:</p>
+                    <pre class="bg-gray-800 text-white p-4 rounded"><code>app.on('event', (data) => {
+  // handle event
+});</code></pre>
+                </section>
+
+                <section id="api-reference" class="mb-12">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">API Reference</h2>
+                    <h3 class="text-xl font-semibold mb-2">initialize(options)</h3>
+                    <p class="text-gray-700 mb-2">Initializes the application with the given options.</p>
+                    <ul class="list-disc pl-6 text-gray-700 mb-4">
+                        <li><strong>options</strong> (Object): Configuration options</li>
+                        <li><strong>Returns</strong>: Application instance</li>
+                    </ul>
+                    <h3 class="text-xl font-semibold mb-2">run()</h3>
+                    <p class="text-gray-700">Starts the application execution.</p>
+                </section>
+
+                <section id="troubleshooting" class="mb-12">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Troubleshooting</h2>
+                    <h3 class="text-xl font-semibold mb-2">Common Issues</h3>
+                    <div class="mb-4">
+                        <h4 class="font-bold text-gray-800">Installation fails</h4>
+                        <p class="text-gray-700">Ensure you have the latest version of Node.js installed.</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-bold text-gray-800">API calls timeout</h4>
+                        <p class="text-gray-700">Check your network connection and firewall settings.</p>
+                    </div>
+                </section>
+
+                <section id="faq" class="mb-12">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+                    <div class="mb-4">
+                        <h3 class="font-bold text-gray-800">Is this free to use?</h3>
+                        <p class="text-gray-700">Yes, our core package is completely free and open-source.</p>
+                    </div>
+                    <div class="mb-4">
+                        <h3 class="font-bold text-gray-800">Where can I get support?</h3>
+                        <p class="text-gray-700">Visit our community forum or open an issue on GitHub.</p>
+                    </div>
+                </section>
+
+                <section id="conclusion" class="mb-12">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Conclusion</h2>
+                    <p class="text-gray-700 mb-4">You've now learned the fundamentals of using our platform. We encourage you to explore the advanced features and experiment with different configurations.</p>
+                    <p class="text-gray-700">For the latest updates and announcements, follow us on our social channels and subscribe to our newsletter.</p>
+                </section>
+            </article>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all section elements
+            const sections = document.querySelectorAll('section');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            
+            // Create an intersection observer
+            const observer = new IntersectionObserver(function(entries) {
+                // Find the section that is most visible
+                let mostVisibleSection = null;
+                let highestRatio = 0;
+                
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > highestRatio) {
+                        highestRatio = entry.intersectionRatio;
+                        mostVisibleSection = entry.target;
+                    }
+                });
+                
+                // Update active class in TOC
+                if (mostVisibleSection) {
+                    tocLinks.forEach(link => {
+                        link.classList.remove('toc-active');
+                        if (link.getAttribute('href') === `#${mostVisibleSection.id}`) {
+                            link.classList.add('toc-active');
+                        }
+                    });
+                }
+            }, {
+                root: null,
+                rootMargin: '0px 0px -70% 0px', // Trigger when section is 30% from top
+                threshold: 0
+            });
+            
+            // Observe all sections
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Smooth scrolling for TOC links
+            tocLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acme Console</title>
+  <style>
+    :root { --bg:#fff; --fg:#111827; --accent:#2563eb; --muted:#6b7280; --card:#f9fafb; }
+    body { background: var(--bg); color: var(--fg); font-family: system-ui, sans-serif; margin: 0; }
+    .header { display:flex; justify-content:space-between; padding:12px 20px; background:var(--card); }
+    .brand { font-weight:700; color:var(--accent); }
+    .flash { animation: flash .4s ease; }
+    @keyframes flash { from { opacity:.4 } to { opacity:1 } }
+    main { display:grid; grid-template-columns: 280px 1fr; gap:16px; padding:20px; }
+    .list li { padding:8px 12px; border-bottom:1px solid var(--card); }
+    [data-density="compact"] .list li { padding:4px 12px; }
+  </style>
+</head>
+<body>
+  <div id="header"></div>
+  <main>
+    <aside>
+      <div id="settings"></div>
+      <!-- feature widgets mount here -->
+      <div id="feature-aside"></div>
+    </aside>
+    <section>
+      <div id="list"></div>
+      <div id="feature-main"></div>
+    </section>
+  </main>
+
+  
+
+</html>
+
+  <script>
+/* theme.js */
+// theme.js — central theming for the app.
+// Components are expected to read CSS variables and the `data-theme` attribute.
+// The app supports a configurable theme that the user can change at runtime
+// via the Settings panel (see store.js -> state.settings.theme).
+const THEMES = {
+  light: { "--bg": "#ffffff", "--fg": "#111827", "--accent": "#2563eb", "--muted": "#6b7280", "--card": "#f9fafb" },
+  dark:  { "--bg": "#0b1020", "--fg": "#e5e7eb", "--accent": "#60a5fa", "--muted": "#9ca3af", "--card": "#111827" },
+  sepia: { "--bg": "#f4ecd8", "--fg": "#433422", "--accent": "#9a6b2f", "--muted": "#7c6f57", "--card": "#efe4c8" },
+};
+
+// Apply a theme by name. Sets data-theme and writes CSS variables on :root.
+// IMPORTANT: this mutates the <html> element's style and data-theme attribute.
+function applyTheme(name) {
+  const vars = THEMES[name] || THEMES.light;
+  const root = document.documentElement;
+  root.setAttribute("data-theme", name);
+  for (const [k, v] of Object.entries(vars)) {
+    root.style.setProperty(k, v);
+  }
+  // Notify listeners that the theme changed.
+  document.dispatchEvent(new CustomEvent("theme:changed", { detail: { name } }));
+}
+function currentTheme() {
+  return document.documentElement.getAttribute("data-theme") || "light";
+}
+
+
+/* store.js */
+// store.js — tiny observable app state.
+// Components subscribe with store.subscribe(fn) and read store.state.
+// Any mutation should go through store.set(patch), which notifies subscribers.
+
+const listeners = new Set();
+const store = {
+  state: {
+    user: { name: "Ada Lovelace", email: "ada@example.com" },
+    settings: { theme: "light", density: "comfortable", liveUpdates: true },
+    items: [],        // feature components may populate this
+    notifications: [],
+  },
+
+  subscribe(fn) {
+    listeners.add(fn);
+    return () => listeners.delete(fn);
+  },
+
+  // Shallow-merge a patch into state and notify everyone.
+  set(patch) {
+    store.state = { ...store.state, ...patch };
+    for (const fn of listeners) fn(store.state);
+  },
+
+  // Convenience for nested settings updates.
+  setSetting(key, value) {
+    store.set({ settings: { ...store.state.settings, [key]: value } });
+  },
+};
+
+
+/* components.js */
+// components.js — existing UI components, re-rendered on store changes.
+
+// Header shows the user and reflects theme changes.
+function mountHeader(root) {
+  function render(state) {
+    root.innerHTML = `
+      <div class="header">
+        <span class="brand">Acme Console</span>
+        <span class="user">${state.user.name}</span>
+      </div>`;
+  }
+  store.subscribe(render);
+  render(store.state);
+  // Keep a subtle highlight in sync with theme changes.
+  document.addEventListener("theme:changed", () => {
+    root.querySelector(".brand")?.classList.add("flash");
+  });
+}
+
+// Settings panel lets the user change theme/density at runtime.
+function mountSettings(root) {
+  function render(state) {
+    root.innerHTML = `
+      <form class="settings">
+        <label>Theme
+          <select name="theme">
+            ${["light", "dark", "sepia"].map((t) =>
+              `<option value="${t}" ${state.settings.theme === t ? "selected" : ""}>${t}</option>`).join("")}
+          </select>
+        </label>
+        <label>Density
+          <select name="density">
+            ${["comfortable", "compact"].map((d) =>
+              `<option value="${d}" ${state.settings.density === d ? "selected" : ""}>${d}</option>`).join("")}
+          </select>
+        </label>
+      </form>`;
+    root.querySelector('[name="theme"]').addEventListener("change", (e) => {
+      store.setSetting("theme", e.target.value);
+      applyTheme(e.target.value);
+    });
+    root.querySelector('[name="density"]').addEventListener("change", (e) => {
+      store.setSetting("density", e.target.value);
+    });
+  }
+  store.subscribe(render);
+  render(store.state);
+}
+
+// A simple list region other features can render into.
+function mountList(root) {
+  function render(state) {
+    root.innerHTML = `<ul class="list">${
+      state.items.map((it) => `<li data-id="${it.id}">${it.label}</li>`).join("")
+    }</ul>`;
+  }
+  store.subscribe(render);
+  render(store.state);
+}
+{ currentTheme };
+
+
+/* api.js */
+// api.js — mock backend. Returns promises so callers must handle async.
+// Latency is simulated; data is deterministic-ish for reproducibility.
+
+function delay(ms) { return new Promise((r) => setTimeout(r, ms)); }
+
+let _seq = 0;
+async function fetchItems(cursor = 0, pageSize = 20) {
+  await delay(120);
+  const items = Array.from({ length: pageSize }, (_, i) => ({
+    id: cursor + i,
+    label: `Item #${cursor + i}`,
+  }));
+  return { items, nextCursor: cursor + pageSize };
+}
+async function fetchNotifications() {
+  await delay(80);
+  _seq += 1;
+  return Array.from({ length: _seq % 5 }, (_, i) => ({
+    id: `${_seq}-${i}`,
+    text: `Notification ${_seq}-${i}`,
+    read: false,
+  }));
+}
+async function fetchMetrics() {
+  await delay(60);
+  return {
+    rps: 100 + (_seq % 50),
+    errorRate: ((_seq % 7) / 100).toFixed(3),
+    latencyMs: 40 + (_seq % 30),
+    activeUsers: 1200 + (_seq % 100),
+  };
+}
+async function saveSettings(settings) {
+  await delay(100);
+  return { ok: true, settings };
+}
+
+
+/* feature.js (generated) */
+function mountFeature(asideEl, mainEl) {
+  // Optional placeholder in the aside (can be customized later)
+  asideEl.innerHTML = `<div class="feature-status"></div>`;
+
+  let loading = false;
+  const THRESHOLD_PX = 300; // start loading when within 300px of bottom
+
+  async function loadMore() {
+    if (loading) return;
+    loading = true;
+    try {
+      const cursor = store.state.items.length;
+      const { items } = await fetchItems(cursor);
+      if (items && items.length) {
+        store.set({ items: [...store.state.items, ...items] });
+      }
+    } finally {
+      loading = false;
+    }
+  }
+
+  function onScroll() {
+    const scrollPos = window.innerHeight + window.scrollY;
+    const bottom = document.body.offsetHeight;
+    if (bottom - scrollPos <= THRESHOLD_PX) {
+      loadMore();
+    }
+  }
+
+  window.addEventListener("scroll", onScroll);
+  // In case the page is already short enough to need more data
+  onScroll();
+}
+
+/* bootstrap */
+try {
+  applyTheme(store.state.settings.theme);
+  mountHeader(document.getElementById("header"));
+  mountSettings(document.getElementById("settings"));
+  mountList(document.getElementById("list"));
+  if (typeof mountFeature === "function") {
+    mountFeature(document.getElementById("feature-aside"), document.getElementById("feature-main"));
+  }
+} catch (e) { /* analysis target is the source, not runtime */ }
+  </script>
+</body></html>

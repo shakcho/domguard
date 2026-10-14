@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tag Input</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .tag-input-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            min-height: 2.75rem;
+        }
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            background-color: #e5e7eb;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+        .tag-remove {
+            margin-left: 0.25rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+        .tag-input {
+            flex: 1;
+            min-width: 5rem;
+            border: none;
+            outline: none;
+            padding: 0.25rem;
+        }
+    </style>
+</head>
+<body class="p-6 bg-gray-50 min-h-screen">
+    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
+        <h1 class="text-xl font-semibold mb-4">Tag Input Demo</h1>
+        <div id="tagInput" class="tag-input-container focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent">
+            <!-- Tags will be inserted here -->
+            <input type="text" id="tagInputField" class="tag-input" placeholder="Type and press comma or enter...">
+        </div>
+        <div class="mt-4 text-sm text-gray-600">
+            Tags count: <span id="tagCount">0</span>
+        </div>
+        <input type="hidden" id="tagsHidden" name="tags">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('tagInput');
+            const input = document.getElementById('tagInputField');
+            const hiddenInput = document.getElementById('tagsHidden');
+            const tagCount = document.getElementById('tagCount');
+            let tags = [];
+
+            function updateHiddenInput() {
+                hiddenInput.value = tags.join(',');
+                tagCount.textContent = tags.length;
+                container.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+
+            function createTag(text) {
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.innerHTML = `
+                    ${text}
+                    <span class="tag-remove" data-tag="${text}">×</span>
+                `;
+                return tag;
+            }
+
+            function addTag(text) {
+                const trimmedText = text.trim();
+                if (trimmedText && !tags.includes(trimmedText)) {
+                    tags.push(trimmedText);
+                    const tagElement = createTag(trimmedText);
+                    container.insertBefore(tagElement, input);
+                    updateHiddenInput();
+                }
+            }
+
+            function removeTag(text) {
+                tags = tags.filter(tag => tag !== text);
+                const tagElements = container.querySelectorAll('.tag');
+                tagElements.forEach(el => {
+                    if (el.textContent.includes(text)) {
+                        el.remove();
+                    }
+                });
+                updateHiddenInput();
+            }
+
+            input.addEventListener('keydown', function(e) {
+                if (e.key === ',' || e.key === 'Enter') {
+                    e.preventDefault();
+                    addTag(input.value);
+                    input.value = '';
+                } else if (e.key === 'Backspace' && input.value === '' && tags.length > 0) {
+                    removeTag(tags[tags.length - 1]);
+                }
+            });
+
+            container.addEventListener('click', function(e) {
+                if (e.target.classList.contains('tag-remove')) {
+                    const tagText = e.target.getAttribute('data-tag');
+                    removeTag(tagText);
+                }
+            });
+
+            input.addEventListener('blur', function() {
+                if (input.value.trim()) {
+                    addTag(input.value);
+                    input.value = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

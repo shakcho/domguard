@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreatorHub - Newsletter Platform for Creators</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                        accent: '#f43f5e'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .testimonial-card {
+            transition: transform 0.3s ease;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+        }
+        @media (max-width: 768px) {
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="container mx-auto px-4 py-20 md:py-28">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Monetize Your Newsletter Audience</h1>
+                <p class="text-xl mb-10 text-gray-100 max-w-2xl mx-auto">CreatorHub helps newsletter creators turn their passion into profit with powerful monetization tools and engaged communities.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#" class="bg-white text-primary font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300">Start Free Trial</a>
+                    <a href="#" class="border-2 border-white text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-primary transition duration-300">View Demo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benefits Section -->
+    <div class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Why Creators Choose Us</h2>
+            <div class="grid md:grid-cols-3 gap-10 max-w-5xl mx-auto">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-dollar-sign text-primary text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Multiple Revenue Streams</h3>
+                    <p class="text-gray-600">Create subscription tiers, sell digital products, and earn affiliate commissions all from one platform.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-secondary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-chart-line text-secondary text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Advanced Analytics</h3>
+                    <p class="text-gray-600">Track engagement, conversion rates, and revenue with detailed insights to grow your business.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-users text-accent text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Community Building</h3>
+                    <p class="text-gray-600">Foster deeper connections with your audience through exclusive content and member-only discussions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Monetization Stats -->
+    <div class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Creator Success Stories</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto text-center">
+                <div>
+                    <div class="stat-number text-primary">$2.3M+</div>
+                    <p class="text-gray-600">Total Earnings</p>
+                </div>
+                <div>
+                    <div class="stat-number text-secondary">15,000+</div>
+                    <p class="text-gray-600">Active Creators</p>
+                </div>
+                <div>
+                    <div class="stat-number text-accent">4.9/5</div>
+                    <p class="text-gray-600">Average Rating</p>
+                </div>
+                <div>
+                    <div class="stat-number text-primary">92%</div>
+                    <p class="text-gray-600">Retention Rate</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonial Carousel -->
+    <div class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">What Our Creators Say</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="testimonial-card bg-gray-50 rounded-xl p-8 shadow-md">
+                    <div class="flex items-center mb-6">
+                        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Creator" class="w-16 h-16 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-lg">Sarah Johnson</h4>
+                            <p class="text-gray-600">Lifestyle Blogger</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 text-lg italic">"CreatorHub transformed my newsletter from a hobby into a six-figure business. The monetization tools are incredibly intuitive and the support team is exceptional."</p>
+                    <div class="flex mt-6 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <div class="flex justify-center mt-10 space-x-3">
+                    <button class="w-3 h-3 rounded-full bg-primary"></button>
+                    <button class="w-3 h-3 rounded-full bg-gray-300"></button>
+                    <button class="w-3 h-3 rounded-full bg-gray-300"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="py-20 bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Monetize Your Newsletter?</h2>
+            <p class="text-xl mb-10 max-w-2xl mx-auto text-gray-100">Join thousands of creators already growing their income with CreatorHub. Start your free 14-day trial today.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#" class="bg-white text-primary font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300">Get Started Free</a>
+                <a href="#" class="border-2 border-white text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-primary transition duration-300">Schedule a Demo</a>
+            </div>
+            <p class="mt-6 text-gray-200">No credit card required. Cancel anytime.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">CreatorHub</h3>
+                    <p class="text-gray-400">Empowering creators to build sustainable businesses through newsletter monetization.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Product</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Features</a></li>
+                        <li><a href="#" class="hover:text-white">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white">Templates</a></li>
+                        <li><a href="#" class="hover:text-white">Integrations</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Blog</a></li>
+                        <li><a href="#" class="hover:text-white">Tutorials</a></li>
+                        <li><a href="#" class="hover:text-white">Community</a></li>
+                        <li><a href="#" class="hover:text-white">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Connect</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Twitter</a></li>
+                        <li><a href="#" class="hover:text-white">Facebook</a></li>
+                        <li><a href="#" class="hover:text-white">LinkedIn</a></li>
+                        <li><a href="#" class="hover:text-white">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-10 pt-6 text-center text-gray-500">
+                <p>&copy; 2023 CreatorHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simple testimonial carousel functionality
+            const dots = document.querySelectorAll('.flex.justify-center button');
+            const testimonialCard = document.querySelector('.testimonial-card');
+            
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    // Reset all dots
+                    dots.forEach(d => d.classList.remove('bg-primary'));
+                    dots.forEach(d => d.classList.add('bg-gray-300'));
+                    
+                    // Activate current dot
+                    dot.classList.remove('bg-gray-300');
+                    dot.classList.add('bg-primary');
+                    
+                    // In a real implementation, this would change the testimonial content
+                    // For this demo, we'll just show a simple effect
+                    testimonialCard.style.transform = 'translateY(-10px)';
+                    setTimeout(() => {
+                        testimonialCard.style.transform = 'translateY(0)';
+                    }, 300);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaborative Document Presence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.8); }
+        }
+        .user-join {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        .user-leave {
+            animation: fadeOut 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
+    <div class="w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Active Collaborators</h1>
+        <div id="presence-container" class="flex flex-wrap gap-4"></div>
+    </div>
+
+    <script>
+        const mockUsers = [
+            { id: '1', name: 'Alex Johnson', color: 'bg-red-400' },
+            { id: '2', name: 'Taylor Smith', color: 'bg-blue-400' },
+            { id: '3', name: 'Jordan Lee', color: 'bg-green-400' },
+            { id: '4', name: 'Casey Kim', color: 'bg-yellow-400' },
+            { id: '5', name: 'Morgan Wells', color: 'bg-purple-400' },
+            { id: '6', name: 'Riley Patel', color: 'bg-pink-400' }
+        ];
+
+        let currentPresence = new Set();
+        const presenceContainer = document.getElementById('presence-container');
+
+        function getPresence() {
+            return new Promise((resolve) => {
+                const activeCount = Math.floor(Math.random() * 4) + 1;
+                const newPresence = new Set();
+                
+                while (newPresence.size < activeCount) {
+                    const randomUser = mockUsers[Math.floor(Math.random() * mockUsers.length)];
+                    newPresence.add(randomUser.id);
+                }
+                
+                setTimeout(() => resolve(newPresence), 500);
+            });
+        }
+
+        function renderPresence(activeUsers) {
+            const previousPresence = new Set(currentPresence);
+            currentPresence = activeUsers;
+
+            const toRemove = [...previousPresence].filter(id => !activeUsers.has(id));
+            const toAdd = [...activeUsers].filter(id => !previousPresence.has(id));
+
+            toRemove.forEach(id => {
+                const element = document.getElementById(`user-${id}`);
+                if (element) {
+                    element.classList.add('user-leave');
+                    setTimeout(() => element.remove(), 300);
+                }
+            });
+
+            toAdd.forEach(id => {
+                const user = mockUsers.find(u => u.id === id);
+                if (user) {
+                    const userElement = document.createElement('div');
+                    userElement.id = `user-${user.id}`;
+                    userElement.className = `user-join flex flex-col items-center p-3 rounded-lg ${user.color} text-white w-24 opacity-0`;
+                    userElement.innerHTML = `
+                        <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-xl font-bold mb-2">
+                            ${user.name.charAt(0)}
+                        </div>
+                        <span class="text-sm font-medium truncate w-full text-center">${user.name}</span>
+                    `;
+                    presenceContainer.appendChild(userElement);
+                }
+            });
+        }
+
+        setInterval(async () => {
+            const presence = await getPresence();
+            renderPresence(presence);
+        }, 2000);
+
+        getPresence().then(renderPresence);
+    </script>
+</body>
+</html>

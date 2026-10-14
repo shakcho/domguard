@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Operations Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse-animation {
+            animation: pulse 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Operations Dashboard</h1>
+            <button id="pauseButton" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-full transition duration-300">
+                Pause
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Requests/sec Card -->
+            <div class="bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl">
+                <div class="flex items-center">
+                    <div class="rounded-full bg-blue-100 p-3 mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-gray-500 text-sm font-medium">Requests/sec</h3>
+                        <p id="requests" class="text-3xl font-bold text-gray-800 mt-1">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Rate Card -->
+            <div class="bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl">
+                <div class="flex items-center">
+                    <div class="rounded-full bg-red-100 p-3 mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-gray-500 text-sm font-medium">Error Rate</h3>
+                        <p id="errorRate" class="text-3xl font-bold text-gray-800 mt-1">0%</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Latency Card -->
+            <div class="bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl">
+                <div class="flex items-center">
+                    <div class="rounded-full bg-yellow-100 p-3 mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-gray-500 text-sm font-medium">Latency</h3>
+                        <p id="latency" class="text-3xl font-bold text-gray-800 mt-1">0ms</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Users Card -->
+            <div class="bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl">
+                <div class="flex items-center">
+                    <div class="rounded-full bg-green-100 p-3 mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-gray-500 text-sm font-medium">Active Users</h3>
+                        <p id="activeUsers" class="text-3xl font-bold text-gray-800 mt-1">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CPU Card -->
+            <div class="bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl">
+                <div class="flex items-center">
+                    <div class="rounded-full bg-purple-100 p-3 mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-gray-500 text-sm font-medium">CPU</h3>
+                        <p id="cpu" class="text-3xl font-bold text-gray-800 mt-1">0%</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Memory Card -->
+            <div class="bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl">
+                <div class="flex items-center">
+                    <div class="rounded-full bg-indigo-100 p-3 mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-gray-500 text-sm font-medium">Memory</h3>
+                        <p id="memory" class="text-3xl font-bold text-gray-800 mt-1">0%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock metrics generator
+        function getMetrics() {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve({
+                        requests: Math.floor(Math.random() * 1000) + 500,
+                        errorRate: Math.random() * 5,
+                        latency: Math.floor(Math.random() * 200) + 50,
+                        activeUsers: Math.floor(Math.random() * 5000) + 1000,
+                        cpu: Math.random() * 100,
+                        memory: Math.random() * 100
+                    });
+                }, 100);
+            });
+        }
+
+        // DOM elements
+        const elements = {
+            requests: document.getElementById('requests'),
+            errorRate: document.getElementById('errorRate'),
+            latency: document.getElementById('latency'),
+            activeUsers: document.getElementById('activeUsers'),
+            cpu: document.getElementById('cpu'),
+            memory: document.getElementById('memory'),
+            pauseButton: document.getElementById('pauseButton')
+        };
+
+        // State
+        let isPaused = false;
+        let updateInterval;
+
+        // Format numbers with commas
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // Update UI with animation
+        function updateUI(metrics) {
+            Object.keys(metrics).forEach(key => {
+                const element = elements[key];
+                const newValue = key === 'errorRate' ? metrics[key].toFixed(2) + '%' :
+                                key === 'latency' ? metrics[key] + 'ms' :
+                                key === 'cpu' || key === 'memory' ? metrics[key].toFixed(1) + '%' :
+                                formatNumber(metrics[key]);
+                
+                // Add animation class
+                element.classList.add('pulse-animation');
+                
+                // Update value
+                if (key === 'requests' || key === 'activeUsers') {
+                    element.textContent = formatNumber(metrics[key]);
+                } else if (key === 'errorRate' || key === 'cpu' || key === 'memory') {
+                    element.textContent = metrics[key].toFixed(2) + '%';
+                } else if (key === 'latency') {
+                    element.textContent = metrics[key] + 'ms';
+                }
+                
+                // Remove animation class after animation completes
+                setTimeout(() => {
+                    element.classList.remove('pulse-animation');
+                }, 300);
+            });
+        }
+
+        // Fetch and update metrics
+        async function updateMetrics() {
+            if (!isPaused) {
+                try {
+                    const metrics = await getMetrics();
+                    updateUI(metrics);
+                } catch (error) {
+                    console.error('Error fetching metrics:', error);
+                }
+            }
+        }
+
+        // Toggle pause/resume
+        function togglePause() {
+            isPaused = !isPaused;
+            elements.pauseButton.textContent = isPaused ? 'Resume' : 'Pause';
+            elements.pauseButton.classList.toggle('bg-red-500', isPaused);
+            elements.pauseButton.classList.toggle('hover:bg-red-600', isPaused);
+            elements.pauseButton.classList.toggle('bg-blue-500', !isPaused);
+            elements.pauseButton.classList.toggle('hover:bg-blue-600', !isPaused);
+        }
+
+        // Event listeners
+        elements.pauseButton.addEventListener('click', togglePause);
+
+        // Initialize dashboard
+        function initDashboard() {
+            updateMetrics();
+            updateInterval = setInterval(updateMetrics, 1000);
+        }
+
+        // Start the dashboard
+        initDashboard();
+    </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No‑Code Form Builder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .drag-item { @apply cursor-move select-none bg-white border rounded p-2 shadow-sm; }
+    .canvas { @apply min-h-[300px] border-2 border-dashed border-gray-300 rounded p-4 bg-white; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+  <!-- Hero -->
+  <section class="bg-white py-20">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Build Forms Without Code</h1>
+      <p class="text-lg text-gray-600 mb-8">Drag‑and‑drop builder, instant publishing, and zero‑coding required.</p>
+      <a href="#demo" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition">Try the Demo</a>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-16 bg-gray-100">
+    <div class="max-w-6xl mx-auto px-6 grid gap-8 md:grid-cols-3">
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+        <svg class="w-12 h-12 mx-auto text-blue-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m2 0a2 2 0 100-4 2 2 0 000 4zM5 12a2 2 0 100-4 2 2 0 000 4z"/></svg>
+        <h3 class="text-xl font-semibold mb-2">Intuitive Drag‑Drop</h3>
+        <p class="text-gray-600">Add fields, reorder, and customize in seconds.</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+        <svg class="w-12 h-12 mx-auto text-blue-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"/></svg>
+        <h3 class="text-xl font-semibold mb-2">Live Preview</h3>
+        <p class="text-gray-600">See exactly how your form looks on any device.</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-sm text-center">
+        <svg class="w-12 h-12 mx-auto text-blue-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"/></svg>
+        <h3 class="text-xl font-semibold mb-2">Zero Code Required</h3>
+        <p class="text-gray-600">No programming knowledge needed – just drag and drop.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo -->
+  <section id="demo" class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center mb-8">Try the Builder</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Palette -->
+        <div class="space-y-4">
+          <h3 class="text-xl font-semibold">Field Palette</h3>
+          <div class="drag-item" draggable="true" data-type="text">Text Input</div>
+          <div class="drag-item" draggable="true" data-type="email">Email Input</div>
+          <div class="drag-item" draggable="true" data-type="textarea">Textarea</div>
+          <div class="drag-item" draggable="true" data-type="checkbox">Checkbox</div>
+          <div class="drag-item" draggable="true" data-type="radio">Radio Buttons</div>
+        </div>
+
+        <!-- Canvas -->
+        <div>
+          <h3 class="text-xl font-semibold mb-2">Form Canvas</h3>
+          <form id="canvasForm" class="canvas" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
+            <p class="text-gray-500 text-center">Drag fields here</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lead Capture -->
+  <section class="py-16 bg-gray-100">
+    <div class="max-w-lg mx-auto px-6 text-center">
+      <h2 class="text-2xl font-bold mb-4">Get Early Access</h2>
+      <p class="text-gray-600 mb-6">Sign up now and be the first to build beautiful forms.</p>
+      <form id="leadForm" class="grid gap-4 sm:grid-cols-2">
+        <input type="text" name="name" placeholder="Your Name" required class="p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="email" name="email" placeholder="Email Address" required class="p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button type="submit" class="sm:col-span-2 bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition">Request Access</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-blue-600 text-white">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold mb-4">Ready to Build Your First Form?</h2>
+      <p class="mb-8">Start for free – no credit card required.</p>
+      <a href="#leadForm" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition">Start Building</a>
+    </div>
+  </footer>
+
+  <script>
+    // Drag & Drop Logic
+    document.querySelectorAll('.drag-item').forEach(item => {
+      item.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', e.target.dataset.type);
+      });
+    });
+
+    function handleDrop(e) {
+      e.preventDefault();
+      const type = e.dataTransfer.getData('text/plain');
+      const canvas = document.getElementById('canvasForm');
+      const wrapper = document.createElement('div');
+      wrapper.className = 'mb-4';
+      let html = '';
+      switch(type){
+        case 'text':
+          html = `<label class="block text-sm font-medium mb-1">Text Input</label><input type="text" class="w-full p-2 border rounded-md">`;
+          break;
+        case 'email':
+          html = `<label class="block text-sm font-medium mb-1">Email Input</label><input type="email" class="w-full p-2 border rounded-md">`;
+          break;
+        case 'textarea':
+          html = `<label class="block text-sm font-medium mb-1">Message</label><textarea class="w-full p-2 border rounded-md"></textarea>`;
+          break;
+        case 'checkbox':
+          html = `<label class="inline-flex items-center"><input type="checkbox" class="mr-2"> Checkbox</label>`;
+          break;
+        case 'radio':
+          html = `<label class="inline-flex items-center"><input type="radio" name="demoRadio" class="mr-2"> Option 1</label> <label class="inline-flex items-center ml-4"><input type="radio" name="demoRadio" class="mr-2"> Option 2</label>`;
+          break;
+        default:
+          html = '';
+      }
+      wrapper.innerHTML = html;
+      canvas.appendChild(wrapper);
+    }
+
+    // Lead Form Submission
+    document.getElementById('leadForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = this.name.value.trim();
+      const email = this.email.value.trim();
+      alert(`Thank you, ${name}! We’ll contact you at ${email}.`);
+      this.reset();
+    });
+  </script>
+</body>
+</html>

@@ -9,10 +9,6 @@ dist/
 # Paper (local research drafts)
 paper/
 
-# Experiment artifacts (large; reproducible via scripts)
-experiments/results/raw/
-experiments/results/*.csv
-experiments/results/*.parquet
 
 # Graphify knowledge graph output
 graphify-out/

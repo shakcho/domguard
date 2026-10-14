@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Sale!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+    <div class="bg-white shadow-xl rounded-lg p-8 w-full max-w-2xl">
+        <h1 class="text-3xl font-bold text-center mb-4 text-purple-700">Limited Time Flash Sale!</h1>
+
+        <div class="text-center mb-6">
+            <p class="text-xl font-semibold">Get 50% off our premium product!</p>
+            <p class="text-gray-600">Original Price: <span class="text-red-500 line-through">$99.99</span></p>
+            <p class="text-2xl font-bold text-green-600">Sale Price: <span id="sale-price">$49.99</span></p>
+        </div>
+
+        <div class="text-center mb-8">
+            <p class="text-lg font-semibold">Hurry, the sale ends in:</p>
+            <div id="countdown" class="text-3xl font-bold flex justify-center items-center">
+                <span id="days">00</span>
+                <span class="mx-2">:</span>
+                <span id="hours">00</span>
+                <span class="mx-2">:</span>
+                <span id="minutes">00</span>
+                <span class="mx-2">:</span>
+                <span id="seconds">00</span>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <p id="stock-message" class="text-sm text-gray-700">Limited Stock Available!</p>
+            <button class="bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Shop Now!
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const saleEndTime = new Date('2024-02-29T12:00:00Z');
+        let stock = 100;
+
+        function updateCountdown() {
+            const now = new Date();
+            const timeLeft = saleEndTime.getTime() - now.getTime();
+
+            if (timeLeft <= 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                document.getElementById('stock-message').textContent = 'Sale Ended!';
+                document.querySelector('button').disabled = true;
+                return;
+            }
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+
+            updateStockMessage(days, hours);
+        }
+
+        function updateStockMessage(days, hours) {
+            if (days === 0 && hours <= 6) {
+                stock -= 10;
+            } else if (days === 0 && hours <= 12) {
+                stock -= 5;
+            }
+
+            if (stock >= 0) {
+                document.getElementById('stock-message').textContent = `${stock} left at this price!`;
+            } else {
+                document.getElementById('stock-message').textContent = 'Sold Out!';
+                document.querySelector('button').disabled = true;
+            }
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+
+</body>
+</html>

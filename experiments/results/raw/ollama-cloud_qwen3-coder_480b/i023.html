@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Invoice Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-4 md:p-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Dynamic Invoice Builder</h1>
+        
+        <div class="mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 font-semibold text-gray-700 mb-2 px-2">
+                <div class="md:col-span-5">Description</div>
+                <div class="md:col-span-2">Quantity</div>
+                <div class="md:col-span-2">Unit Price</div>
+                <div class="md:col-span-2">Total</div>
+                <div class="md:col-span-1"></div>
+            </div>
+            
+            <div id="invoice-items">
+                <!-- Line items will be added here dynamically -->
+            </div>
+            
+            <button id="add-item" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                </svg>
+                Add Item
+            </button>
+        </div>
+        
+        <div class="border-t border-gray-200 pt-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div></div>
+                <div></div>
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <span class="font-medium text-gray-600">Subtotal:</span>
+                        <span id="subtotal" class="font-medium">$0.00</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium text-gray-600">Tax (10%):</span>
+                        <span id="tax" class="font-medium">$0.00</span>
+                    </div>
+                    <div class="flex justify-between pt-2 border-t border-gray-200">
+                        <span class="font-bold text-lg text-gray-800">Total:</span>
+                        <span id="total" class="font-bold text-lg text-gray-800">$0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const invoiceItems = document.getElementById('invoice-items');
+            const addItemButton = document.getElementById('add-item');
+            const subtotalElement = document.getElementById('subtotal');
+            const taxElement = document.getElementById('tax');
+            const totalElement = document.getElementById('total');
+            
+            let itemId = 0;
+            
+            // Add new item row
+            addItemButton.addEventListener('click', function() {
+                addItem();
+            });
+            
+            // Add initial item
+            addItem();
+            
+            function addItem(description = '', quantity = 1, unitPrice = 0) {
+                itemId++;
+                const itemElement = document.createElement('div');
+                itemElement.className = 'grid grid-cols-1 md:grid-cols-12 gap-4 mb-3 p-3 bg-gray-50 rounded-lg item-row';
+                itemElement.innerHTML = `
+                    <div class="md:col-span-5">
+                        <input type="text" class="w-full p-2 border border-gray-300 rounded description" placeholder="Item description" value="${description}">
+                    </div>
+                    <div class="md:col-span-2">
+                        <input type="number" min="1" class="w-full p-2 border border-gray-300 rounded quantity" placeholder="Qty" value="${quantity}">
+                    </div>
+                    <div class="md:col-span-2">
+                        <input type="number" min="0" step="0.01" class="w-full p-2 border border-gray-300 rounded unit-price" placeholder="Price" value="${unitPrice}">
+                    </div>
+                    <div class="md:col-span-2">
+                        <div class="item-total font-medium py-2">$0.00</div>
+                    </div>
+                    <div class="md:col-span-1 flex space-x-1">
+                        <button class="duplicate-item bg-gray-200 hover:bg-gray-300 p-1 rounded">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
+                                <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z" />
+                            </svg>
+                        </button>
+                        <button class="remove-item bg-red-500 hover:bg-red-600 text-white p-1 rounded">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                `;
+                
+                invoiceItems.appendChild(itemElement);
+                
+                // Add event listeners to the new item
+                const quantityInput = itemElement.querySelector('.quantity');
+                const unitPriceInput = itemElement.querySelector('.unit-price');
+                const descriptionInput = itemElement.querySelector('.description');
+                const removeButton = itemElement.querySelector('.remove-item');
+                const duplicateButton = itemElement.querySelector('.duplicate-item');
+                
+                quantityInput.addEventListener('input', calculate);
+                unitPriceInput.addEventListener('input', calculate);
+                descriptionInput.addEventListener('input', calculate);
+                
+                removeButton.addEventListener('click', function() {
+                    itemElement.remove();
+                    calculate();
+                });
+                
+                duplicateButton.addEventListener('click', function() {
+                    const desc = descriptionInput.value;
+                    const qty = quantityInput.value;
+                    const price = unitPriceInput.value;
+                    addItem(desc, qty, price);
+                });
+                
+                calculate();
+            }
+            
+            function calculate() {
+                let subtotal = 0;
+                
+                document.querySelectorAll('.item-row').forEach(item => {
+                    const quantity = parseFloat(item.querySelector('.quantity').value) || 0;
+                    const unitPrice = parseFloat(item.querySelector('.unit-price').value) || 0;
+                    const itemTotal = quantity * unitPrice;
+                    
+                    subtotal += itemTotal;
+                    item.querySelector('.item-total').textContent = '$' + itemTotal.toFixed(2);
+                });
+                
+                const tax = subtotal * 0.1;
+                const total = subtotal + tax;
+                
+                subtotalElement.textContent = '$' + subtotal.toFixed(2);
+                taxElement.textContent = '$' + tax.toFixed(2);
+                totalElement.textContent = '$' + total.toFixed(2);
+            }
+        });
+    </script>
+</body>
+</html>

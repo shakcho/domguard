@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page with Logo Marquee</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <header class="bg-white shadow">
+        <div class="container mx-auto py-6 px-4">
+            <h1 class="text-3xl font-bold text-gray-800">Awesome Landing Page</h1>
+            <p class="text-gray-600 mt-2">This is a sample landing page with a continuously scrolling logo marquee.</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-8 px-4">
+        <div class="text-center mb-8">
+            <p class="text-lg font-medium text-gray-700">Trusted by:</p>
+        </div>
+
+        <div id="logo-marquee" class="overflow-hidden relative w-full">
+            <div id="logo-container" class="flex flex-nowrap items-center justify-start">
+                <img src="https://via.placeholder.com/80x30/007bff/ffffff?text=Logo1" alt="Logo 1" class="mr-4">
+                <img src="https://via.placeholder.com/80x30/28a745/ffffff?text=Logo2" alt="Logo 2" class="mr-4">
+                <img src="https://via.placeholder.com/80x30/dc3545/ffffff?text=Logo3" alt="Logo 3" class="mr-4">
+                <img src="https://via.placeholder.com/80x30/ffc107/000000?text=Logo4" alt="Logo 4" class="mr-4">
+                <img src="https://via.placeholder.com/80x30/17a2b8/ffffff?text=Logo5" alt="Logo 5" class="mr-4">
+                <img src="https://via.placeholder.com/80x30/007bff/ffffff?text=Logo1" alt="Logo 1" class="mr-4">
+                <img src="https://via.placeholder.com/80x30/28a745/ffffff?text=Logo2" alt="Logo 2" class="mr-4">
+                <img src="https://via.placeholder.com/80x30/dc3545/ffffff?text=Logo3" alt="Logo 3" class="mr-4">
+                <img src="https://via.placeholder.com/80x30/ffc107/000000?text=Logo4" alt="Logo 4" class="mr-4">
+                <img src="https://via.placeholder.com/80x30/17a2b8/ffffff?text=Logo5" alt="Logo 5" class="mr-4">
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-4 mt-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2023 Awesome Landing Page</p>
+        </div>
+    </footer>
+
+    <script>
+        const logoContainer = document.getElementById('logo-container');
+        const logoMarquee = document.getElementById('logo-marquee');
+
+        let animationFrameId;
+        let scrollPosition = 0;
+        let paused = false;
+
+        function animate() {
+            if (!paused) {
+                scrollPosition -= 2;
+                logoContainer.style.transform = `translateX(${scrollPosition}px)`;
+
+                if (scrollPosition <= -logoContainer.offsetWidth) {
+                    scrollPosition = 0;
+                }
+            }
+            animationFrameId = requestAnimationFrame(animate);
+        }
+
+        logoMarquee.addEventListener('mouseenter', () => {
+            paused = true;
+            cancelAnimationFrame(animationFrameId);
+        });
+
+        logoMarquee.addEventListener('mouseleave', () => {
+            paused = false;
+            animate();
+        });
+
+        animate();
+    </script>
+
+</body>
+</html>

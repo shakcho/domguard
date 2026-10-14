@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LensCraft | Portfolio Website Builder for Photographers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-gray-900 to-gray-700 text-white">
+        <div class="container mx-auto px-4 py-24 md:py-32 flex flex-col items-center text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Showcase Your Photography in Style</h1>
+            <p class="text-xl md:text-2xl mb-10 max-w-2xl">Create stunning portfolio websites without coding. Designed exclusively for photographers.</p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button class="bg-amber-500 hover:bg-amber-600 text-gray-900 font-bold py-3 px-8 rounded-lg text-lg transition duration-300">Start Free Trial</button>
+                <button class="bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 font-bold py-3 px-8 rounded-lg text-lg transition duration-300">View Demo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Preview -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Beautiful Gallery Previews</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Mountain landscape" class="w-full h-80 object-cover transition-transform duration-500 hover:scale-110">
+                </div>
+                <div class="overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Forest landscape" class="w-full h-80 object-cover transition-transform duration-500 hover:scale-110">
+                </div>
+                <div class="overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Ocean landscape" class="w-full h-80 object-cover transition-transform duration-500 hover:scale-110">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Powerful Features for Photographers</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-amber-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-camera-retro text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Professional Galleries</h3>
+                    <p class="text-gray-600">Showcase your work with high-quality, responsive galleries that look stunning on any device.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-amber-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-mobile-alt text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Mobile Optimized</h3>
+                    <p class="text-gray-600">Your portfolio looks perfect on smartphones and tablets, ensuring you never miss a potential client.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-amber-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-shopping-cart text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Print Sales</h3>
+                    <p class="text-gray-600">Easily sell prints directly from your portfolio with integrated e-commerce functionality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Simple, Transparent Pricing</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="border border-gray-200 rounded-xl p-8 text-center">
+                    <h3 class="text-2xl font-bold mb-4">Starter</h3>
+                    <div class="text-4xl font-bold mb-6">$9<span class="text-lg text-gray-500">/month</span></div>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 5 Galleries</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 100 Photos</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Basic Customization</li>
+                        <li class="flex items-center"><i class="fas fa-times text-red-500 mr-2"></i> Print Sales</li>
+                    </ul>
+                    <button class="w-full py-3 bg-gray-200 hover:bg-gray-300 rounded-lg font-medium transition duration-300">Get Started</button>
+                </div>
+                <div class="border-2 border-amber-500 rounded-xl p-8 text-center relative">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-amber-500 text-white px-4 py-1 rounded-full text-sm font-bold">POPULAR</div>
+                    <h3 class="text-2xl font-bold mb-4">Professional</h3>
+                    <div class="text-4xl font-bold mb-6">$29<span class="text-lg text-gray-500">/month</span></div>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Unlimited Galleries</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Unlimited Photos</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Advanced Customization</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Print Sales</li>
+                    </ul>
+                    <button class="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white rounded-lg font-medium transition duration-300">Get Started</button>
+                </div>
+                <div class="border border-gray-200 rounded-xl p-8 text-center">
+                    <h3 class="text-2xl font-bold mb-4">Business</h3>
+                    <div class="text-4xl font-bold mb-6">$49<span class="text-lg text-gray-500">/month</span></div>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Everything in Professional</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Client Proofing</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Analytics Dashboard</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Priority Support</li>
+                    </ul>
+                    <button class="w-full py-3 bg-gray-200 hover:bg-gray-300 rounded-lg font-medium transition duration-300">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-16 bg-gradient-to-r from-amber-500 to-amber-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Showcase Your Work?</h2>
+            <p class="text-xl mb-10 max-w-2xl mx-auto">Join thousands of photographers who have elevated their portfolios with LensCraft.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-white text-amber-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg text-lg transition duration-300">Start Free 14-Day Trial</button>
+                <button class="bg-transparent border-2 border-white hover:bg-white hover:text-amber-600 font-bold py-3 px-8 rounded-lg text-lg transition duration-300">Schedule a Demo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex justify-center mb-6">
+                <div class="text-3xl font-bold">LensCraft</div>
+            </div>
+            <p class="text-gray-400 mb-8">Building beautiful portfolios for photographers since 2020.</p>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-pinterest"></i></a>
+            </div>
+            <div class="text-gray-500 text-sm">
+                &copy; 2023 LensCraft. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

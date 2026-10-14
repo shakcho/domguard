@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toast Notification System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-width: 24rem;
+        }
+        
+        .toast {
+            padding: 0.75rem 1rem;
+            background-color: white;
+            border-radius: 0.375rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-left: 4px solid #3B82F6;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .toast-content {
+            flex: 1;
+            margin-right: 0.75rem;
+        }
+        
+        .toast-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #6B7280;
+            font-size: 1.25rem;
+            line-height: 1;
+        }
+        
+        .toast-close:hover {
+            color: #374151;
+        }
+        
+        .toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background-color: #3B82F6;
+            width: 100%;
+            transform-origin: left;
+            transition: transform 4s linear;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h1 class="text-2xl font-bold text-center mb-6">Toast Notification Demo</h1>
+        <p class="text-gray-600 text-center mb-6">Click the button to add notifications to the queue</p>
+        
+        <div class="flex justify-center">
+            <button id="notifyBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-md transition-colors">
+                Notify
+            </button>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script>
+        const toastQueue = [];
+        let isShowingToast = false;
+        let toastTimeout = null;
+        
+        const toastContainer = document.getElementById('toastContainer');
+        const notifyBtn = document.getElementById('notifyBtn');
+        
+        function createToast(message) {
+            const toastId = 'toast-' + Date.now();
+            const toast = document.createElement('div');
+            toast.id = toastId;
+            toast.className = 'toast';
+            
+            toast.innerHTML = `
+                <div class="toast-content">${message}</div>
+                <button class="toast-close" onclick="dismissToast('${toastId}')">&times;</button>
+                <div class="toast-progress"></div>
+            `;
+            
+            return toast;
+        }
+        
+        function showNextToast() {
+            if (toastQueue.length === 0) {
+                isShowingToast = false;
+                return;
+            }
+            
+            isShowingToast = true;
+            const { message, toastElement } = toastQueue.shift();
+            
+            toastContainer.appendChild(toastElement);
+            
+            // Trigger animation
+            setTimeout(() => {
+                toastElement.classList.add('show');
+                
+                // Start progress bar animation
+                const progressBar = toastElement.querySelector('.toast-progress');
+                progressBar.style.transform = 'scaleX(0)';
+            }, 10);
+            
+            // Set timeout to auto-dismiss
+            toastTimeout = setTimeout(() => {
+                dismissToast(toastElement.id);
+            }, 4000);
+        }
+        
+        function addToast(message) {
+            const toastElement = createToast(message);
+            toastQueue.push({ message, toastElement });
+            
+            if (!isShowingToast) {
+                showNextToast();
+            }
+        }
+        
+        function dismissToast(toastId) {
+            const toastElement = document.getElementById(toastId);
+            if (!toastElement) return;
+            
+            toastElement.classList.remove('show');
+            
+            // Remove toast after transition completes
+            setTimeout(() => {
+                if (toastElement.parentNode) {
+                    toastElement.parentNode.removeChild(toastElement);
+                }
+                
+                // If this was the currently showing toast, show next one
+                if (toastId === toastContainer.querySelector('.toast')?.id) {
+                    clearTimeout(toastTimeout);
+                    showNextToast();
+                } else {
+                    // Remove from queue if it was still queued
+                    const index = toastQueue.findIndex(item => item.toastElement.id === toastId);
+                    if (index !== -1) {
+                        toastQueue.splice(index, 1);
+                    }
+                }
+            }, 300);
+        }
+        
+        // Add example notifications on button click
+        notifyBtn.addEventListener('click', () => {
+            const messages = [
+                "Task completed successfully!",
+                "New message received",
+                "Profile updated",
+                "Settings saved",
+                "File uploaded successfully"
+            ];
+            
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            addToast(randomMessage);
+        });
+        
+        // Make function available globally for the dismiss buttons
+        window.dismissToast = dismissToast;
+    </script>
+</body>
+</html>

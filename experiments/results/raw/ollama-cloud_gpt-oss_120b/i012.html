@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flash Sale Landing Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      body { background-color: #1a202c; color: #e2e8f0; }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-4">
+  <header class="w-full max-w-4xl text-center py-8">
+    <h1 class="text-4xl font-bold text-gray-800 mb-2">⚡ Flash Sale! ⚡</h1>
+    <p class="text-lg text-gray-600">Limited time offers – grab yours before it’s gone!</p>
+  </header>
+
+  <section class="w-full max-w-4xl bg-white rounded-lg shadow-lg p-6 flex flex-col md:flex-row items-center">
+    <!-- Product Image -->
+    <div class="flex-1 mb-6 md:mb-0 md:mr-6">
+      <img src="https://images.unsplash.com/photo-1606813909495-5c5c2e5c5c5c?auto=format&fit=crop&w=600&q=80"
+           alt="Product"
+           class="w-full rounded-md object-cover">
+    </div>
+
+    <!-- Details -->
+    <div class="flex-1 flex flex-col items-start">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-2">Super Gadget Pro</h2>
+      <p class="text-gray-600 mb-4">The ultimate device for all your needs. High performance, sleek design, and unbeatable price.</p>
+
+      <!-- Countdown Timer -->
+      <div class="flex space-x-2 text-center mb-4">
+        <div class="bg-gray-200 rounded px-3 py-2">
+          <span id="days" class="block text-xl font-mono">00</span>
+          <span class="text-sm text-gray-600">Days</span>
+        </div>
+        <div class="bg-gray-200 rounded px-3 py-2">
+          <span id="hours" class="block text-xl font-mono">00</span>
+          <span class="text-sm text-gray-600">Hours</span>
+        </div>
+        <div class="bg-gray-200 rounded px-3 py-2">
+          <span id="minutes" class="block text-xl font-mono">00</span>
+          <span class="text-sm text-gray-600">Minutes</span>
+        </div>
+        <div class="bg-gray-200 rounded px-3 py-2">
+          <span id="seconds" class="block text-xl font-mono">00</span>
+          <span class="text-sm text-gray-600">Seconds</span>
+        </div>
+      </div>
+
+      <!-- Price Badge -->
+      <div class="bg-indigo-100 border border-indigo-300 text-indigo-800 px-4 py-2 rounded mb-4">
+        <span id="badge-left" class="font-medium">--</span> left at <span id="badge-price" class="font-bold">$--</span>
+      </div>
+
+      <!-- CTA Button -->
+      <button id="cta-button"
+              class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded disabled:opacity-50 disabled:cursor-not-allowed">
+        Buy Now
+      </button>
+    </div>
+  </section>
+
+  <footer class="mt-8 text-center text-gray-500">
+    © 2026 Flash Sale Inc.
+  </footer>
+
+  <script>
+    // ==== Configuration ====
+    const endTime = new Date('2026-06-10T00:00:00Z'); // UTC end time
+
+    // Thresholds for price badge (ordered from highest remaining time to lowest)
+    const thresholds = [
+      { limit: 12 * 60 * 60 * 1000, left: 100, price: 99 },   // >12h left
+      { limit: 6 * 60 * 60 * 1000, left: 50, price: 119 },    // >6h left
+      { limit: 0, left: 20, price: 149 }                      // <=6h left
+    ];
+
+    // ==== DOM Elements ====
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    const badgeLeftEl = document.getElementById('badge-left');
+    const badgePriceEl = document.getElementById('badge-price');
+    const ctaButton = document.getElementById('cta-button');
+
+    // ==== Functions ====
+    function pad(num) { return String(num).padStart(2, '0'); }
+
+    function updateTimer() {
+      const now = new Date();
+      const diff = endTime - now;
+
+      if (diff <= 0) {
+        // Sale ended
+        daysEl.textContent = hoursEl.textContent = minutesEl.textContent = secondsEl.textContent = '00';
+        badgeLeftEl.textContent = '0';
+        badgePriceEl.textContent = '$0';
+        ctaButton.textContent = 'Sale Ended';
+        ctaButton.disabled = true;
+        clearInterval(intervalId);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      daysEl.textContent = pad(days);
+      hoursEl.textContent = pad(hours);
+      minutesEl.textContent = pad(minutes);
+      secondsEl.textContent = pad(seconds);
+
+      // Update badge based on remaining time
+      const badge = thresholds.find(t => diff > t.limit) || thresholds[thresholds.length - 1];
+      badgeLeftEl.textContent = badge.left;
+      badgePriceEl.textContent = `$${badge.price}`;
+    }
+
+    // ==== Init ====
+    updateTimer(); // initial call
+    const intervalId = setInterval(updateTimer, 1000);
+  </script>
+</body>
+</html>

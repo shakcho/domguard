@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Collaborative Presence Indicator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .avatar {
+      @apply w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-md;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .avatar-enter {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    .avatar-leave {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+  <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+    <h2 class="text-xl font-semibold mb-4 text-gray-800">Active Users</h2>
+    <div id="presence" class="flex -space-x-2"></div>
+  </div>
+
+  <script>
+    // Mock user pool
+    const USERS = [
+      { id: 1, name: 'Alice', avatar: 'https://i.pravatar.cc/40?u=alice' },
+      { id: 2, name: 'Bob', avatar: 'https://i.pravatar.cc/40?u=bob' },
+      { id: 3, name: 'Charlie', avatar: 'https://i.pravatar.cc/40?u=charlie' },
+      { id: 4, name: 'Diana', avatar: 'https://i.pravatar.cc/40?u=diana' },
+      { id: 5, name: 'Eve', avatar: 'https://i.pravatar.cc/40?u=eve' },
+      { id: 6, name: 'Frank', avatar: 'https://i.pravatar.cc/40?u=frank' },
+      { id: 7, name: 'Grace', avatar: 'https://i.pravatar.cc/40?u=grace' }
+    ];
+
+    // Simulate async presence fetch
+    function getPresence() {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          // Randomly pick 0‑5 users
+          const count = Math.floor(Math.random() * 6);
+          const shuffled = USERS.slice().sort(() => 0.5 - Math.random());
+          resolve(shuffled.slice(0, count));
+        }, 300 + Math.random() * 200);
+      });
+    }
+
+    const presenceEl = document.getElementById('presence');
+    const currentMap = new Map(); // id -> element
+
+    function addUser(user) {
+      const img = document.createElement('img');
+      img.src = user.avatar;
+      img.alt = user.name;
+      img.title = user.name;
+      img.className = 'avatar avatar-enter';
+      presenceEl.appendChild(img);
+      // Force reflow then animate in
+      requestAnimationFrame(() => {
+        img.classList.remove('avatar-enter');
+        img.style.opacity = '1';
+        img.style.transform = 'scale(1)';
+      });
+      currentMap.set(user.id, img);
+    }
+
+    function removeUser(id) {
+      const el = currentMap.get(id);
+      if (!el) return;
+      el.classList.add('avatar-leave');
+      // After transition, remove from DOM
+      setTimeout(() => {
+        el.remove();
+        currentMap.delete(id);
+      }, 500);
+    }
+
+    async function updatePresence() {
+      const active = await getPresence();
+      const activeIds = new Set(active.map(u => u.id));
+
+      // Add new users
+      active.forEach(user => {
+        if (!currentMap.has(user.id)) addUser(user);
+      });
+
+      // Remove users no longer present
+      for (const id of currentMap.keys()) {
+        if (!activeIds.has(id)) removeUser(id);
+      }
+    }
+
+    // Initial load
+    updatePresence();
+    // Poll every 2 seconds
+    setInterval(updatePresence, 2000);
+  </script>
+</body>
+</html>

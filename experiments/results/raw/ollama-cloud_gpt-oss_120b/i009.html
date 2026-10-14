@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Checkout</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+<div class="max-w-4xl w-full bg-white rounded-lg shadow-lg p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+  <form id="checkout-form" class="space-y-4">
+    <h2 class="text-2xl font-bold">Checkout</h2>
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Full Name</label>
+      <input type="text" name="name" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Email</label>
+      <input type="email" name="email" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Phone</label>
+      <input type="tel" id="phone" name="phone" placeholder="(123) 456-7890" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+      <p class="mt-1 text-sm text-red-600 hidden" id="phone-error">Please enter a valid 10‑digit phone number.</p>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Credit Card</label>
+      <input type="text" id="card" name="card" placeholder="1234 5678 9012 3456" maxlength="19" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+      <p class="mt-1 text-sm text-red-600 hidden" id="card-error">Please enter a valid 16‑digit credit card number.</p>
+    </div>
+    <div class="flex space-x-4">
+      <div class="flex-1">
+        <label class="block text-sm font-medium text-gray-700">Exp. Month</label>
+        <input type="text" name="expMonth" placeholder="MM" maxlength="2" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+      </div>
+      <div class="flex-1">
+        <label class="block text-sm font-medium text-gray-700">Exp. Year</label>
+        <input type="text" name="expYear" placeholder="YY" maxlength="2" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+      </div>
+      <div class="flex-1">
+        <label class="block text-sm font-medium text-gray-700">CVV</label>
+        <input type="text" name="cvv" placeholder="123" maxlength="4" class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+      </div>
+    </div>
+    <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition">Place Order</button>
+  </form>
+
+  <div id="order-summary" class="bg-gray-50 p-4 rounded-md border border-gray-200">
+    <h3 class="text-xl font-semibold mb-4">Order Summary</h3>
+    <ul class="space-y-2">
+      <li><span class="font-medium">Name:</span> <span id="summary-name">-</span></li>
+      <li><span class="font-medium">Email:</span> <span id="summary-email">-</span></li>
+      <li><span class="font-medium">Phone:</span> <span id="summary-phone">-</span></li>
+      <li><span class="font-medium">Card:</span> <span id="summary-card">-</span></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const phoneInput = document.getElementById('phone');
+  const cardInput = document.getElementById('card');
+  const phoneError = document.getElementById('phone-error');
+  const cardError = document.getElementById('card-error');
+
+  function setCaretPosition(el, pos) {
+    if (el.setSelectionRange) {
+      el.focus();
+      el.setSelectionRange(pos, pos);
+    }
+  }
+
+  function formatPhone(value) {
+    const digits = value.replace(/\D/g, '').substring(0, 10);
+    if (digits.length === 0) return '';
+    if (digits.length < 4) return '(' + digits;
+    if (digits.length < 7) return '(' + digits.substring(0, 3) + ') ' + digits.substring(3);
+    return '(' + digits.substring(0, 3) + ') ' + digits.substring(3, 6) + '-' + digits.substring(6);
+  }
+
+  function formatCard(value) {
+    const digits = value.replace(/\D/g, '').substring(0, 16);
+    const groups = [];
+    for (let i = 0; i < digits.length; i += 4) {
+      groups.push(digits.substr(i, 4));
+    }
+    return groups.join(' ');
+  }
+
+  function handleInput(e, formatter, errorEl, isValid) {
+    const input = e.target;
+    const raw = input.value;
+    const formatted = formatter(raw);
+    const oldPos = input.selectionStart;
+    const oldLen = input.value.length;
+    input.value = formatted;
+    const newLen = formatted.length;
+    let newPos = oldPos + (newLen - oldLen);
+    if (newPos < 0) newPos = 0;
+    setCaretPosition(input, newPos);
+    const changeEvent = new Event('change', { bubbles: true });
+    input.dispatchEvent(changeEvent);
+    if (isValid(formatted)) {
+      errorEl.classList.add('hidden');
+    } else {
+      errorEl.classList.remove('hidden');
+    }
+  }
+
+  phoneInput.addEventListener('input', (e) => {
+    handleInput(e, formatPhone, phoneError, (val) => val.replace(/\D/g, '').length === 10);
+  });
+
+  cardInput.addEventListener('input', (e) => {
+    handleInput(e, formatCard, cardError, (val) => val.replace(/\D/g, '').length === 16);
+  });
+
+  const form = document.getElementById('checkout-form');
+  const summary = {
+    name: document.getElementById('summary-name'),
+    email: document.getElementById('summary-email'),
+    phone: document.getElementById('summary-phone'),
+    card: document.getElementById('summary-card')
+  };
+
+  form.addEventListener('change', (e) => {
+    const t = e.target;
+    if (t.name === 'name') summary.name.textContent = t.value || '-';
+    if (t.name === 'email') summary.email.textContent = t.value || '-';
+    if (t.name === 'phone') summary.phone.textContent = t.value || '-';
+    if (t.name === 'card') {
+      const masked = t.value ? t.value.replace(/\d(?=\d{4})/g, '*') : '-';
+      summary.card.textContent = masked;
+    }
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Order placed! (Demo)');
+  });
+});
+</script>
+</body>
+</html>

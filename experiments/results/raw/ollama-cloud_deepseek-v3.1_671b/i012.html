@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Sale</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .price-badge {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
+        <h1 class="text-4xl font-bold text-center text-red-600 mb-6">FLASH SALE</h1>
+        
+        <div class="text-center mb-8">
+            <p class="text-lg text-gray-700">Hurry! This offer ends in:</p>
+            <div id="countdown" class="flex justify-center space-x-4 mt-4">
+                <div class="bg-red-500 text-white rounded-lg p-4 w-24">
+                    <span id="days" class="text-3xl font-bold">00</span>
+                    <p class="text-sm">Days</p>
+                </div>
+                <div class="bg-red-500 text-white rounded-lg p-4 w-24">
+                    <span id="hours" class="text-3xl font-bold">00</span>
+                    <p class="text-sm">Hours</p>
+                </div>
+                <div class="bg-red-500 text-white rounded-lg p-4 w-24">
+                    <span id="minutes" class="text-3xl font-bold">00</span>
+                    <p class="text-sm">Minutes</p>
+                </div>
+                <div class="bg-red-500 text-white rounded-lg p-4 w-24">
+                    <span id="seconds" class="text-3xl font-bold">00</span>
+                    <p class="text-sm">Seconds</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="border rounded-lg p-4 text-center">
+                <h2 class="text-xl font-semibold mb-2">Premium Package</h2>
+                <div id="badge-1" class="price-badge inline-block bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full mb-3">
+                    15 left at $99
+                </div>
+                <p class="text-gray-600 mb-4">Get the ultimate value with our premium package.</p>
+                <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Buy Now</button>
+            </div>
+            <div class="border rounded-lg p-4 text-center">
+                <h2 class="text-xl font-semibold mb-2">Standard Package</h2>
+                <div id="badge-2" class="price-badge inline-block bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full mb-3">
+                    25 left at $79
+                </div>
+                <p class="text-gray-600 mb-4">Great features at an affordable price.</p>
+                <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Buy Now</button>
+            </div>
+            <div class="border rounded-lg p-4 text-center">
+                <h2 class="text-xl font-semibold mb-2">Basic Package</h2>
+                <div id="badge-3" class="price-badge inline-block bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full mb-3">
+                    40 left at $49
+                </div>
+                <p class="text-gray-600 mb-4">Perfect for getting started.</p>
+                <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Buy Now</button>
+            </div>
+        </div>
+
+        <p class="text-center text-gray-500 text-sm">* Limited quantities available at these prices. Offer ends soon!</p>
+    </div>
+
+    <script>
+        // Set the fixed end time (e.g., 48 hours from now)
+        const endTime = new Date();
+        endTime.setHours(endTime.getHours() + 48);
+
+        function updateCountdown() {
+            const now = new Date();
+            const timeLeft = endTime - now;
+
+            if (timeLeft <= 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                clearInterval(countdownInterval);
+                return;
+            }
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+            // Update price badges based on thresholds
+            updatePriceBadges(timeLeft);
+        }
+
+        function updatePriceBadges(timeLeft) {
+            const totalSeconds = timeLeft / 1000;
+            const badges = [
+                { id: 'badge-1', threshold: 24 * 3600, initialText: '15 left at $99' },
+                { id: 'badge-2', threshold: 12 * 3600, initialText: '25 left at $79' },
+                { id: 'badge-3', threshold: 6 * 3600, initialText: '40 left at $49' }
+            ];
+
+            badges.forEach(badge => {
+                const element = document.getElementById(badge.id);
+                if (totalSeconds <= badge.threshold) {
+                    element.textContent = 'Last few at this price!';
+                    element.classList.remove('bg-green-100', 'text-green-800');
+                    element.classList.add('bg-red-100', 'text-red-800');
+                } else {
+                    element.textContent = badge.initialText;
+                    element.classList.remove('bg-red-100', 'text-red-800');
+                    element.classList.add('bg-green-100', 'text-green-800');
+                }
+            });
+        }
+
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+    </script>
+</body>
+</html>

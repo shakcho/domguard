@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Landing Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <nav class="bg-white shadow">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="#" class="text-2xl font-bold text-gray-800">My App</a>
+
+            <div class="relative">
+                <button id="notificationButton" class="flex items-center focus:outline-none">
+                    <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h-5v5l-2-2v-5H3m0-2v-3c0-1.105.895-2 2-2h5c1.105 0 2 .895 2 2v3m0 2v2c0 1.105-.895 2-2 2H7c-1.105 0-2-.895-2-2V9m0-2v-2c0-1.105.895-2 2-2h5c1.105 0 2 .895 2 2v2"></path>
+                    </svg>
+                    <span id="unreadCount" class="bg-red-500 text-white text-xs rounded-full px-1 py-1 ml-2">0</span>
+                </button>
+
+                <div id="notificationDropdown" class="absolute right-0 mt-2 w-80 bg-white border rounded shadow-md hidden">
+                    <div class="px-4 py-2">
+                        <h3 class="text-lg font-semibold text-gray-700">Notifications</h3>
+                        <button id="markAllRead" class="text-blue-500 hover:underline mt-2 block">Mark All as Read</button>
+                    </div>
+                    <ul id="notificationList" class="p-2">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Welcome to My App</h1>
+        <p class="text-lg text-gray-700">This is a sample landing page with a notification system.</p>
+    </main>
+
+    <script>
+        let notifications = [];
+        let unreadCount = 0;
+
+        async function fetchNotifications() {
+            // Mock API call
+            await new Promise(resolve => setTimeout(resolve, 500));
+            notifications = [
+                { id: 1, message: "New user signed up!", read: false },
+                { id: 2, message: "Your order has been shipped.", read: true },
+                { id: 3, message: "Important system update available.", read: false },
+                { id: 4, message: "You have a new friend request.", read: true },
+                { id: 5, message: "Security alert: Login from a new location.", read: false }
+            ];
+            updateNotifications();
+        }
+
+        function updateNotifications() {
+            unreadCount = notifications.filter(n => !n.read).length;
+            document.getElementById("unreadCount").textContent = unreadCount;
+
+            const notificationList = document.getElementById("notificationList");
+            notificationList.innerHTML = "";
+
+            notifications.forEach(notification => {
+                const listItem = document.createElement("li");
+                listItem.classList.add("py-2", "border-b", "border-gray-200", notification.read ? "text-gray-500" : "text-gray-700");
+                listItem.textContent = notification.message;
+                listItem.addEventListener("click", () => {
+                    notification.read = true;
+                    updateNotifications();
+                });
+                notificationList.appendChild(listItem);
+            });
+        }
+
+        document.getElementById("notificationButton").addEventListener("click", () => {
+            const dropdown = document.getElementById("notificationDropdown");
+            dropdown.classList.toggle("hidden");
+        });
+
+        document.getElementById("markAllRead").addEventListener("click", () => {
+            notifications.forEach(n => n.read = true);
+            updateNotifications();
+        });
+
+        // Initial fetch and then poll every 5 seconds
+        fetchNotifications();
+        setInterval(fetchNotifications, 5000);
+    </script>
+
+</body>
+</html>

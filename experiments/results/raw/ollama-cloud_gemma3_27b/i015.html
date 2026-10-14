@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toast Notification System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+    <div class="bg-white rounded-lg shadow-md p-6 w-96">
+        <h1 class="text-2xl font-bold mb-4">Toast Notification Demo</h1>
+
+        <button id="notifyButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Notify Me
+        </button>
+
+        <div id="toastContainer" class="mt-4"></div>
+    </div>
+
+    <script>
+        const notifyButton = document.getElementById('notifyButton');
+        const toastContainer = document.getElementById('toastContainer');
+        const toastQueue = [];
+        let currentToast = null;
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.classList.add(
+                'bg-blue-100',
+                'rounded-md',
+                'p-4',
+                'mb-2',
+                'flex',
+                'items-center',
+                'justify-between',
+                'shadow-md',
+                'transition-opacity',
+                'opacity-0',
+                'duration-300'
+            );
+
+            const toastMessage = document.createElement('span');
+            toastMessage.textContent = message;
+            toastMessage.classList.add('text-gray-800');
+
+            const closeButton = document.createElement('button');
+            closeButton.textContent = 'X';
+            closeButton.classList.add(
+                'bg-red-500',
+                'hover:bg-red-700',
+                'text-white',
+                'font-bold',
+                'py-1',
+                'px-2',
+                'rounded',
+                'ml-2',
+                'focus:outline-none',
+                'focus:shadow-outline'
+            );
+
+            closeButton.addEventListener('click', () => {
+                hideToast(toast);
+            });
+
+            toast.appendChild(toastMessage);
+            toast.appendChild(closeButton);
+            toastContainer.appendChild(toast);
+
+            // Add transition class to show the toast
+            setTimeout(() => {
+                toast.classList.remove('opacity-0');
+                toast.classList.add('opacity-100');
+            }, 10);
+
+            // Auto-dismiss after 4 seconds
+            setTimeout(() => {
+                hideToast(toast);
+            }, 4000);
+
+            return toast;
+        }
+
+        function hideToast(toast) {
+            toast.classList.remove('opacity-100');
+            toast.classList.add('opacity-0');
+
+            setTimeout(() => {
+                toast.remove();
+                processQueue();
+            }, 300);
+        }
+
+        function enqueueToast(message) {
+            toastQueue.push(message);
+            processQueue();
+        }
+
+        function processQueue() {
+            if (currentToast === null && toastQueue.length > 0) {
+                const message = toastQueue.shift();
+                currentToast = showToast(message);
+            }
+        }
+
+        notifyButton.addEventListener('click', () => {
+            enqueueToast('This is a test notification!');
+        });
+
+        // Initial queue processing
+        processQueue();
+    </script>
+</body>
+</html>

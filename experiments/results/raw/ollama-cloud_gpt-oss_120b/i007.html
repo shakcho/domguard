@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hero Carousel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .slide {
+      transition: opacity 0.5s ease-in-out;
+    }
+    .dot-active {
+      @apply bg-white;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white">
+  <div id="carousel" class="relative w-full h-screen overflow-hidden">
+    <!-- Slides -->
+    <div class="slide absolute inset-0 opacity-0">
+      <img src="https://picsum.photos/id/1018/1920/1080" alt="Slide 1" class="w-full h-full object-cover">
+    </div>
+    <div class="slide absolute inset-0 opacity-0">
+      <img src="https://picsum.photos/id/1025/1920/1080" alt="Slide 2" class="w-full h-full object-cover">
+    </div>
+    <div class="slide absolute inset-0 opacity-0">
+      <img src="https://picsum.photos/id/1035/1920/1080" alt="Slide 3" class="w-full h-full object-cover">
+    </div>
+    <div class="slide absolute inset-0 opacity-0">
+      <img src="https://picsum.photos/id/1043/1920/1080" alt="Slide 4" class="w-full h-full object-cover">
+    </div>
+    <div class="slide absolute inset-0 opacity-0">
+      <img src="https://picsum.photos/id/1050/1920/1080" alt="Slide 5" class="w-full h-full object-cover">
+    </div>
+
+    <!-- Prev / Next Buttons -->
+    <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-75 text-white rounded-full p-3 focus:outline-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+           viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-75 text-white rounded-full p-3 focus:outline-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+           viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+
+    <!-- Dots -->
+    <div class="absolute bottom-6 left-0 right-0 flex justify-center space-x-3">
+      <button class="dot w-3 h-3 rounded-full bg-gray-400 hover:bg-white transition-colors"></button>
+      <button class="dot w-3 h-3 rounded-full bg-gray-400 hover:bg-white transition-colors"></button>
+      <button class="dot w-3 h-3 rounded-full bg-gray-400 hover:bg-white transition-colors"></button>
+      <button class="dot w-3 h-3 rounded-full bg-gray-400 hover:bg-white transition-colors"></button>
+      <button class="dot w-3 h-3 rounded-full bg-gray-400 hover:bg-white transition-colors"></button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.dot');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const carousel = document.getElementById('carousel');
+      const intervalTime = 3000;
+      let current = 0;
+      let timer;
+
+      function showSlide(index) {
+        slides.forEach((s, i) => {
+          s.classList.toggle('opacity-100', i === index);
+          s.classList.toggle('opacity-0', i !== index);
+        });
+        dots.forEach((d, i) => {
+          d.classList.toggle('bg-white', i === index);
+          d.classList.toggle('bg-gray-400', i !== index);
+        });
+        current = index;
+      }
+
+      function nextSlide() {
+        const next = (current + 1) % slides.length;
+        showSlide(next);
+      }
+
+      function prevSlide() {
+        const prev = (current - 1 + slides.length) % slides.length;
+        showSlide(prev);
+      }
+
+      function startTimer() {
+        timer = setInterval(nextSlide, intervalTime);
+      }
+
+      function resetTimer() {
+        clearInterval(timer);
+        startTimer();
+      }
+
+      // Initial display
+      showSlide(0);
+      startTimer();
+
+      // Event listeners
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        resetTimer();
+      });
+
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        resetTimer();
+      });
+
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+          showSlide(idx);
+          resetTimer();
+        });
+      });
+
+      carousel.addEventListener('mouseenter', () => {
+        clearInterval(timer);
+      });
+
+      carousel.addEventListener('mouseleave', () => {
+        startTimer();
+      });
+    })();
+  </script>
+</body>
+</html>

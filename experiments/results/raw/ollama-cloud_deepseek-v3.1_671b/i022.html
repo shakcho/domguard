@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrolling Logo Marquee</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            width: 100%;
+        }
+        
+        .marquee-content {
+            display: inline-block;
+            white-space: nowrap;
+            will-change: transform;
+        }
+        
+        .marquee-item {
+            display: inline-block;
+            margin-right: 4rem;
+        }
+        
+        .marquee-clone {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-6xl mx-auto px-4">
+        <h2 class="text-2xl font-bold text-center mb-8 text-gray-800">Trusted by industry leaders</h2>
+        
+        <div class="marquee-container bg-white rounded-lg shadow-md py-6" id="marqueeContainer">
+            <div class="marquee-content" id="marqueeContent">
+                <!-- Original items -->
+                <div class="marquee-item">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjQwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0ZXh0IHg9IjAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSJib2xkIj5Db21wYW55IDE8L3RleHQ+PC9zdmc+" alt="Company 1" class="h-8">
+                </div>
+                <div class="marquee-item">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjQwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0ZXh0IHg9IjAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSJib2xkIj5Db21wYW55IDI8L3RleHQ+PC9zdmc+" alt="Company 2" class="h-8">
+                </div>
+                <div class="marquee-item">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjQwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0ZXh0IHg9IjAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSJib2xkIj5Db21wYW55IDM8L3RleHQ+PC9zdmc+" alt="Company 3" class="h-8">
+                </div>
+                <div class="marquee-item">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjQwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0ZXh0IHg9IjAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSJib2xkIj5Db21wYW55IDQ8L3RleHQ+PC9zdmc+" alt="Company 4" class="h-8">
+                </div>
+                <div class="marquee-item">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjQwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0ZXh0IHg9IjAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSJib2xkIj5Db21wYW55IDU8L3RleHQ+PC9zdmc+" alt="Company 5" class="h-8">
+                </div>
+                <!-- Cloned items (will be duplicated by JS) -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const marqueeContainer = document.getElementById('marqueeContainer');
+            const marqueeContent = document.getElementById('marqueeContent');
+            const items = marqueeContent.querySelectorAll('.marquee-item');
+            
+            // Clone all items to create seamless loop
+            items.forEach(item => {
+                const clone = item.cloneNode(true);
+                clone.classList.add('marquee-clone');
+                marqueeContent.appendChild(clone);
+            });
+            
+            const contentWidth = marqueeContent.scrollWidth / 2; // Since we duplicated
+            let position = 0;
+            let speed = 1;
+            let isPaused = false;
+            let animationId;
+            
+            function animate() {
+                if (!isPaused) {
+                    position -= speed;
+                    
+                    // Reset position when scrolled completely
+                    if (Math.abs(position) >= contentWidth) {
+                        position = 0;
+                    }
+                    
+                    marqueeContent.style.transform = `translateX(${position}px)`;
+                }
+                
+                animationId = requestAnimationFrame(animate);
+            }
+            
+            // Start animation
+            animate();
+            
+            // Pause on hover
+            marqueeContainer.addEventListener('mouseenter', () => {
+                isPaused = true;
+            });
+            
+            marqueeContainer.addEventListener('mouseleave', () => {
+                isPaused = false;
+            });
+            
+            // Clean up animation on page unload
+            window.addEventListener('beforeunload', () => {
+                cancelAnimationFrame(animationId);
+            });
+        });
+    </script>
+</body>
+</html>

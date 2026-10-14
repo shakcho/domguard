@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky Header Data Table</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .table-container {
+            height: 400px;
+            overflow: auto;
+        }
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: white;
+            z-index: 10;
+            display: none;
+        }
+        .table-row:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        .table-row:hover {
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Data Table with Sticky Header</h1>
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="table-container" id="tableContainer">
+                <table class="min-w-full divide-y divide-gray-200" id="dataTable">
+                    <thead class="bg-gray-50">
+                        <tr id="headerRow">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Join Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Salary</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Manager</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200" id="tableBody">
+                        <!-- Rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mt-4 text-sm text-gray-600">
+            <p>Scroll vertically to see the sticky header in action. Resize the window to test responsive behavior.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tableContainer = document.getElementById('tableContainer');
+            const dataTable = document.getElementById('dataTable');
+            const headerRow = document.getElementById('headerRow');
+            const tableBody = document.getElementById('tableBody');
+            
+            // Create sticky header clone
+            const stickyHeader = document.createElement('table');
+            stickyHeader.className = 'min-w-full sticky-header';
+            const stickyHeaderRow = headerRow.cloneNode(true);
+            stickyHeader.appendChild(stickyHeaderRow);
+            document.body.appendChild(stickyHeader);
+            
+            // Sample data
+            const sampleData = [
+                { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Developer', status: 'Active', department: 'Engineering', joinDate: '2022-01-15', salary: '$85,000', location: 'New York', manager: 'Alice Johnson' },
+                { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'Designer', status: 'Active', department: 'Design', joinDate: '2021-11-03', salary: '$75,000', location: 'San Francisco', manager: 'Bob Williams' },
+                { id: 3, name: 'Robert Brown', email: 'robert@example.com', role: 'Manager', status: 'On Leave', department: 'Marketing', joinDate: '2020-05-22', salary: '$95,000', location: 'Chicago', manager: 'Carol Davis' },
+                { id: 4, name: 'Emily Davis', email: 'emily@example.com', role: 'Analyst', status: 'Active', department: 'Finance', joinDate: '2023-03-10', salary: '$70,000', location: 'Boston', manager: 'Michael Wilson' },
+                { id: 5, name: 'Michael Wilson', email: 'michael@example.com', role: 'Director', status: 'Active', department: 'Operations', joinDate: '2019-08-14', salary: '$120,000', location: 'Seattle', manager: 'Sarah Miller' },
+                { id: 6, name: 'Sarah Miller', email: 'sarah@example.com', role: 'HR Specialist', status: 'Active', department: 'Human Resources', joinDate: '2021-02-28', salary: '$65,000', location: 'Austin', manager: 'David Taylor' },
+                { id: 7, name: 'David Taylor', email: 'david@example.com', role: 'CTO', status: 'Active', department: 'Engineering', joinDate: '2018-06-05', salary: '$150,000', location: 'San Francisco', manager: 'N/A' },
+                { id: 8, name: 'Lisa Anderson', email: 'lisa@example.com', role: 'QA Engineer', status: 'Active', department: 'Engineering', joinDate: '2022-07-19', salary: '$80,000', location: 'New York', manager: 'David Taylor' },
+                { id: 9, name: 'James Thomas', email: 'james@example.com', role: 'Sales Rep', status: 'Active', department: 'Sales', joinDate: '2023-01-11', salary: '$60,000', location: 'Chicago', manager: 'Robert Brown' },
+                { id: 10, name: 'Jennifer Lee', email: 'jennifer@example.com', role: 'Product Manager', status: 'Active', department: 'Product', joinDate: '2020-12-03', salary: '$90,000', location: 'Seattle', manager: 'Michael Wilson' },
+                { id: 11, name: 'Christopher Hall', email: 'chris@example.com', role: 'DevOps Engineer', status: 'Active', department: 'Engineering', joinDate: '2021-09-17', salary: '$92,000', location: 'Austin', manager: 'David Taylor' },
+                { id: 12, name: 'Amanda Clark', email: 'amanda@example.com', role: 'UX Researcher', status: 'Active', department: 'Design', joinDate: '2022-04-25', salary: '$78,000', location: 'San Francisco', manager: 'Jane Smith' },
+                { id: 13, name: 'Matthew Lewis', email: 'matthew@example.com', role: 'Data Scientist', status: 'Active', department: 'Analytics', joinDate: '2023-05-30', salary: '$98,000', location: 'Boston', manager: 'Emily Davis' },
+                { id: 14, name: 'Ashley Turner', email: 'ashley@example.com', role: 'Content Writer', status: 'Active', department: 'Marketing', joinDate: '2021-03-12', salary: '$58,000', location: 'New York', manager: 'Robert Brown' },
+                { id: 15, name: 'Daniel Walker', email: 'daniel@example.com', role: 'Support Specialist', status: 'Active', department: 'Customer Success', joinDate: '2022-11-08', salary: '$55,000', location: 'Chicago', manager: 'Carol Davis' }
+            ];
+            
+            // Populate table with sample data
+            function populateTable() {
+                tableBody.innerHTML = '';
+                sampleData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'table-row';
+                    row.innerHTML = `
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.id}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${item.name}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.email}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.role}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                ${item.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
+                                ${item.status}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.department}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.joinDate}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.salary}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.location}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.manager}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+            
+            // Sync column widths between original and cloned header
+            function syncColumnWidths() {
+                const originalCells = headerRow.querySelectorAll('th');
+                const clonedCells = stickyHeaderRow.querySelectorAll('th');
+                
+                for (let i = 0; i < originalCells.length; i++) {
+                    const width = originalCells[i].offsetWidth;
+                    clonedCells[i].style.width = `${width}px`;
+                    clonedCells[i].style.minWidth = `${width}px`;
+                    clonedCells[i].style.maxWidth = `${width}px`;
+                }
+            }
+            
+            // Update sticky header position and visibility
+            function updateStickyHeader() {
+                const containerRect = tableContainer.getBoundingClientRect();
+                const tableRect = dataTable.getBoundingClientRect();
+                
+                // Show/hide sticky header based on scroll position
+                if (containerRect.top < 0 && containerRect.bottom > headerRow.offsetHeight) {
+                    stickyHeader.style.display = 'table';
+                } else {
+                    stickyHeader.style.display = 'none';
+                }
+                
+                // Position sticky header
+                stickyHeader.style.left = `${tableRect.left}px`;
+                stickyHeader.style.width = `${dataTable.offsetWidth}px`;
+                
+                // Sync scroll position
+                stickyHeader.style.transform = `translateX(${-tableContainer.scrollLeft}px)`;
+            }
+            
+            // Initial setup
+            populateTable();
+            
+            // Event listeners
+            tableContainer.addEventListener('scroll', updateStickyHeader);
+            window.addEventListener('resize', () => {
+                syncColumnWidths();
+                updateStickyHeader();
+            });
+            
+            // Initial sync after a short delay to ensure rendering
+            setTimeout(() => {
+                syncColumnWidths();
+                updateStickyHeader();
+            }, 100);
+        });
+    </script>
+</body>
+</html>

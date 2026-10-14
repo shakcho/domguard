@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wide Data Table with Sticky Header</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  /* Ensure the sticky overlay sits above the scrollable area */
+  #sticky-header {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background: white;
+    z-index: 10;
+    display: none;
+  }
+</style>
+</head>
+<body class="bg-gray-100 p-4">
+<div class="max-w-full mx-auto">
+  <h1 class="text-2xl font-bold mb-4">Wide Data Table with Sticky Header</h1>
+  <div id="table-wrapper" class="relative overflow-auto border rounded-lg max-h-[70vh] bg-white">
+    <!-- Sticky header container -->
+    <div id="sticky-header"></div>
+
+    <!-- Actual table -->
+    <table id="data-table" class="min-w-max w-full table-auto border-collapse">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="px-4 py-2 border">ID</th>
+          <th class="px-4 py-2 border">Name</th>
+          <th class="px-4 py-2 border">Email</th>
+          <th class="px-4 py-2 border">Phone</th>
+          <th class="px-4 py-2 border">Company</th>
+          <th class="px-4 py-2 border">Country</th>
+          <th class="px-4 py-2 border">City</th>
+          <th class="px-4 py-2 border">Department</th>
+          <th class="px-4 py-2 border">Role</th>
+          <th class="px-4 py-2 border">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Generate sample rows -->
+        <script>
+          const tbody = document.currentScript.parentElement;
+          const names = ["Alice","Bob","Charlie","Diana","Ethan","Fiona","George","Hannah","Ian","Julia"];
+          const companies = ["Acme Corp","Globex","Initech","Umbrella","Stark Industries","Wayne Enterprises","Oscorp","Soylent","Hooli","Massive Dynamic"];
+          const countries = ["USA","Canada","UK","Germany","France","Australia","Japan","Brazil","India","South Africa"];
+          const departments = ["Engineering","Marketing","Sales","HR","Finance","Support","R&D","Operations","Legal","Product"];
+          const roles = ["Manager","Engineer","Analyst","Specialist","Director","Coordinator","Consultant","Administrator","Designer","Developer"];
+          const status = ["Active","Inactive","Pending","Suspended"];
+          for(let i=1;i<=200;i++){
+            const tr = document.createElement('tr');
+            tr.className = i%2===0 ? 'bg-white' : 'bg-gray-50';
+            tr.innerHTML = `
+              <td class="px-4 py-2 border text-sm">${i}</td>
+              <td class="px-4 py-2 border text-sm">${names[Math.floor(Math.random()*names.length)]} ${String.fromCharCode(65+Math.floor(Math.random()*26))}.</td>
+              <td class="px-4 py-2 border text-sm">user${i}@example.com</td>
+              <td class="px-4 py-2 border text-sm">+1-${Math.floor(100+Math.random()*900)}-${Math.floor(1000+Math.random()*9000)}</td>
+              <td class="px-4 py-2 border text-sm">${companies[Math.floor(Math.random()*companies.length)]}</td>
+              <td class="px-4 py-2 border text-sm">${countries[Math.floor(Math.random()*countries.length)]}</td>
+              <td class="px-4 py-2 border text-sm">City ${Math.floor(Math.random()*100)}</td>
+              <td class="px-4 py-2 border text-sm">${departments[Math.floor(Math.random()*departments.length)]}</td>
+              <td class="px-4 py-2 border text-sm">${roles[Math.floor(Math.random()*roles.length)]}</td>
+              <td class="px-4 py-2 border text-sm">${status[Math.floor(Math.random()*status.length)]}</td>
+            `;
+            tbody.appendChild(tr);
+          }
+        </script>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const tableWrapper = document.getElementById('table-wrapper');
+  const table = document.getElementById('data-table');
+  const thead = table.querySelector('thead');
+  const stickyContainer = document.getElementById('sticky-header');
+
+  // Clone header
+  const stickyTable = document.createElement('table');
+  stickyTable.className = table.className;
+  const clonedThead = thead.cloneNode(true);
+  stickyTable.appendChild(clonedThead);
+  stickyContainer.appendChild(stickyTable);
+
+  // Sync column widths
+  function syncHeaderWidths() {
+    const origThs = thead.querySelectorAll('th');
+    const cloneThs = clonedThead.querySelectorAll('th');
+    origThs.forEach((th, i) => {
+      const width = th.getBoundingClientRect().width + 'px';
+      cloneThs[i].style.width = width;
+      cloneThs[i].style.minWidth = width;
+      cloneThs[i].style.maxWidth = width;
+    });
+    // Ensure table width matches
+    stickyTable.style.width = table.getBoundingClientRect().width + 'px';
+  }
+
+  // Show/hide sticky header based on scroll
+  function onScroll() {
+    const scrollTop = tableWrapper.scrollTop;
+    const headerOffsetTop = thead.offsetTop;
+    if (scrollTop > headerOffsetTop) {
+      stickyContainer.style.display = 'block';
+      stickyContainer.style.transform = `translateY(${scrollTop}px)`;
+    } else {
+      stickyContainer.style.display = 'none';
+    }
+    // Horizontal sync
+    stickyTable.style.transform = `translateX(${-tableWrapper.scrollLeft}px)`;
+  }
+
+  // Initial sync
+  syncHeaderWidths();
+  // Event listeners
+  tableWrapper.addEventListener('scroll', onScroll);
+  window.addEventListener('resize', syncHeaderWidths);
+});
+</script>
+</body>
+</html>

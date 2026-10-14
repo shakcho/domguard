@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchemaShift | Database Migration Tool for Developers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+        <div class="container mx-auto px-4 py-20">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">SchemaShift</h1>
+                <p class="text-xl md:text-2xl mb-8 text-blue-100">The developer-first database migration tool that makes schema changes painless</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button class="bg-white text-blue-600 hover:bg-blue-50 font-bold py-3 px-8 rounded-lg text-lg transition duration-300">
+                        Get Started Free
+                    </button>
+                    <button class="bg-transparent border-2 border-white hover:bg-white/10 font-bold py-3 px-8 rounded-lg text-lg transition duration-300">
+                        View Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Built for Developer Productivity</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">SchemaShift streamlines your database workflow with powerful features designed for modern development teams.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Feature 1 -->
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:border-blue-300 transition duration-300">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mb-6">
+                        <i class="fas fa-code text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Version Control Integration</h3>
+                    <p class="text-gray-600">Track schema changes alongside your code with Git integration. Never lose track of database modifications again.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:border-blue-300 transition duration-300">
+                    <div class="w-12 h-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center mb-6">
+                        <i class="fas fa-bolt text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Zero-Downtime Migrations</h3>
+                    <p class="text-gray-600">Deploy schema changes without interrupting your users. Our smart algorithms handle complex migrations seamlessly.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:border-blue-300 transition duration-300">
+                    <div class="w-12 h-12 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mb-6">
+                        <i class="fas fa-shield-alt text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Safety First</h3>
+                    <p class="text-gray-600">Automatic rollback, dry-run previews, and comprehensive testing ensure your migrations never break production.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Example Section -->
+    <div class="py-20 bg-gray-900 text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Simple, Declarative Syntax</h2>
+                    <p class="text-xl text-gray-300">Define your database schema in clean, readable code</p>
+                </div>
+                
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-2xl">
+                    <div class="bg-gray-700 px-6 py-3 flex items-center">
+                        <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500 mr-4"></div>
+                        <span class="text-gray-300 text-sm">schema/users.js</span>
+                    </div>
+                    <pre class="p-6 text-green-300 overflow-x-auto">
+<span class="text-purple-400">module.exports</span> = {
+  <span class="text-blue-400">up</span>: <span class="text-purple-400">async</span> (<span class="text-yellow-300">db</span>) => {
+    <span class="text-purple-400">await</span> db.<span class="text-blue-400">createTable</span>(<span class="text-green-300">'users'</span>, {
+      <span class="text-blue-400">id</span>: { <span class="text-blue-400">type</span>: <span class="text-green-300">'integer'</span>, <span class="text-blue-400">primaryKey</span>: <span class="text-purple-400">true</span>, <span class="text-blue-400">autoIncrement</span>: <span class="text-purple-400">true</span> },
+      <span class="text-blue-400">email</span>: { <span class="text-blue-400">type</span>: <span class="text-green-300">'string'</span>, <span class="text-blue-400">unique</span>: <span class="text-purple-400">true</span>, <span class="text-blue-400">notNull</span>: <span class="text-purple-400">true</span> },
+      <span class="text-blue-400">name</span>: { <span class="text-blue-400">type</span>: <span class="text-green-300">'string'</span>, <span class="text-blue-400">notNull</span>: <span class="text-purple-400">true</span> },
+      <span class="text-blue-400">created_at</span>: { <span class="text-blue-400">type</span>: <span class="text-green-300">'timestamp'</span>, <span class="text-blue-400">default</span>: <span class="text-blue-400">db</span>.<span class="text-blue-400">fn</span>.<span class="text-blue-400">now</span>() }
+    });
+  },
+  
+  <span class="text-blue-400">down</span>: <span class="text-purple-400">async</span> (<span class="text-yellow-300">db</span>) => {
+    <span class="text-purple-400">await</span> db.<span class="text-blue-400">dropTable</span>(<span class="text-green-300">'users'</span>);
+  }
+};</pre>
+                </div>
+                
+                <div class="mt-8 text-center">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300">
+                        View Documentation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <div class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works for your team</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Starter Plan -->
+                <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Starter</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-gray-900">$0</span>
+                        <span class="text-gray-600">/month</span>
+                    </div>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Up to 3 projects</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>100 migrations/month</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Basic CLI tools</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-times mr-2"></i>
+                            <span>Priority support</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold py-3 px-4 rounded-lg transition duration-300">
+                        Get Started
+                    </button>
+                </div>
+                
+                <!-- Pro Plan -->
+                <div class="bg-white rounded-xl shadow-xl p-8 border-2 border-blue-500 relative">
+                    <div class="absolute top-0 right-0 bg-blue-500 text-white text-sm font-bold px-4 py-1 rounded-bl-lg">
+                        POPULAR
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Professional</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-gray-900">$49</span>
+                        <span class="text-gray-600">/month</span>
+                    </div>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Unlimited projects</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Unlimited migrations</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Advanced CLI + GUI</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Priority support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Team collaboration</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300">
+                        Start Free Trial
+                    </button>
+                </div>
+                
+                <!-- Enterprise Plan -->
+                <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Enterprise</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-gray-900">Custom</span>
+                    </div>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Unlimited everything</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>SLA & dedicated support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>On-premise deployment</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Custom integrations</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Security & compliance</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-gray-900 hover:bg-black text-white font-bold py-3 px-4 rounded-lg transition duration-300">
+                        Contact Sales
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Simplify Your Database Migrations?</h2>
+            <p class="text-xl mb-10 max-w-2xl mx-auto text-blue-100">Join thousands of developers who trust SchemaShift for their database workflow</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button class="bg-white text-blue-600 hover:bg-blue-50 font-bold py-4 px-8 rounded-lg text-lg transition duration-300">
+                    Start Free Trial
+                </button>
+                <button class="bg-transparent border-2 border-white hover:bg-white/10 font-bold py-4 px-8 rounded-lg text-lg transition duration-300">
+                    Schedule a Demo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <div class="text-2xl font-bold text-white mb-4">SchemaShift</div>
+                <p class="mb-6">The database migration tool for modern development teams</p>
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="#" class="hover:text-white transition duration-300"><i class="fab fa-github text-xl"></i></a>
+                    <a href="#" class="hover:text-white transition duration-300"><i class="fab fa-twitter text-xl"></i></a>
+                    <a href="#" class="hover:text-white transition duration-300"><i class="fab fa-slack text-xl"></i></a>
+                    <a href="#" class="hover:text-white transition duration-300"><i class="fab fa-discord text-xl"></i></a>
+                </div>
+                <div class="text-sm">
+                    &copy; 2023 SchemaShift. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

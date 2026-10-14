@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-2xl">
+        <h1 class="text-3xl font-bold mb-4">Todo List</h1>
+
+        <ul id="todoList" class="list-none">
+        </ul>
+
+        <div class="mt-4 flex">
+            <input id="newTodo" type="text" class="border rounded p-2 flex-grow mr-2" placeholder="Add a new todo">
+            <button onclick="addTodo()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add</button>
+        </div>
+    </div>
+
+    <script>
+        let todos = JSON.parse(localStorage.getItem('todos')) || [];
+        const todoList = document.getElementById('todoList');
+        const newTodoInput = document.getElementById('newTodo');
+
+        function renderTodos() {
+            todoList.innerHTML = '';
+            todos.forEach((todo, index) => {
+                const li = document.createElement('li');
+                li.textContent = todo;
+                li.setAttribute('draggable', true);
+                li.setAttribute('data-position', index);
+                li.classList.add('bg-gray-200', 'rounded-md', 'p-2', 'mb-2', 'cursor-grab');
+
+                li.addEventListener('dragstart', dragStart);
+                li.addEventListener('dragover', dragOver);
+                li.addEventListener('drop', drop);
+                li.addEventListener('dragend', dragEnd);
+
+                todoList.appendChild(li);
+            });
+
+            // MutationObserver to keep data-position in sync
+            const observer = new MutationObserver(mutations => {
+                mutations.forEach(mutation => {
+                    if (mutation.type === 'childList') {
+                        const children = todoList.children;
+                        for (let i = 0; i < children.length; i++) {
+                            children[i].setAttribute('data-position', i);
+                        }
+                    }
+                });
+            });
+
+            observer.observe(todoList, { childList: true });
+        }
+
+        function addTodo() {
+            const text = newTodoInput.value.trim();
+            if (text !== '') {
+                todos.push(text);
+                renderTodos();
+                localStorage.setItem('todos', JSON.stringify(todos));
+                newTodoInput.value = '';
+            }
+        }
+
+        let draggedItem = null;
+
+        function dragStart(e) {
+            draggedItem = e.target;
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', draggedItem.innerHTML);
+            draggedItem.classList.add('bg-gray-300');
+        }
+
+        function dragOver(e) {
+            e.preventDefault();
+            const target = e.target;
+            if (target.tagName === 'LI' && target !== draggedItem) {
+                target.classList.add('bg-gray-400');
+            }
+        }
+
+        function drop(e) {
+            e.preventDefault();
+            const target = e.target;
+            if (target.tagName === 'LI' && target !== draggedItem) {
+                const draggedIndex = parseInt(draggedItem.getAttribute('data-position'));
+                const targetIndex = parseInt(target.getAttribute('data-position'));
+
+                if (draggedIndex < targetIndex) {
+                    todos.splice(draggedIndex, 1);
+                    todos.splice(targetIndex, 0, draggedItem.textContent);
+                } else {
+                    todos.splice(draggedIndex, 1);
+                    todos.splice(targetIndex, 0, draggedItem.textContent);
+                }
+
+                renderTodos();
+                localStorage.setItem('todos', JSON.stringify(todos));
+                target.classList.remove('bg-gray-400');
+                draggedItem.classList.remove('bg-gray-300');
+            }
+        }
+
+        function dragEnd(e) {
+            draggedItem.classList.remove('bg-gray-300');
+            draggedItem = null;
+        }
+
+        renderTodos();
+    </script>
+</body>
+</html>

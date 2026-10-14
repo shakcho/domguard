@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PhotoPort - Portfolio Builder for Photographers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config for custom colors if needed
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#1e3a8a',
+            secondary: '#2563eb',
+          },
+        },
+      },
+    };
+    // Pricing toggle logic
+    function togglePricing(e) {
+      const isYearly = e.target.checked;
+      document.querySelectorAll('[data-price]').forEach(el => {
+        const monthly = el.dataset.monthly;
+        const yearly = el.dataset.yearly;
+        el.textContent = isYearly ? yearly : monthly;
+      });
+      document.querySelectorAll('[data-period]').forEach(el => {
+        el.textContent = isYearly ? '/yr' : '/mo';
+      });
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.getElementById('pricing-toggle');
+      toggle.addEventListener('change', togglePricing);
+    });
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+        <div class="flex-shrink-0">
+          <a href="#" class="text-2xl font-bold text-primary">PhotoPort</a>
+        </div>
+        <div class="hidden md:flex space-x-8">
+          <a href="#features" class="text-gray-600 hover:text-primary">Features</a>
+          <a href="#pricing" class="text-gray-600 hover:text-primary">Pricing</a>
+          <a href="#contact" class="text-gray-600 hover:text-primary">Contact</a>
+        </div>
+        <div class="md:hidden">
+          <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary focus:outline-none">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4">
+        Build Stunning Photo Portfolios in Minutes
+      </h1>
+      <p class="text-lg text-gray-600 mb-8">
+        Showcase your work with beautiful, responsive galleries. No coding required.
+      </p>
+      <a href="#pricing" class="inline-block bg-primary text-white px-8 py-3 rounded-md hover:bg-secondary transition">
+        Get Started Free
+      </a>
+    </div>
+  </section>
+
+  <!-- Gallery Preview -->
+  <section class="bg-gray-100 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">Portfolio Preview</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <img src="https://source.unsplash.com/collection/190727/800x600?sig=1" alt="Gallery sample" class="w-full h-64 object-cover rounded-lg shadow-sm">
+        <img src="https://source.unsplash.com/collection/190727/800x600?sig=2" alt="Gallery sample" class="w-full h-64 object-cover rounded-lg shadow-sm">
+        <img src="https://source.unsplash.com/collection/190727/800x600?sig=3" alt="Gallery sample" class="w-full h-64 object-cover rounded-lg shadow-sm">
+        <img src="https://source.unsplash.com/collection/190727/800x600?sig=4" alt="Gallery sample" class="w-full h-64 object-cover rounded-lg shadow-sm">
+        <img src="https://source.unsplash.com/collection/190727/800x600?sig=5" alt="Gallery sample" class="w-full h-64 object-cover rounded-lg shadow-sm">
+        <img src="https://source.unsplash.com/collection/190727/800x600?sig=6" alt="Gallery sample" class="w-full h-64 object-cover rounded-lg shadow-sm">
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Powerful Features</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="flex flex-col items-center text-center p-6 border rounded-lg hover:shadow-lg transition">
+          <svg class="h-12 w-12 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 7h18M3 12h18M3 17h18"/>
+          </svg>
+          <h3 class="text-xl font-semibold mb-2">Drag‑&‑Drop Builder</h3>
+          <p class="text-gray-600">Create custom layouts without touching code. Just drag, drop, and publish.</p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="flex flex-col items-center text-center p-6 border rounded-lg hover:shadow-lg transition">
+          <svg class="h-12 w-12 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 14c-4.418 0-8 1.79-8 4v2h16v-2c0-2.21-3.582-4-8-4z"/>
+          </svg>
+          <h3 class="text-xl font-semibold mb-2">Responsive Galleries</h3>
+          <p class="text-gray-600">Your portfolio looks perfect on any device – mobile, tablet, or desktop.</p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="flex flex-col items-center text-center p-6 border rounded-lg hover:shadow-lg transition">
+          <svg class="h-12 w-12 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 14c-4.418 0-8 1.79-8 4v2h16v-2c0-2.21-3.582-4-8-4z"/>
+          </svg>
+          <h3 class="text-xl font-semibold mb-2">SEO Optimized</h3>
+          <p class="text-gray-600">Built‑in SEO tools help your work get discovered by search engines.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="bg-gray-50 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold text-gray-900 mb-6">Simple Pricing</h2>
+      <p class="text-gray-600 mb-8">Choose a plan that fits your needs. All plans include unlimited galleries.</p>
+
+      <!-- Toggle -->
+      <div class="flex items-center justify-center mb-8">
+        <span class="mr-2 text-gray-700 font-medium">Monthly</span>
+        <label for="pricing-toggle" class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" id="pricing-toggle" class="sr-only peer">
+          <div class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-primary transition-colors"></div>
+          <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-5"></div>
+        </label>
+        <span class="ml-2 text-gray-700 font-medium">Yearly <span class="text-sm text-gray-500">(Save 20%)</span></span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Basic -->
+        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+          <h3 class="text-xl font-semibold mb-4">Basic</h3>
+          <p class="text-gray-600 flex-1 mb-6">Perfect for hobbyists starting out.</p>
+          <div class="text-4xl font-bold mb-4">
+            $<span data-price data-monthly="9" data-yearly="90" class="text-primary">$9</span><span data-period class="text-base font-medium text-gray-500">/mo</span>
+          </div>
+          <ul class="text-left mb-6 space-y-2">
+            <li class="flex items-center"><svg class="h-5 w-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>5 Galleries</li>
+            <li class="flex items-center"><svg class="h-5 w-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Basic Support</li>
+          </ul>
+          <a href="#" class="mt-auto bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition">Choose Basic</a>
+        </div>
+
+        <!-- Pro -->
+        <div class="bg-white rounded-lg shadow-xl p-6 flex flex-col border-2 border-primary">
+          <h3 class="text-xl font-semibold mb-4">Pro</h3>
+          <p class="text-gray-600 flex-1 mb-6">For professionals who need more control.</p>
+          <div class="text-4xl font-bold mb-4">
+            $<span data-price data-monthly="19" data-yearly="190" class="text-primary">$19</span><span data-period class="text-base font-medium text-gray-500">/mo</span>
+          </div>
+          <ul class="text-left mb-6 space-y-2">
+            <li class="flex items-center"><svg class="h-5 w-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Unlimited Galleries</li>
+            <li class="flex items-center"><svg class="h-5 w-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Custom Domains</li>
+            <li class="flex items-center"><svg class="h-5 w-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Priority Support</li>
+          </ul>
+          <a href="#" class="mt-auto bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition">Choose Pro</a>
+        </div>
+
+        <!-- Premium -->
+        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+          <h3 class="text-xl font-semibold mb-4">Premium</h3>
+          <p class="text-gray-600 flex-1 mb-6">All features for agencies and studios.</p>
+          <div class="text-4xl font-bold mb-4">
+            $<span data-price data-monthly="29" data-yearly="290" class="text-primary">$29</span><span data-period class="text-base font-medium text-gray-500">/mo</span>
+          </div>
+          <ul class="text-left mb-6 space-y-2">
+            <li class="flex items-center"><svg class="h-5 w-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>All Pro Features</li>
+            <li class="flex items-center"><svg class="h-5 w-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>White‑Label Branding</li>
+            <li class="flex items-center"><svg class="h-5 w-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Dedicated Account Manager</li>
+          </ul>
+          <a href="#" class="mt-auto bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition">Choose Premium</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="bg-primary py-20">
+    <div class="max-w-2xl mx-auto text-center px-4">
+      <h2 class="text-3xl font-bold text-white mb-4">Ready to Showcase Your Work?</h2>
+      <p class="text-white mb-8">Start building your stunning photography portfolio today. No credit card required.</p>
+      <a href="#pricing" class="inline-block bg-white text-primary px-8 py-3 rounded-md font-semibold hover:bg-gray-200 transition">
+        Start Free Trial
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h3 class="text-xl font-semibold text-white mb-4">PhotoPort</h3>
+        <p class="text-gray-400">Create beautiful photography portfolios with ease.</p>
+      </div>
+      <div>
+        <h4 class="font-medium text-white mb-3">Links</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:underline">Home</a></li>
+          <li><a href="#features" class="hover:underline">Features</a></li>
+          <li><a href="#pricing" class="hover:underline">Pricing</a></li>
+          <li><a href="#contact" class="hover:underline">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-medium text-white mb-3">Stay Updated</h4>
+        <form class="flex flex-col sm:flex-row gap-2">
+          <input type="email" placeholder="Your email" class="flex-1 px-3 py-2 rounded-md text-gray-800 focus:outline-none">
+          <button type="submit" class="bg-secondary text-white px-4 py-2 rounded-md hover:bg-primary transition">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="mt-8 text-center text-gray-600 text-sm">
+      © 2026 PhotoPort. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>

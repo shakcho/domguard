@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Operations Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse-update {
+            0% { background-color: rgba(34, 197, 94, 0.2); }
+            100% { background-color: transparent; }
+        }
+        .updated {
+            animation: pulse-update 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-4">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Real-Time Operations Dashboard</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+            <!-- KPI Cards -->
+            <div id="requests-card" class="bg-white rounded-lg shadow p-4">
+                <h2 class="text-lg font-semibold text-gray-700">Requests/sec</h2>
+                <p id="requests-value" class="text-2xl font-bold text-blue-600">0</p>
+            </div>
+            
+            <div id="error-rate-card" class="bg-white rounded-lg shadow p-4">
+                <h2 class="text-lg font-semibold text-gray-700">Error Rate</h2>
+                <p id="error-rate-value" class="text-2xl font-bold text-red-600">0%</p>
+            </div>
+            
+            <div id="latency-card" class="bg-white rounded-lg shadow p-4">
+                <h2 class="text-lg font-semibold text-gray-700">Latency</h2>
+                <p id="latency-value" class="text-2xl font-bold text-purple-600">0ms</p>
+            </div>
+            
+            <div id="users-card" class="bg-white rounded-lg shadow p-4">
+                <h2 class="text-lg font-semibold text-gray-700">Active Users</h2>
+                <p id="users-value" class="text-2xl font-bold text-green-600">0</p>
+            </div>
+            
+            <div id="cpu-card" class="bg-white rounded-lg shadow p-4">
+                <h2 class="text-lg font-semibold text-gray-700">CPU</h2>
+                <p id="cpu-value" class="text-2xl font-bold text-yellow-600">0%</p>
+            </div>
+            
+            <div id="memory-card" class="bg-white rounded-lg shadow p-4">
+                <h2 class="text-lg font-semibold text-gray-700">Memory</h2>
+                <p id="memory-value" class="text-2xl font-bold text-indigo-600">0%</p>
+            </div>
+        </div>
+        
+        <button id="toggle-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Pause
+        </button>
+    </div>
+
+    <script>
+        // Mock metrics function
+        async function getMetrics() {
+            return {
+                requests: Math.floor(Math.random() * 1000) + 500,
+                errorRate: (Math.random() * 5).toFixed(2),
+                latency: Math.floor(Math.random() * 200) + 50,
+                activeUsers: Math.floor(Math.random() * 10000) + 5000,
+                cpu: Math.floor(Math.random() * 100),
+                memory: Math.floor(Math.random() * 100)
+            };
+        }
+
+        let isPaused = false;
+        let updateInterval;
+        const elements = {
+            requests: document.getElementById('requests-value'),
+            errorRate: document.getElementById('error-rate-value'),
+            latency: document.getElementById('latency-value'),
+            activeUsers: document.getElementById('users-value'),
+            cpu: document.getElementById('cpu-value'),
+            memory: document.getElementById('memory-value')
+        };
+
+        const cards = {
+            requests: document.getElementById('requests-card'),
+            errorRate: document.getElementById('error-rate-card'),
+            latency: document.getElementById('latency-card'),
+            activeUsers: document.getElementById('users-card'),
+            cpu: document.getElementById('cpu-card'),
+            memory: document.getElementById('memory-card')
+        };
+
+        function animateUpdate(element) {
+            element.classList.remove('updated');
+            // Trigger reflow to restart animation
+            void element.offsetWidth;
+            element.classList.add('updated');
+        }
+
+        async function updateMetrics() {
+            if (isPaused) return;
+            
+            try {
+                const metrics = await getMetrics();
+                
+                // Update each metric with animation
+                if (elements.requests.textContent !== metrics.requests.toString()) {
+                    elements.requests.textContent = metrics.requests;
+                    animateUpdate(cards.requests);
+                }
+                
+                if (elements.errorRate.textContent !== metrics.errorRate + '%') {
+                    elements.errorRate.textContent = metrics.errorRate + '%';
+                    animateUpdate(cards.errorRate);
+                }
+                
+                if (elements.latency.textContent !== metrics.latency + 'ms') {
+                    elements.latency.textContent = metrics.latency + 'ms';
+                    animateUpdate(cards.latency);
+                }
+                
+                if (elements.activeUsers.textContent !== metrics.activeUsers.toString()) {
+                    elements.activeUsers.textContent = metrics.activeUsers;
+                    animateUpdate(cards.activeUsers);
+                }
+                
+                if (elements.cpu.textContent !== metrics.cpu + '%') {
+                    elements.cpu.textContent = metrics.cpu + '%';
+                    animateUpdate(cards.cpu);
+                }
+                
+                if (elements.memory.textContent !== metrics.memory + '%') {
+                    elements.memory.textContent = metrics.memory + '%';
+                    animateUpdate(cards.memory);
+                }
+            } catch (error) {
+                console.error('Failed to fetch metrics:', error);
+            }
+        }
+
+        function togglePause() {
+            isPaused = !isPaused;
+            document.getElementById('toggle-btn').textContent = isPaused ? 'Resume' : 'Pause';
+        }
+
+        // Initialize
+        document.getElementById('toggle-btn').addEventListener('click', togglePause);
+        updateInterval = setInterval(updateMetrics, 1000);
+        updateMetrics(); // Initial load
+    </script>
+</body>
+</html>

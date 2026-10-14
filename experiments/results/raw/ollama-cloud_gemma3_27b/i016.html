@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Widget</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex flex-col">
+
+    <div class="flex-grow overflow-y-auto p-4" id="message-list">
+        <!-- Messages will be appended here -->
+    </div>
+
+    <div class="bg-white p-4 flex items-center border-t border-gray-200">
+        <input type="text" id="message-input" class="flex-grow p-2 border rounded mr-2" placeholder="Type your message...">
+        <button id="send-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Send</button>
+    </div>
+
+    <script>
+        const messageList = document.getElementById('message-list');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+
+        let messages = [];
+        let loading = false;
+        const mockBotResponses = [
+            "That's interesting!",
+            "I see...",
+            "Tell me more.",
+            "Okay, got it.",
+            "Sounds good!"
+        ];
+
+        function addMessage(sender, text) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('flex', 'items-start', 'mb-2');
+
+            const avatar = document.createElement('div');
+            avatar.classList.add('w-8', 'h-8', 'rounded-full', 'mr-2', sender === 'user' ? 'bg-blue-500' : 'bg-gray-300');
+
+            const content = document.createElement('div');
+            content.classList.add('flex-grow', 'bg-gray-100', 'p-2', 'rounded-md');
+            content.textContent = text;
+
+            messageElement.appendChild(avatar);
+            messageElement.appendChild(content);
+
+            messageList.appendChild(messageElement);
+            messages.push({ sender, text });
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            messageList.scrollTop = messageList.scrollHeight;
+        }
+
+        function mockBotReply(text) {
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * mockBotResponses.length);
+                addMessage('bot', mockBotResponses[randomIndex]);
+            }, 1000);
+        }
+
+        sendButton.addEventListener('click', () => {
+            const text = messageInput.value.trim();
+            if (text !== '') {
+                addMessage('user', text);
+                mockBotReply(text);
+                messageInput.value = '';
+            }
+        });
+
+        messageInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                sendButton.click();
+            }
+        });
+
+        function loadMoreMessages() {
+            if (loading) return;
+            loading = true;
+
+            setTimeout(() => {
+                const newMessages = [
+                    { sender: 'bot', text: 'Older message from the bot 1.' },
+                    { sender: 'user', text: 'Older message from the user 1.' },
+                    { sender: 'bot', text: 'Older message from the bot 2.' },
+                    { sender: 'user', text: 'Older message from the user 2.' },
+                ];
+
+                messages = [...newMessages, ...messages];
+                renderMessages();
+                loading = false;
+            }, 500);
+        }
+
+        function renderMessages() {
+            messageList.innerHTML = '';
+            messages.forEach(message => {
+                addMessage(message.sender, message.text);
+            });
+            scrollToBottom();
+        }
+
+        messageList.addEventListener('scroll', () => {
+            if (messageList.scrollTop === 0) {
+                loadMoreMessages();
+            }
+        });
+
+        // Initial load of some messages
+        setTimeout(() => {
+            addMessage('bot', 'Hello! How can I help you today?');
+        }, 500);
+    </script>
+
+</body>
+</html>
